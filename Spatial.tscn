@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Cells/HexCell.tscn" type="PackedScene" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="HexCell" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.892885, 0, 0.450285, 0, 1, 0, -0.450285, 0, 0.892885, 0, 0.212524, 0 )
+
+[node name="HexCell2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.892885, 0, 0.450285, -0.449042, -0.0742652, 0.890419, 0.0334405, -0.997239, -0.0663102, 0, 6.38744, 0 )
+
+[node name="HexCell3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.982437, 0, 0.186593, 0, 1, 0, -0.186593, 0, 0.982437, 0, 0.212524, 8.68573 )

@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Cells/HexCellSprite.tscn" type="PackedScene" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Node2D" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 322, 190 )
+
+[node name="Node2D2" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 438, 114 )
+
+[node name="Node2D3" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 249, 99 )
+
+[node name="Node2D4" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 132, 175 )
+
+[node name="Node2D5" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 204, 271 )
+
+[node name="Node2D6" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 395, 283 )
+
+[node name="Node2D7" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 514, 206 )
+
+[node name="Node2D8" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 353, 458 )
+
+[node name="Node2D10" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 278, 364 )
+
+[node name="Node2D11" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 163, 444 )
+
+[node name="Node2D12" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 236, 536 )
+
+[node name="Node2D13" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 427, 550 )
+
+[node name="Node2D14" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 545, 474 )
+
+[node name="Node2D15" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 775, 314 )
+
+[node name="Node2D16" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 891, 238 )
+
+[node name="Node2D17" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 704, 221 )
+
+[node name="Node2D18" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 586, 298 )
+
+[node name="Node2D19" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 660, 391 )
+
+[node name="Node2D20" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 848, 407 )
+
+[node name="Node2D21" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 967, 330 )

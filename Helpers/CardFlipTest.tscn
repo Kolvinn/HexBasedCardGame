@@ -1,0 +1,228 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Helpers/Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Helpers/CardFlipTest.cs" type="Script" id=2]
+[ext_resource path="res://Helpers/Hand.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Helpers/CardTest.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Helpers/Controltestdraw.cs" type="Script" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "DrawCard"
+length = 2.0
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CanvasLayer/Card:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 636.469, -0.25, 0, 0.291378, -3.82239, 352.341, -0.795961, -6.36005, 0.0562323, -0.00616455, 352.341, -0.250875, -0.0346069, 0.047999, 39.0083, 411.477, -0.264273, -2.12543, 0.446561, 0.0195618 ),
+"times": PoolRealArray( 0, 0.8, 1.2, 1.9 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CanvasLayer/Card:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 424, -0.25, 0, 0, -145.687, 240.052, -0.25, 0, 0.25, 0, 240, -0.36949, -0.0188599, 0.278368, 0.00419617, 240, -0.36949, -0.0188599, 0.358989, 31.0607, 505.06, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 0.8, 1.2, 1.7 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Card:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.6, 1.1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.3, 1.3 ), Vector2( 1.3, 1.3 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "PlaceCard"
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer"]
+margin_right = 626.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer3"]
+margin_right = 626.0
+margin_bottom = 357.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer3/HBoxContainer"]
+margin_right = 200.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+size_flags_horizontal = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 2.37
+text = "Draw and Flip"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer3/HBoxContainer"]
+margin_left = 426.0
+margin_right = 626.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 100 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Add Card to Hand"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer3"]
+margin_top = 361.0
+margin_right = 626.0
+margin_bottom = 718.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer3"]
+margin_top = 722.0
+margin_right = 626.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer"]
+margin_left = 646.0
+margin_right = 1273.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer2"]
+margin_right = 627.0
+margin_bottom = 357.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer2"]
+margin_top = 361.0
+margin_right = 627.0
+margin_bottom = 718.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer2"]
+margin_top = 722.0
+margin_right = 627.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer"]
+margin_left = 1293.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer4"]
+margin_right = 627.0
+margin_bottom = 357.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer4"]
+margin_top = 361.0
+margin_right = 627.0
+margin_bottom = 718.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer4"]
+margin_top = 722.0
+margin_right = 627.0
+margin_bottom = 1080.0
+rect_pivot_offset = Vector2( 290, 198 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer4/HBoxContainer3" instance=ExtResource( 4 )]
+margin_right = 96.0
+margin_bottom = 358.0
+rect_pivot_offset = Vector2( 96, 144 )
+
+[node name="Card" parent="CanvasLayer/Control/HBoxContainer/VBoxContainer4/HBoxContainer3" instance=ExtResource( 1 )]
+position = Vector2( 50, 142 )
+scale = Vector2( 2, 2 )
+
+[node name="Card" parent="CanvasLayer" instance=ExtResource( 1 )]
+position = Vector2( 640, 424 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/DrawCard = SubResource( 1 )
+anims/PlaceCard = SubResource( 2 )
+
+[node name="Hand" parent="." instance=ExtResource( 3 )]
+position = Vector2( 336, 552 )
+
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/VBoxContainer3/HBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/VBoxContainer3/HBoxContainer/Button2" to="Hand" method="_on_Button2_pressed"]

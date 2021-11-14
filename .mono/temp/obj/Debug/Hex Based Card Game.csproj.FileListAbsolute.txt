@@ -1,0 +1,9 @@
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Hex Based Card Game.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Hex Based Card Game.pdb
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.AssemblyReference.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfoInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfo.cs
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CoreCompileInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.pdb

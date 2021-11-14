@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Main/HexGrid.cs" type="Script" id=1]
+[ext_resource path="res://Main/CameraMov.cs" type="Script" id=2]
+
+[node name="HexGrid" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.166941, 0.985967, 0, -0.985967, 0.166941, 33.2093, 38.0295, 43.0368 )
+fov = 98.0541
+script = ExtResource( 2 )
