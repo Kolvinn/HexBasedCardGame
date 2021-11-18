@@ -30,12 +30,13 @@ public class HandView : Node2D
 
         }
     
-        GD.Print("Card holder postition: ", cardHolder.Position);
+        if(Params.Debug){
+            GD.Print("Card holder postition: ", cardHolder.Position);
 
-        GD.Print("Card view postition: ", cardView.Position);
+            GD.Print("Card view postition: ", cardView.Position);
 
-        GD.Print("CardHolder child: ",cardHolder.GetChild(0));
-
+            GD.Print("CardHolder child: ",cardHolder.GetChild(0));
+        }
         //always need to make sure our rotation matches our card split
         float nextRotation = rotationLimit/(cardCount-1);
         
@@ -50,19 +51,17 @@ public class HandView : Node2D
 
         float finalCardPos = nextPos + (holders.Count * nextRotation);
 
-        GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+        //GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
         
         //float nextPos = startingPos + nextRotation;
         for(int i =0; i <holders.Count;i++){
-            GD.Print("rotating card " + i +":" + this.holders[i]+ " to point: "+nextPos);
             Tween tween = new Tween();
             this.AddChild(tween);
             tween.InterpolateProperty(this.holders[i], "rotation_degrees", this.holders[i].RotationDegrees, nextPos, 0.5f, Tween.TransitionType.Quart, Tween.EaseType.Out);
             tween.Start();
             nextPos +=nextRotation;
-            
-            //tween.Dispose();
+            tween.Dispose();
         }
 
         //add some useful debugging

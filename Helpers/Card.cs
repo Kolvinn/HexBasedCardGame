@@ -28,13 +28,6 @@ public class Card : Sprite
     public override void _Ready()
     {
         this.animationPlayer = this.GetChild<AnimationPlayer>(0);   
-        //this.backImage = GD.Load<Texture>("res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/card-back2.png");
-        //this.frontImage = GD.Load<Texture>("res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/card-hearts-1.png");
-        //this.LoadCardTexture(frontImage);
-        //FlipCard();
-        //this.Texture = backImage;
-
-        //GD.Print(this.GetNode("AnimationPlayer2"));
     }
 
     public void LoadCardTexture(Texture tex, bool isFront, Texture currentTexture = null){

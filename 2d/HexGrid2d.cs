@@ -31,8 +31,6 @@ public class HexGrid2d : Node2D
 
         float squashdist  = HexMetrics.outerRadius * 0.2f;
 		position.y = 100 + y   * ((HexMetrics.outerRadius * 1.5f) -squashdist);
-
-        Camera2D camera2D;
         
 
 		Hex2d cell = cells[i] = Loader.LoadScene<Hex2d>("res://2d/Hex2d.tscn");

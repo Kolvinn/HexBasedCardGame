@@ -15,5 +15,7 @@ public static class Params{
         return (T)Convert.ChangeType(instance, typeof(T));
     }
 
+    public static bool Debug = false;
+
 
 }

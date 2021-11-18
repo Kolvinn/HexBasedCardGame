@@ -30,12 +30,7 @@ public class CameraMov : Camera
         speedCheck.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
         speedCheck.z = Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
         speedCheck = speedCheck.Normalized();
-        
-        //if(speedCheck.x !=0 && speedCheck.x !=1 && speedCheck.y !=1 && speedCheck.y !=0)
-           // GD.Print(speedCheck);
-        
-            
-        
+           
         if (speedCheck != Vector3.Zero){
             // player.SetAnimation("parameters/Walk/blend_position", speedCheck);
             // player.SetAnimation("parameters/Idle/blend_position", speedCheck);

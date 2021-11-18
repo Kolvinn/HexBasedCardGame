@@ -85,13 +85,13 @@ public class CardView : Sprite
     }
 
     public void _on_CardListener_mouse_entered(){
-        GD.Print("setting card state to hover");
+
         cardState = CardObject.CardState.Hover;
         EmitSignal(nameof(TriggerStateChange), cardState);
     }
 
     public void _on_CardListener_mouse_exited(){
-        GD.Print("setting card state to hover removed");
+
         cardState = CardObject.CardState.HoverRemove;
         EmitSignal(nameof(TriggerStateChange), cardState);
     }

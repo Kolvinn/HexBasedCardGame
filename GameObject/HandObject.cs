@@ -39,7 +39,6 @@ public class HandObject : Node2D
         if(cards != null){
             foreach(CardObject card in this.cards){
                 if(card.cardState != CardObject.CardState.Default){
-                    GD.Print("processing card state with: ", card.cardState);
                     ProcessCardState(card);
                 }
             }

@@ -80,7 +80,6 @@ public class Hand : Node2D
             
             //float nextPos = startingPos + nextRotation;
             for(int i =0; i <holders.Count;i++){
-                GD.Print("rotating card " + i +":" + this.holders[i]+ " to point: "+nextPos);
                 Tween tween = new Tween();
                 this.AddChild(tween);
                 tween.InterpolateProperty(this.holders[i], "rotation_degrees", this.holders[i].RotationDegrees, nextPos, 0.5f, Tween.TransitionType.Quart, Tween.EaseType.Out);

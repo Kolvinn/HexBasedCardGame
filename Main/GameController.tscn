@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Controller/CardController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Cells/SpriteHexMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameObject/Environment/GRASS+.tscn" type="PackedScene" id=5]
 
 [node name="GameController" type="Node"]
 script = ExtResource( 1 )
@@ -16,22 +18,25 @@ position = Vector2( 464, 280 )
 anchor_left = 1.98682e-09
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -3.8147e-06
+margin_left = -3.81469e-06
 mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CardController" parent="UIController/Control" instance=ExtResource( 2 )]
+position = Vector2( 633.498, 696 )
+scale = Vector2( 1.5, 1.5 )
 
 [node name="DeckObject" parent="UIController/Control/CardController" index="0"]
-position = Vector2( 1008, 608 )
+position = Vector2( 484.335, 181.333 )
+scale = Vector2( 0.3, 0.3 )
 
 [node name="HandObject" parent="UIController/Control/CardController" index="1"]
-position = Vector2( 560, 624 )
+position = Vector2( 153.668, 181.333 )
 
 [node name="HandView" parent="UIController/Control/CardController/HandObject" index="0"]
-position = Vector2( -216, -304 )
+position = Vector2( 8, 8 )
 
 [node name="Button" type="Button" parent="UIController/Control"]
 margin_left = 96.0
@@ -42,6 +47,14 @@ text = "Add Random Card From deck"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 696, 776 )
+scale = Vector2( 2, 2 )
+
+[node name="GRASS+" parent="." instance=ExtResource( 5 )]
+position = Vector2( 32, 4 )
+scale = Vector2( 5, 4.5 )
 
 [connection signal="pressed" from="UIController/Control/Button" to="UIController/Control/CardController" method="_on_Button_pressed"]
 

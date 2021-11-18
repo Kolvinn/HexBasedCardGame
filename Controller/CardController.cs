@@ -39,6 +39,12 @@ public class CardController : Node2D {
         
     }
 
+    public void Deal(int players){
+        for(int i=0; i< players; i++){
+            
+        }
+    }
+
     private void LoadHand(){
         //this.hand = new HandObject();
         this.hand = GetNode<HandObject>("HandObject");
@@ -57,7 +63,7 @@ public class CardController : Node2D {
         if(this.hand.AddCard(card)){
             GD.Print(this.hand.cards[0] == deck.GetDeck()[rand]);
             //GD.Print(deck.GetDeck()[rand].ID);
-            //this.deck.GetDeck().Remove(card);
+            this.deck.GetDeck().Remove(card);
         }
     }
 
@@ -76,7 +82,9 @@ public class CardController : Node2D {
         Texture back = GD.Load<Texture>(Params.CardDirectory+ "card-back2.png");
 
         Directory directory = new Directory();
-        GD.Print(directory.Open(Params.CardDirectory));
+        
+        directory.Open(Params.CardDirectory);
+
         directory.ListDirBegin(true,true);
 
         string file  = directory.GetNext();
@@ -84,7 +92,6 @@ public class CardController : Node2D {
         while(!String.IsNullOrEmpty(file)){
 
             if(!file.Contains("back") && !file.Contains("blank") && !file.Contains("import")){
-                GD.Print(file); 
                 Texture front  = GD.Load<Texture>(Params.CardDirectory + file);
                 CardObject card = new CardObject(front, back);
                 cards.Add(card);

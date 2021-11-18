@@ -23,23 +23,6 @@ public class CardFlipTest : Node2D
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer2");
         
     }
-
-    public override void _Draw()
-    {
-        base._Draw();
-        GD.Print("draw");
-    }
-    public override void _PhysicsProcess(float delta)
-    {
-        base._PhysicsProcess(delta);
-        GD.Print("physics process");
-    }
-    public override void _Process(float delta)
-    {
-        base._Process(delta);
-        GD.Print("process");
-    }
-
     public void _on_Button_pressed(){
 
         // Tween tween = new Tween();

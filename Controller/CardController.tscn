@@ -8,7 +8,7 @@
 script = ExtResource( 3 )
 
 [node name="DeckObject" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1336, 936 )
+position = Vector2( 272, 200 )
 
 [node name="HandObject" parent="." instance=ExtResource( 2 )]
-position = Vector2( 864, 1024 )
+position = Vector2( 992, 984 )
