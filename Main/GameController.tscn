@@ -1,16 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Controller/CardController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Cells/SpriteHexMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://GameObject/Environment/GRASS+.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/EPBar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/HPBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=7]
+[ext_resource path="res://UI/SpellSlot.tscn" type="PackedScene" id=9]
 
 [node name="GameController" type="Node"]
 script = ExtResource( 1 )
-
-[node name="Node2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( 464, 280 )
 
 [node name="UIController" type="CanvasLayer" parent="."]
 
@@ -19,7 +19,7 @@ anchor_left = 1.98682e-09
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -3.81469e-06
-mouse_filter = 1
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -39,22 +39,49 @@ position = Vector2( 153.668, 181.333 )
 position = Vector2( 8, 8 )
 
 [node name="Button" type="Button" parent="UIController/Control"]
-margin_left = 96.0
-margin_top = 64.0
-margin_right = 392.0
-margin_bottom = 168.0
+margin_left = 1496.0
+margin_top = 928.0
+margin_right = 1792.0
+margin_bottom = 1032.0
 text = "Add Random Card From deck"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 696, 776 )
-scale = Vector2( 2, 2 )
+[node name="EPBar" parent="UIController/Control" instance=ExtResource( 5 )]
+margin_left = 992.0
+margin_top = 16.0
+margin_right = 1408.0
 
-[node name="GRASS+" parent="." instance=ExtResource( 5 )]
-position = Vector2( 32, 4 )
-scale = Vector2( 5, 4.5 )
+[node name="HPBar" parent="UIController/Control" instance=ExtResource( 6 )]
+margin_left = 200.0
+margin_top = 16.0
+margin_right = 728.0
+margin_bottom = 72.0
+
+[node name="TextureRect" parent="UIController/Control" instance=ExtResource( 9 )]
+margin_left = 224.0
+margin_top = 928.0
+margin_right = 304.0
+margin_bottom = 1048.0
+
+[node name="TextureRect2" parent="UIController/Control" instance=ExtResource( 9 )]
+margin_left = 320.0
+margin_top = 928.0
+margin_right = 400.0
+margin_bottom = 1048.0
+
+[node name="Node2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 400, 288 )
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+position = Vector2( 560, 264 )
+current = true
+script = ExtResource( 7 )
+
+[node name="Player" parent="Node2D" instance=ExtResource( 4 )]
+position = Vector2( 296, 488 )
+scale = Vector2( 2, 2 )
 
 [connection signal="pressed" from="UIController/Control/Button" to="UIController/Control/CardController" method="_on_Button_pressed"]
 

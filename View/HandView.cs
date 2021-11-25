@@ -69,6 +69,11 @@ public class HandView : Node2D
 
         
     }
+
+
+    public bool RemoveCardAndRotate(){
+        return false;
+    }
     
     private int GetCardRotation(){
         return 0;

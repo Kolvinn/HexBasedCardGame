@@ -30,7 +30,7 @@ public class CollisionPolygon2DTest: Godot.CollisionPolygon2D
         // }
         // DrawLine(end, Polygon[0],outline, Width);
         // DrawLine(end, Polygon[0],outline, Width+1);
-        GD.Print("draw color: ", this.outline );
+        //GD.Print("draw color: ", this.outline );
         DrawPolyline(this.Polygon,outline,Width, false);
         DrawLine(this.Polygon[0], this.Polygon[this.Polygon.Length-1], outline, Width, true);
         

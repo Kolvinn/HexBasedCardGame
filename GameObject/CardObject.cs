@@ -27,7 +27,6 @@ public class CardObject : Node, GameObject
         this.frontImage = front;
         this.backImage = back;
         this.cardState = CardState.Default;
-        GD.Print("card object sontruct");
     }
 
     public CardObject(){
