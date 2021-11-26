@@ -14,14 +14,14 @@ public class HexCellArea : Area2D
     }
 
     public void _on_Area2D_mouse_entered(){
-        GD.Print("ented with the mouse");
+        //GD.Print("ented with the mouse");
         CollisionPolygon2DTest poly  = GetNode<CollisionPolygon2DTest>("CollisionPolygon2D");
         poly.ChangeColourHover(true);
 
     }
 
     public void _on_Area2D_mouse_exited(){
-        GD.Print("exited with the mouse");
+        //GD.Print("exited with the mouse");
         CollisionPolygon2DTest poly  = GetNode<CollisionPolygon2DTest>("CollisionPolygon2D");
         poly.ChangeColourHover(false);
     }

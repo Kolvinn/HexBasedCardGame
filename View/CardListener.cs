@@ -2,45 +2,47 @@ using Godot;
 using System;
 
 public class CardListener : TextureRect
-{
+{   
+    [Signal]
+    public delegate bool TriggerGetDragData(Vector2 position);
+
+    [Signal]
+    public delegate bool TriggerCanDropData(Vector2 position, Texture data);
+
+    [Signal]
+    public delegate bool TriggerDropData(Vector2 position, System.Object data);
     private bool isDragging;
+
+    private Texture currentTex;
+
+    private CardView parent;
+
+    public bool canDrop{get;set;}
     public override void _Ready()
     {
         
     }
+
+    public void SetTexture(Texture tex,bool isShowing){
+        this.currentTex = tex;
+        if(isShowing)
+            this.Texture = currentTex;
+    }
+
+    public void SetParent(CardView view){
+        this.parent = view;
+    }
+
     public override object GetDragData(Vector2 position){
-        return false;
-
-        //if there's been no icon or icon texture loaded into inventory slot
-        // don't drag anything
-        // if(icon ==null || icon.Texture == null)
-        //     return null;
-        
-        // //var data = 5;
-        // var dragTexture = new TextureRect();
-        // dragTexture.Expand = true;
-        // dragTexture.Texture = this.icon.Texture;
-        // dragTexture.RectSize = new Vector2(100,100);
-
-        // var control  = new Control();
-        // control.AddChild(dragTexture);
-        // dragTexture.RectPosition = new Vector2(-0.5f * dragTexture.RectSize.x,-0.5f * dragTexture.RectSize.y);
-        // SetDragPreview(control);
-
-        // //set the 
-        // this.swappingTex = this.icon.Texture;
-        // this.icon.Texture = null;
-
-
-        // GD.Print("mouse pos: ",GetLocalMousePosition());
-        // GD.Print("drag pos: ",dragTexture.GetRect().Position);
-        // GD.Print("Setting drag texture to: ",dragTexture);
-        // return this;
+        return this.parent.TriggerGetDragDataFunc(position);
     }
     public override bool CanDropData(Vector2 position, object data) {
-        return false;
+        GD.Print("check can drop");
+        return this.parent.TriggerCanDropDataFunc(position, data);
+        //var array = new object[2]{position, data};
+
     }
     public override void DropData(Vector2 position, object data){
-
+        this.parent.TriggerDropDataFunc(position, data);
     } 
 }   

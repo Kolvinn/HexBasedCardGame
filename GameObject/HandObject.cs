@@ -36,13 +36,14 @@ public class HandObject : Node2D
 
     public override void _Process(float delta)
     {
-        if(cards != null){
-            foreach(CardObject card in this.cards){
-                if(card.cardState != CardObject.CardState.Default){
-                    ProcessCardState(card);
-                }
-            }
-        }
+        
+        // if(cards != null){
+        //     foreach(CardObject card in this.cards){
+        //         if(card.cardState != CardObject.CardState.Default){
+        //             ProcessCardState(card);
+        //         }
+        //     }
+        // }
     }
 
     private void ProcessCardState(CardObject card){
@@ -52,6 +53,7 @@ public class HandObject : Node2D
             case CardObject.CardState.Discard:
                 break;
             case CardObject.CardState.Drag:
+
                 break;
             case CardObject.CardState.Draw:
                 break;
@@ -85,6 +87,32 @@ public class HandObject : Node2D
     /// <param name="card"></param>
     /// <returns></returns>
     public bool AddCard(CardObject card){
+        
+        //check hand limit
+        if(this.handLimit < this.cards.Count+1)
+            return false;
+
+        //create card holder and give refs
+        Node2D cardHolder = Loader.LoadScene<Node2D>("res://Helpers/CardHolder.tscn");
+
+        CardView cardView = card.CreateCardView();
+
+        GD.Print("Card View to add to hand: ", cardView);
+
+        //cardHolder.AddChild(cardView);
+
+        this.cards.Add(card);
+
+        return this.view.AddCardAndRotate(cardHolder,cardView,this.cards.Count,handLimit);    
+    }
+
+
+    /// <summary>
+    /// /// Determine if we can remove a card in hand. Adds cardview to handview if allowed.
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public bool RemoveCard(CardObject card){
         
         //check hand limit
         if(this.handLimit < this.cards.Count+1)

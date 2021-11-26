@@ -240,7 +240,3 @@ active = true
 parameters/playback = SubResource( 23 )
 parameters/Idle/blend_position = Vector2( 0.168659, 0.0960318 )
 parameters/Walk/blend_position = Vector2( 0.515371, -0.0174603 )
-
-[connection signal="input_event" from="." to="." method="_on_Player_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_Player_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_Player_mouse_exited2"]

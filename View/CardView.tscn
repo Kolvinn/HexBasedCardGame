@@ -31,17 +31,14 @@ anims/DrawCard = SubResource( 1 )
 anims/flip = SubResource( 2 )
 
 [node name="CardListener" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
 margin_left = -48.0
 margin_top = -72.0
-margin_right = -48.0
-margin_bottom = -72.0
+margin_right = 48.0
+margin_bottom = 72.0
+mouse_filter = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="mouse_entered" from="CardListener" to="." method="_on_CardListener_mouse_entered"]
-[connection signal="mouse_exited" from="CardListener" to="." method="_on_CardListener_mouse_exited"]

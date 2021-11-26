@@ -13,6 +13,11 @@ public class CardController : Node2D {
 
     private HandObject hand;
 
+    private CardEventHandler eventHandler;
+
+
+    private CardObject dragCard = null;
+
 
     // public CardController() {
     //     // this.topTex = GD.Load<Texture>("res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/card-back2.png");
@@ -27,6 +32,7 @@ public class CardController : Node2D {
 
     public override void _Ready()
     {
+        this.eventHandler = new CardEventHandler();
         this.topTex = GD.Load<Texture>("res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/card-back2.png");
         LoadCards();
         LoadHand();
@@ -36,7 +42,54 @@ public class CardController : Node2D {
 
     public override void _Process(float delta)
     {
+     
         
+        if(this.hand != null){
+            foreach(CardObject card in this.hand.cards){
+                if(card.cardState != CardObject.CardState.Default){
+                    ProcessCardState(card);
+                }
+            }
+        }
+    }
+
+    private void ProcessCardState(CardObject card){
+        switch(card.cardState){
+            case CardObject.CardState.Default:
+                break;
+            case CardObject.CardState.Discard:
+                break;
+            case CardObject.CardState.Drag:
+                TriggerCardDrag(card);
+                break;
+            case CardObject.CardState.Draw:
+                break;
+            case CardObject.CardState.Drop:
+                break;
+            case CardObject.CardState.DropCancel:
+                break;
+            case CardObject.CardState.Hover:
+                TriggerCardHover(card);
+                break;
+            case CardObject.CardState.HoverRemove:
+                TriggerCardHoverRemove(card);
+                break;
+            case CardObject.CardState.Flip:
+                break;
+        }
+    }
+
+    private void TriggerCardDrag(CardObject card){
+        this.dragCard = card;
+        //card.SetVisible(false);
+
+    }
+    private void TriggerCardHover(CardObject card){
+        card.GetCardView().ZIndex = 999;
+    }
+    private void TriggerCardHoverRemove(CardObject card){
+        card.GetCardView().ZIndex = 0;
+        card.cardState = CardObject.CardState.Default;
     }
 
     public void Deal(int players){
@@ -45,6 +98,49 @@ public class CardController : Node2D {
         }
     }
 
+
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// TODO Create a eventhandler that is triggered from either cardview or card object
+    /// it dones't really matter which one. Just make sure that the event trigger is handed in the event class,
+    /// which the pushes the event onto a queue along with the actual card object =
+    ///  the cardcontroller handles the logic of the events.
+    /// </summary>
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
+    /// 
     private void LoadHand(){
         //this.hand = new HandObject();
         this.hand = GetNode<HandObject>("HandObject");
@@ -53,10 +149,16 @@ public class CardController : Node2D {
         return null;
     }
 
+    
+    /// <summary>
+    /// Adds random card from UI button, remove later.
+    /// Also bind to card listener 
+    /// </summary>
     public void AddRandomCardToHand(){
 
         int rand = new Random().Next(deck.GetDeck().Count);
         CardObject card = deck.GetDeck()[rand];
+        //eventHandler.BindCardListen(card.GetCardView());
         
         GD.Print("adding random card to hand from deck: ",card.frontImage);
 

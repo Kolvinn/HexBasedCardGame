@@ -15,6 +15,7 @@ public class CardObject : Node, GameObject
         Discard,
         Drag,
         Drop,
+        DropCancel,
         Hover, 
         HoverRemove,
         Default
@@ -23,6 +24,9 @@ public class CardObject : Node, GameObject
     
     public CardState cardState;
 
+    public void SetVisible(bool visible){
+        this.view.Visible = visible;
+    }
     public CardObject( Texture front, Texture back){
         this.frontImage = front;
         this.backImage = back;
@@ -48,6 +52,10 @@ public class CardObject : Node, GameObject
 
     public void TriggerCardStateChange(CardState state){
         this.cardState = state;
+    }
+
+    public void BringToFront(){
+        
     }
 
 

@@ -11,8 +11,8 @@ public class SpellSlot : TextureRect
     TextureRect cardTex;   
     public override void _Ready()
     {
-        this.cardTex = GetNode<TextureRect>("CardTex");
-        this.cardTex.Texture = null;
+        //this.cardTex = GetNode<TextureRect>("MarginContainer/CardTex");
+        //this.cardTex.Texture = null;
     }
 
 
