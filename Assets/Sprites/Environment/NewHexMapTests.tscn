@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Environment/tree1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Environment/HexCell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=6]
+[ext_resource path="res://Assets/Sprites/Environment/NewHexMapTests.cs" type="Script" id=7]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="TileLayer1" type="YSort" parent="."]
+
+[node name="Area2D0" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 637, 205 )
+
+[node name="Area2D1" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 428, 290 )
+
+[node name="Area2D2" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 846, 291 )
+
+[node name="Area2D3" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 428, 462 )
+
+[node name="Area2D4" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 846, 464 )
+
+[node name="Area2D5" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 637, 551 )
+
+[node name="Area2D6" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 846, 634 )
+
+[node name="Area2D7" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 1052, 717 )
+
+[node name="Area2D8" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 846, 806 )
+
+[node name="Area2D9" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 428, 635 )
+
+[node name="Area2D10" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 637, 893 )
+
+[node name="Area2D11" parent="TileLayer1" instance=ExtResource( 3 )]
+position = Vector2( 428, 809 )
+
+[node name="EvnLayer" type="YSort" parent="."]
+
+[node name="tree1" type="Sprite" parent="EvnLayer"]
+position = Vector2( 929, 434 )
+scale = Vector2( 1.30357, 1.23571 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -60 )
+
+[node name="tree2" type="Sprite" parent="EvnLayer"]
+position = Vector2( 672, 88 )
+scale = Vector2( 1.47321, 1.41429 )
+texture = ExtResource( 2 )
+offset = Vector2( 3.05453, -21.9192 )
+
+[node name="tree3" type="Sprite" parent="EvnLayer"]
+position = Vector2( 772, 745 )
+scale = Vector2( 1.47321, 1.41429 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -60 )
+
+[node name="tree5" type="Sprite" parent="EvnLayer"]
+position = Vector2( 373, 473 )
+scale = Vector2( 1.35714, 1.23571 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -60 )
+
+[node name="Player" parent="EvnLayer" instance=ExtResource( 1 )]
+position = Vector2( 635, 225 )
+scale = Vector2( 2, 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 966, 553 )
+current = true
+script = ExtResource( 6 )
+
+[node name="Line2D" type="Line2D" parent="."]

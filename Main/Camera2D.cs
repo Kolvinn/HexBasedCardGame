@@ -4,11 +4,18 @@ using System;
 public class Camera2D : Godot.Camera2D
 {
     private float zoomspeed = 0.1f, upperLimit = 0.5f, lowerLimit = 1.5f, currentzoom = 1;
+
+    private bool rightClick;
     public override void _Ready()
     {
         this.SetProcessUnhandledInput(true);
     }
 
+    public override void _Process(float delta)
+    {
+        //base._Process(delta);
+        //float Input.GetActionStrength("right_click");
+    }
 
     public override void _UnhandledInput(InputEvent @event){
 

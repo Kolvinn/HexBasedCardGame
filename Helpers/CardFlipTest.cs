@@ -31,7 +31,7 @@ public class CardFlipTest : Node2D
         // tween.Start();
         // tween.Dispose();
         this.animationPlayer.Play("DrawCard");
-        this.card.FlipCard(true);
+        //this.card.FlipCard(true);
     }
 
   

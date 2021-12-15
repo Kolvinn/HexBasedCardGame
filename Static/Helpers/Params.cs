@@ -15,7 +15,25 @@ public static class Params{
         return (T)Convert.ChangeType(instance, typeof(T));
     }
 
-    public static bool Debug = false;
+    public static bool Debug = true;
+
+
+    public static float GlobalScale = 1.5f;
+
+    public static float CardOffsetY = -700f;
+
+
+    public enum MouseEventState{
+        Entered,
+        Exited,
+        Pressed,
+        Released
+    }
+
+    public static void Print(string str, params object[] o){
+
+        GD.Print(String.Format(str,o));
+    }   
 
 
 }

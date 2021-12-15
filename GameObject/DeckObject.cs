@@ -8,7 +8,7 @@ public class DeckObject  : Node2D
 
     Texture toptex ;
 
-    List<CardObject> cards = new List<CardObject>();
+    List<Card> cards = new List<Card>();
 
     DeckView view;
 
@@ -24,11 +24,11 @@ public class DeckObject  : Node2D
         this.toptex =  tex;
     }
 
-    public void SetDeck( List<CardObject> cardz){
+    public void SetDeck( List<Card> cardz){
         this.cards =cardz;
     }
 
-    public List<CardObject> GetDeck(){
+    public List<Card> GetDeck(){
         
         return this.cards;
     }

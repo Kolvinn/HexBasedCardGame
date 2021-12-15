@@ -8,9 +8,25 @@ public static class HexMetrics {
 
 	public const float squashAmount = 0.8f;
 
+	//inner  = 60.62
+
 	public const float squashPoint = squashAmount * outerRadius;
 
-
+	/// <summary>
+	/// 0
+	/// 70
+	/// 54
+	/// 35
+	/// 54
+	/// -35
+	/// 0
+	/// -70
+	/// -54
+	/// -35
+	/// -54
+	/// 35
+	/// 
+	/// </summary>
 	public const float depth = 25f;
 
     public static Vector3[] corners = {
@@ -22,6 +38,9 @@ public static class HexMetrics {
 		new Vector3(-innerRadius, 0f, 0.5f * outerRadius)
 	};
 
+
+
+
 	public static Vector2[] corners2 = {
 		new Vector2(0f, squashPoint),
 		new Vector2(innerRadius, (0.5f * outerRadius) *squashAmount), //front right edge
@@ -30,6 +49,11 @@ public static class HexMetrics {
 		new Vector2(-innerRadius, (-0.5f * outerRadius)*squashAmount),
 		new Vector2(-innerRadius, 0.5f * outerRadius *squashAmount)
 	};
+
+
+
+
+
 
 	// \public const float outerRadius = 70f;
 

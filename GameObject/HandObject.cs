@@ -19,13 +19,15 @@ public class HandObject : Node2D
 
     private float handLimit = 10f;
 
-    public List<CardObject> cards = new List<CardObject>();
+    public List<Card> cards = new List<Card>();
 
     List<Node2D> holders = new List<Node2D>();
 
+    Dictionary<Card,Node2D> cardMap = new Dictionary<Card, Node2D>();
+
     private Vector2 startPos;
 
-    private HandView view;
+    public HandView view {get;set;}
 
     
     public override void _Ready()
@@ -38,44 +40,44 @@ public class HandObject : Node2D
     {
         
         // if(cards != null){
-        //     foreach(CardObject card in this.cards){
-        //         if(card.cardState != CardObject.CardState.Default){
+        //     foreach(Card card in this.cards){
+        //         if(card.cardState != Card.CardState.Default){
         //             ProcessCardState(card);
         //         }
         //     }
         // }
     }
 
-    private void ProcessCardState(CardObject card){
+    private void ProcessCardState(Card card){
         switch(card.cardState){
-            case CardObject.CardState.Default:
+            case Card.CardState.Default:
                 break;
-            case CardObject.CardState.Discard:
+            case Card.CardState.Discard:
                 break;
-            case CardObject.CardState.Drag:
+            case Card.CardState.Drag:
 
                 break;
-            case CardObject.CardState.Draw:
+            case Card.CardState.Draw:
                 break;
-            case CardObject.CardState.Drop:
+            case Card.CardState.Drop:
                 break;
-            case CardObject.CardState.Hover:
-                TriggerCardHover(card);
+            case Card.CardState.Hover:
+                //TriggerCardHover(card);
                 break;
-            case CardObject.CardState.HoverRemove:
-                TriggerCardHoverRemove(card);
+            case Card.CardState.HoverRemove:
+                //TriggerCardHoverRemove(card);
                 break;
-            case CardObject.CardState.Flip:
+            case Card.CardState.Flip:
                 break;
         }
     }
 
-    private void TriggerCardHover(CardObject card){
-        card.GetCardView().ZIndex = 999;
+    private void TriggerCardHover(Card card){
+        card.ZIndex = 999;
     }
-    private void TriggerCardHoverRemove(CardObject card){
-        card.GetCardView().ZIndex = 0;
-        card.cardState = CardObject.CardState.Default;
+    private void TriggerCardHoverRemove(Card card){
+        card.ZIndex = 0;
+        card.cardState = Card.CardState.Default;
     }
 
 
@@ -86,7 +88,7 @@ public class HandObject : Node2D
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool AddCard(CardObject card){
+    public bool AddCard(Card card){
         
         //check hand limit
         if(this.handLimit < this.cards.Count+1)
@@ -94,16 +96,14 @@ public class HandObject : Node2D
 
         //create card holder and give refs
         Node2D cardHolder = Loader.LoadScene<Node2D>("res://Helpers/CardHolder.tscn");
-
-        CardView cardView = card.CreateCardView();
-
-        GD.Print("Card View to add to hand: ", cardView);
-
-        //cardHolder.AddChild(cardView);
+        this.cardMap.Add(card,cardHolder);
 
         this.cards.Add(card);
 
-        return this.view.AddCardAndRotate(cardHolder,cardView,this.cards.Count,handLimit);    
+        this.view.AddCardAndRotate(cardHolder,card,this.cards.Count,handLimit); 
+
+        GD.Print(card.GetRect());   
+        return true;
     }
 
 
@@ -112,24 +112,25 @@ public class HandObject : Node2D
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool RemoveCard(CardObject card){
+    public bool RemoveCard(Card card){
         
-        //check hand limit
-        if(this.handLimit < this.cards.Count+1)
+        Node2D cardHolder;
+
+        //check hand contains that card and we have a cardholder ref
+        if(!this.cards.Contains(card) || !this.cardMap.TryGetValue(card, out cardHolder))
             return false;
 
+        GD.Print("card holder to remove: ", cardHolder);
+        cardHolder.RemoveChild(card);
+        this.cards.Remove(card);
+        this.cardMap.Remove(card);
         //create card holder and give refs
-        Node2D cardHolder = Loader.LoadScene<Node2D>("res://Helpers/CardHolder.tscn");
+        //Node2D cardHolder = Loader.LoadScene<Node2D>("res://Helpers/CardHolder.tscn");
 
-        CardView cardView = card.CreateCardView();
+        //the holder attached to the scene
 
-        GD.Print("Card View to add to hand: ", cardView);
 
-        //cardHolder.AddChild(cardView);
-
-        this.cards.Add(card);
-
-        return this.view.AddCardAndRotate(cardHolder,cardView,this.cards.Count,handLimit);    
+        return this.view.RemoveCardAndRotate(cardHolder,card,this.cards.Count,handLimit);   
     }
     
 

@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Cells/HexCellSprite.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=3]
+[ext_resource path="res://Assets/Sprites/Environment/Bridge/_01/bridge_40000.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Environment/Bridge/_01/bridge_60000.png" type="Texture" id=5]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 560, 264 )
+current = true
+script = ExtResource( 3 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -34,16 +43,16 @@ position = Vector2( 353, 458 )
 position = Vector2( 278, 364 )
 
 [node name="Node2D11" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 163, 444 )
+position = Vector2( 424, 555 )
 
 [node name="Node2D12" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 236, 533 )
+position = Vector2( 923, 502 )
 
 [node name="Node2D13" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 427, 550 )
+position = Vector2( 735, 485 )
 
 [node name="Node2D14" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 545, 474 )
+position = Vector2( 542, 472 )
 
 [node name="Node2D15" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 775, 314 )
@@ -65,3 +74,17 @@ position = Vector2( 848, 407 )
 
 [node name="Node2D21" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 967, 330 )
+
+[node name="bridge_60000" type="Sprite" parent="."]
+position = Vector2( 816, 120 )
+scale = Vector2( 0.402439, 0.252577 )
+texture = ExtResource( 5 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 349, 421 )
+scale = Vector2( 2, 2 )
+
+[node name="bridge_40000" type="Sprite" parent="."]
+position = Vector2( 16, 64 )
+scale = Vector2( 0.352981, 0.274742 )
+texture = ExtResource( 4 )

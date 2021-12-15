@@ -16,6 +16,11 @@ public class CollisionPolygon2DTest: Godot.CollisionPolygon2D
 
     }
 
+    public override void _Process(float delta)
+    {
+        
+        Update();
+    }
     public override void _Draw()
     {
         
@@ -30,9 +35,11 @@ public class CollisionPolygon2DTest: Godot.CollisionPolygon2D
         // }
         // DrawLine(end, Polygon[0],outline, Width);
         // DrawLine(end, Polygon[0],outline, Width+1);
-        //GD.Print("draw color: ", this.outline );
-        DrawPolyline(this.Polygon,outline,Width, false);
-        DrawLine(this.Polygon[0], this.Polygon[this.Polygon.Length-1], outline, Width, true);
+
+        DrawMultiline(this.Polygon, outline, 10, true);
+        //DrawPolyline(this.Polygon,outline,Width, false);
+        //DrawLine(this.Polygon[0], this.Polygon[this.Polygon.Length-1], outline, Width, true);
+        
         
         
     }
@@ -40,11 +47,11 @@ public class CollisionPolygon2DTest: Godot.CollisionPolygon2D
     public void ChangeColourHover(bool hover){
          
         if(hover)
-            outline = new Color(214,31,31, 0f);
+            outline = new Color(214,31,31, 1f);
         else
-            outline = new Color(0,0,0, 0f);
-        this.Update();
-        GD.Print("Changing color to: ", outline);
+            outline = new Color(0,0,0, 1f);
+        
+        //GD.Print("Changing color to: ", outline);
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,0 +1,12 @@
+
+	Everything in this package is licensed CC (see below).
+
+			------------------------------
+
+	License (Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0))
+	https://creativecommons.org/licenses/by-sa/3.0/deed.pt
+
+	You may use these graphics in personal and commercial projects.
+	Credit (https://chicogames.itch.io/) would be nice but is not mandatory :)
+
+			------------------------------
