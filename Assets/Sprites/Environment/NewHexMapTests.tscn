@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Object/GameObject/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Environment/tree1.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/Environment/HexCell.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Main/Camera2D.cs" type="Script" id=6]
@@ -78,7 +78,7 @@ position = Vector2( 635, 225 )
 scale = Vector2( 2, 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 966, 553 )
+anchor_mode = 0
 current = true
 script = ExtResource( 6 )
 

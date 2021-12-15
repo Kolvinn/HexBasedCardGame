@@ -4,6 +4,8 @@ public static class Params{
 
     public static string CardDirectory = "res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/";
 
+    public static string CardDirectory2 = "res://Assets/Sprites/Cards/";
+
      public static T LoadScene<T> (string scenePath){
         var packedScene = ResourceLoader.Load(scenePath) as PackedScene;
         var instance = packedScene.Instance();
