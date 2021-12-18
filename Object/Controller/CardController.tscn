@@ -18,7 +18,9 @@ flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 33, 257, 30, 30 )
 
-[node name="CardController" type="Node2D"]
+[node name="CardController" type="Node2D" groups=[
+"Persist",
+]]
 position = Vector2( 848, 936 )
 scale = Vector2( 1.2, 1.2 )
 script = ExtResource( 3 )

@@ -7,3 +7,5 @@ D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.A
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CoreCompileInputs.cache
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.pdb
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CopyComplete

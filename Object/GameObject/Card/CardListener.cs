@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class CardListener : TextureRect
+public class CardListener : TextureRect, GameObject
 {   
     private bool isDragging;
 
@@ -9,7 +9,8 @@ public class CardListener : TextureRect
 
     public bool canDrop{get;set;}
 
-    private Card parent;
+    //private Card parent;
+    
     public override void _Ready()
     {
         
@@ -22,21 +23,24 @@ public class CardListener : TextureRect
     }
 
     public void SetParent(Card card){
-        this.parent = card;
+        //this.parent = card;
     }
 
 
     public override object GetDragData(Vector2 position){
         GD.Print("trying to drag in test listener");
-        return this.parent.TriggerGetDragDataFunc(position);
+        Card c = (Card)this.GetParent();
+        return c.TriggerGetDragDataFunc(position);
     }
     public override bool CanDropData(Vector2 position, object data) {
-        return this.parent.TriggerCanDropDataFunc(position, data);
+        Card c = (Card)this.GetParent();
+        return c.TriggerCanDropDataFunc(position, data);
         //var array = new object[2]{position, data};
 
     }
     public override void DropData(Vector2 position, object data){
-        this.parent.TriggerDropDataFunc(position, data);
+        Card c = (Card)this.GetParent();
+        c.TriggerDropDataFunc(position, data);
     }
     public void _on_CardListener_mouse_entered(){
 

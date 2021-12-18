@@ -1,8 +1,13 @@
-public abstract class AbstractObjectModel{
+using System;
+using Newtonsoft;
+using Godot;
+public class AbstractObjectModel {
     
     public string Name {get;set;}
     public string Id {get;set;}
     public string Description {get;set;}
+
+
 
     public void SaveData(){
         //store data as json or something

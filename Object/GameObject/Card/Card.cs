@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime;
 public class Card : Sprite, GameObject
 {
+    private CardListener cardListener;
     private CardModel model;
 
     public Texture frontImage, backImage, currentTexture;
@@ -25,15 +26,15 @@ public class Card : Sprite, GameObject
 
 
     
-    [Signal]
-    public delegate bool TriggerStateChange(Card.CardState state);
+    //[Signal]
+    //public delegate bool TriggerStateChange(Card.CardState state);
 
 
     private AnimationPlayer animationPlayer;
 
     private bool flipping = false;
 
-    private CardListener cardListener;
+    
 
     private TextureRect textureRect;
 
@@ -54,8 +55,8 @@ public class Card : Sprite, GameObject
     {
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");   
         this.cardListener = GetNode<CardListener>("CardListener");
-        GD.Print(this.cardListener);
-        this.cardListener.SetParent(this);
+        //GD.Print(this.cardListener);
+        
     }
 
 

@@ -11,6 +11,11 @@ public static class Params{
         var instance = packedScene.Instance();
         return (T)Convert.ChangeType(instance, typeof(T));
     }
+    public static Node LoadScene (string scenePath){
+        var packedScene = ResourceLoader.Load(scenePath) as PackedScene;
+        var instance = packedScene.Instance();
+        return instance;
+    }
 
     public static T LoadScene<T> (PackedScene packedScene){
         var instance = packedScene.Instance();

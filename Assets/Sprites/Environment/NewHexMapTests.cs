@@ -33,6 +33,10 @@ public class NewHexMapTests : Node2D
         pathFinder = new AStar2D();
         player = GetNode<Player>("EvnLayer/Player");
         path = GetNode<Line2D>("Line2D");
+
+        tileMap.Owner  =this;
+        player.Owner = this;
+        path.Owner =this;
         
         int i =0;
         foreach(Node node in tileMap.GetChildren()){
@@ -51,6 +55,12 @@ public class NewHexMapTests : Node2D
         ConnectPoints();
 
         
+    }
+
+    public void _on_Button_pressed(){
+        var packed_scene = new PackedScene();
+        packed_scene.Pack(this);
+        ResourceSaver.Save("res://my_saved_scene.tscn", packed_scene);
     }
 
     private void ConnectPoints(){

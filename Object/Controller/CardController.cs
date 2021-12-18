@@ -2,7 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Runtime;
-public class CardController : Node2D {
+using Newtonsoft.Json;
+using System.Reflection;
+public class CardController : Node2D, ControllerBase {
     
     private List<Card> cardList;
     private List<CardModel> cardModels;
@@ -337,7 +339,39 @@ public class CardController : Node2D {
     /// </summary>
     private void LoadCards( ){
         // List<Card> cards = new List<Card>();
+
+       
+        //  foreach(System.Reflection.PropertyInfo s in typeof(CardController).GetProperties()){
+        //      Params.Print("property: {0} {1} {2}",s.Name,s.GetValue(this,null),s.PropertyType);
+        //  }
         
+        // var something = typeof(CardController).GetFields(BindingFlags.Public |  BindingFlags.NonPublic | BindingFlags.Public |  BindingFlags.Instance);
+
+        // foreach(FieldInfo f in something){
+        //     GD.Print(f.GetValue(this));
+        // }
+        // CardModel model = new CardModel();
+        // //
+
+         //JsonConvert.SerializeObject(this);
+        // Dictionary<CardModel, string> testDic = new Dictionary<CardModel, string>()
+         //{
+           // {model, "hi"}
+        /// };
+
+         //var vec = Vector2.Zero;
+        // string vecString = JsonConvert.SerializeObject(vec);
+
+        // GD.Print(vecString);
+
+         //GD.Print(JsonConvert.DeserializeObject<Vector2>(vecString));
+         //string json = JsonConvert.SerializeObject(testDic, Formatting.Indented, new KeysJsonConverter(typeof(Dictionary<CardModel, string>)));
+        // GD.Print(json);
+        //GD.Print(ss);
+       // Dictionary<CardModel, string> obj = JsonConvert.DeserializeObject<Dictionary<CardModel, string>>(json);
+        // GD.Print(obj.TryGetValue((model)=>{
+
+        // }).GetAnotherName());
         // Texture back = GD.Load<Texture>(Params.CardDirectory+ "card-back2.png");
 
         // Directory directory = new Directory();
