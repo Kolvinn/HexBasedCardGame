@@ -2,29 +2,20 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Runtime;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 public class Card : Sprite, GameObject
 {
-    private CardListener cardListener;
+    public CardListener cardListener;
     private CardModel model;
 
+    private TextureRect topBanner;
+
     public Texture frontImage, backImage, currentTexture;
-  
-    public enum CardState{
-        Flip,
-        Draw,
-        Discard,
-        Drag,
-        Drop,
-        DropCancel,
-        Hover, 
-        HoverRemove,
-        Default
-
-    }
-    
-    public CardState cardState;
 
 
+    public State.CardState cardState;
+    private State.MouseEventState viewState;
     
     //[Signal]
     //public delegate bool TriggerStateChange(Card.CardState state);
@@ -38,14 +29,8 @@ public class Card : Sprite, GameObject
 
     private TextureRect textureRect;
 
-
-    public enum CardViewState{
-        Pressed,
-        Released
-    }
-
     public Vector2 startingPosition {get;set;}
-    private CardViewState viewState;
+    
 
     public Card(){
 
@@ -55,8 +40,7 @@ public class Card : Sprite, GameObject
     {
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");   
         this.cardListener = GetNode<CardListener>("CardListener");
-        //GD.Print(this.cardListener);
-        
+        //this.topBanner = this.GetNode<TextureRect>("CardListener/VBoxContainer/MarginContainer/TopBanner");
     }
 
 
@@ -65,7 +49,7 @@ public class Card : Sprite, GameObject
         this.backImage = back;
         this.currentTexture = back; //give back unless reason not to
         this.Texture = front;
-        this.cardState = CardState.Default;
+        this.cardState = State.CardState.Default;
     }
 
     /// <summary>
@@ -86,7 +70,7 @@ public class Card : Sprite, GameObject
     //     return this.view;
     // }
 
-    public void TriggerCardStateChange(CardState state){
+    public void TriggerCardStateChange(State.CardState state){
         this.cardState = state;
     }
 
@@ -109,7 +93,7 @@ public class Card : Sprite, GameObject
         //don't drag anything
         GD.Print("is trying to drag");
         
-        cardState = CardState.Drag;
+        cardState = State.CardState.Drag;
 
         Control control = new TextureRect();
 
@@ -140,12 +124,12 @@ public class Card : Sprite, GameObject
 
 
     public void _on_CardListener_mouse_entered(){
-        this.cardState = CardState.Hover;
+        this.cardState = State.CardState.Hover;
 
     }
 
     public void _on_CardListener_mouse_exited(){
-        this.cardState = CardState.HoverRemove;
+        this.cardState = State.CardState.HoverRemove;
 
     }
 

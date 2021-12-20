@@ -11,12 +11,12 @@ public class SpellSlot : Node2D
     TextureRect cardTex;   
 
 
-    public Params.MouseEventState slotState {get;set;}
+    public State.MouseEventState slotState {get;set;}
 
     public Card card {get;set;}
     public override void _Ready()
     {
-        this.slotState = Params.MouseEventState.Exited;
+        this.slotState = State.MouseEventState.Exited;
         //this.cardTex = GetNode<TextureRect>("MarginContainer/CardTex");
         //this.cardTex.Texture = null;
     }  
@@ -24,12 +24,12 @@ public class SpellSlot : Node2D
     public void _on_Area2D_mouse_entered(){
 
         GD.Print("Area 2d entered for spell slot");
-        this.slotState = Params.MouseEventState.Entered;
+        this.slotState = State.MouseEventState.Entered;
     }
 
     public void _on_Area2D_mouse_exited(){
         GD.Print("Area 2d exited for spell slot");
-        this.slotState = Params.MouseEventState.Exited;
+        this.slotState = State.MouseEventState.Exited;
     }
 
 

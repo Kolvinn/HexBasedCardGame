@@ -75,6 +75,7 @@ margin_left = -280.0
 margin_top = -410.0
 margin_right = 280.0
 margin_bottom = 410.0
+expand = true
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -99,7 +100,7 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 90
 custom_constants/margin_bottom = 0
 
-[node name="TextureRect" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer"]
+[node name="TopBanner" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer"]
 margin_left = 90.0
 margin_top = 20.0
 margin_right = 470.0
@@ -109,7 +110,7 @@ size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
 
-[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TextureRect"]
+[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 4 )
@@ -121,12 +122,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mana" type="Sprite" parent="CardListener/VBoxContainer/MarginContainer/TextureRect/Label"]
+[node name="Mana" type="Sprite" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Label"]
 position = Vector2( -34.5313, 45.1875 )
 scale = Vector2( 0.429713, 0.42156 )
 texture = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TextureRect/Label/Mana"]
+[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Label/Mana"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -152.5
@@ -155,7 +156,7 @@ custom_constants/margin_right = 65
 custom_constants/margin_left = 60
 custom_constants/margin_bottom = 60
 
-[node name="TextureRect" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer2"]
+[node name="MidBanner" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer2"]
 margin_left = 60.0
 margin_right = 495.0
 margin_bottom = 286.0
@@ -177,7 +178,7 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 70
 custom_constants/margin_bottom = 60
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="CardListener/VBoxContainer/MarginContainer3"]
+[node name="BottomText" type="RichTextLabel" parent="CardListener/VBoxContainer/MarginContainer3"]
 margin_left = 70.0
 margin_top = 5.0
 margin_right = 490.0

@@ -83,7 +83,7 @@ public class CardController : Node2D, ControllerBase {
                 ProcessCardState(card);
             // if(this.hand != null){
             //     foreach(Card card in this.hand.cards){
-            //         if(card.cardState != Card.CardState.Default){
+            //         if(card.cardState != State.CardState.Default){
             //             ProcessCardState(card);
             //         }
             //     }
@@ -93,27 +93,27 @@ public class CardController : Node2D, ControllerBase {
 
     private void ProcessCardState(Card card){
         switch(card.cardState){
-            case Card.CardState.Default:
+            case State.CardState.Default:
                 break;
-            case Card.CardState.Discard:
+            case State.CardState.Discard:
                 break;
-            case Card.CardState.Drag:
+            case State.CardState.Drag:
                 TriggerCardDrag(card);
                 break;
-            case Card.CardState.Draw:
+            case State.CardState.Draw:
                 break;
-            case Card.CardState.Drop:
+            case State.CardState.Drop:
                 TriggerCardDrop(card);
                 break;
-            case Card.CardState.DropCancel:
+            case State.CardState.DropCancel:
                 break;
-            case Card.CardState.Hover:
+            case State.CardState.Hover:
                 TriggerCardHover(card);
                 break;
-            case Card.CardState.HoverRemove:
+            case State.CardState.HoverRemove:
                 TriggerCardHoverRemove(card);
                 break;
-            case Card.CardState.Flip:
+            case State.CardState.Flip:
                 break;
         }
     }
@@ -136,7 +136,7 @@ public class CardController : Node2D, ControllerBase {
         card.Visible = true;
 
         //if we are dropping back into hand, no need to trigger card removes
-        if(this.hand.view.eventState == Params.MouseEventState.Entered){
+        if(this.hand.view.eventState == State.MouseEventState.Entered){
             //return card to hand
             GD.Print("dragged card entered hand");
             //card.Visible = true;
@@ -150,7 +150,7 @@ public class CardController : Node2D, ControllerBase {
         SpellSlot spellSlot = null;;
 
         foreach(SpellSlot ss in this.spellSlots.Keys){
-            if(ss.slotState == Params.MouseEventState.Entered){
+            if(ss.slotState == State.MouseEventState.Entered){
                 GD.Print("Found spell slot");
                 spellSlot = ss;
                 break;
@@ -166,7 +166,7 @@ public class CardController : Node2D, ControllerBase {
         if(spellSlot != null){
             TryAddToSpellSlot(spellSlot,card);
         }
-        else if(this.hand.view.eventState == Params.MouseEventState.Entered){
+        else if(this.hand.view.eventState == State.MouseEventState.Entered){
             //return card to hand
             
         }
@@ -295,7 +295,7 @@ public class CardController : Node2D, ControllerBase {
         //tween.Dispose();
         
         card.ZIndex = 0;
-        card.cardState = Card.CardState.Default;
+        card.cardState = State.CardState.Default;
     }
 
     private void LoadHand(){
@@ -327,7 +327,9 @@ public class CardController : Node2D, ControllerBase {
 
         
     }
-
+//TextureRect TopBanner with RectPosition:(90, 20) and global Position: (162, 122)
+//TextureRect MidBanner with RectPosition:(60, 0) and global Position: (156, 142.8)
+//TextureRect TextureRect2 with RectPosition:(-264, -392) and global Position: (147.2, 121.6)
     public void _on_Button_pressed(){
         AddRandomCardToHand();
     }

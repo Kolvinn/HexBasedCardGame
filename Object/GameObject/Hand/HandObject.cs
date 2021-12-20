@@ -41,7 +41,7 @@ public class HandObject : Node2D
         
         // if(cards != null){
         //     foreach(Card card in this.cards){
-        //         if(card.cardState != Card.CardState.Default){
+        //         if(State.CardState != State.CardState.Default){
         //             ProcessCardState(card);
         //         }
         //     }
@@ -50,24 +50,24 @@ public class HandObject : Node2D
 
     private void ProcessCardState(Card card){
         switch(card.cardState){
-            case Card.CardState.Default:
+            case State.CardState.Default:
                 break;
-            case Card.CardState.Discard:
+            case State.CardState.Discard:
                 break;
-            case Card.CardState.Drag:
+            case State.CardState.Drag:
 
                 break;
-            case Card.CardState.Draw:
+            case State.CardState.Draw:
                 break;
-            case Card.CardState.Drop:
+            case State.CardState.Drop:
                 break;
-            case Card.CardState.Hover:
+            case State.CardState.Hover:
                 //TriggerCardHover(card);
                 break;
-            case Card.CardState.HoverRemove:
+            case State.CardState.HoverRemove:
                 //TriggerCardHoverRemove(card);
                 break;
-            case Card.CardState.Flip:
+            case State.CardState.Flip:
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class HandObject : Node2D
     }
     private void TriggerCardHoverRemove(Card card){
         card.ZIndex = 0;
-        card.cardState = Card.CardState.Default;
+        card.cardState = State.CardState.Default;
     }
 
 

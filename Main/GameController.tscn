@@ -27,11 +27,22 @@ margin_left = 256.0
 margin_top = 56.0
 margin_right = 456.0
 margin_bottom = 184.0
-text = "Save Map to Scene"
+text = "Save Card"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="UIController"]
+margin_left = 472.0
+margin_top = 56.0
+margin_right = 672.0
+margin_bottom = 184.0
+text = "Load Card"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [connection signal="pressed" from="UIController/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="UIController/Button2" to="." method="_on_Button2_pressed"]
 
 [editable path="UIController/Control/CardController"]

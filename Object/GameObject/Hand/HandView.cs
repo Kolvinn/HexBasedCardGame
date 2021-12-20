@@ -15,10 +15,7 @@ public class HandView : Node2D
 
     private Area2D cardContainer;
 
-    public Params.MouseEventState eventState {
-        get;
-        set;
-    }
+    public State.MouseEventState eventState;
 
 
     List<Node2D> holders = new List<Node2D>();
@@ -158,10 +155,10 @@ public class HandView : Node2D
 //  }
 
     public void _on_Area2D_mouse_entered(){
-        this.eventState  = Params.MouseEventState.Entered;       
+        this.eventState  = State.MouseEventState.Entered;       
     }
 
     public void _on_Area2D_mouse_exited(){
-        this.eventState  = Params.MouseEventState.Exited;
+        this.eventState  = State.MouseEventState.Exited;
     }
 }

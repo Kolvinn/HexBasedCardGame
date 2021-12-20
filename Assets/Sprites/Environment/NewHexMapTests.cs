@@ -141,7 +141,7 @@ public class NewHexMapTests : Node2D
 
             foreach(HexCell1 cell in tiles.Keys){
                 path.ClearPoints();
-                if(cell.eventState == Params.MouseEventState.Entered){
+                if(cell.eventState == State.MouseEventState.Entered){
 
                     found = cell;
                     tiles.TryGetValue(cell, out toindex);

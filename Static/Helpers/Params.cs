@@ -30,13 +30,6 @@ public static class Params{
     public static float CardOffsetY = -700f;
 
 
-    public enum MouseEventState{
-        Entered,
-        Exited,
-        Pressed,
-        Released
-    }
-
     public static void Print(string str, params object[] o){
 
         GD.Print(String.Format(str,o));
