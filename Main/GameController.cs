@@ -3,53 +3,50 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 using System.IO;
+
 using System.Runtime;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Collections;
 
 public class GameController : Node, ControllerBase
 {   
     private CardController cardController;
     private CanvasLayer canvasLayer;
+
+    private NewHexMapTests hexMap;
     
     private Card c;
 
     private SaveInstance s;
     
+    private Dictionary<string,string> dict;
     public GameController(){
         PopulateCardStates();
     }
     
     public override void _Ready()
-    {
+    {   
+        
+        
         cardController = this.GetNode<CardController>("UIController/Control/CardController");
         canvasLayer = this.GetChild<CanvasLayer>(1);
+        hexMap = this.GetNode<NewHexMapTests>("NewHexMapTests");
         //new SaveInstance(this, this.GetClass());
-        c = Params.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
+        //c = Params.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
        // this.AddChild(c);
-        c.GlobalPosition = new Vector2(200,200);
-        
-
-
-        
-
-        //RecursiveChildPrint(c);
-
-
-// New control positions are: ,(-280, -410)(-56, -82)
-// Found CardListener Vector2 RectGlobalPosition: {
-//   "x": 144.0,
-//   "y": 118.0
         //c.GlobalPosition = new Vector2(200,200);
-       //c.cardListener.RectPosition = new Vector2(-280,-410);
-       // c.cardListener.RectGlobalPosition = new Vector2(144,118);
-        //RecursiveChildPrint(c);
-        AddChild(c);
 
-        GD.Print("card Listener position: ",c.cardListener.RectPosition, " and global: ", c.cardListener.RectGlobalPosition);
+        //AddChild(c);
+
         //ins.PrintHeirarchy("");
         //ins.LoadSceneData(this);
         
-
+        //Activator.CreateInstance
     }
+
+    
 
     public void RecursiveChildPrint(Node node){
         foreach(Node n in node.GetChildren()){
@@ -119,12 +116,17 @@ public class GameController : Node, ControllerBase
     
 
     public void SaveCard(){
-        c.GlobalPosition = new Vector2(500,600);
-        s = new SaveInstance(c);
-        this.RemoveChild(c);
+        //c.GlobalPosition = new Vector2(500,600);
+        //s = new SaveInstance(this.hexMap);
+        SaveInstance s = SaveLoader.SaveGame(this.hexMap);
+        RemoveChild(this.hexMap);
+        this.hexMap = null;
+        //s.PrintHeirarchy("");
+        //this.RemoveChild(c);
         //ins.PrintHeirarchy("");
         //ins.LoadSceneData(this);
         WriteToBinaryFile("D:/testfile.txt",s,false);
+       // s.PrintHeirarchy("");
         
     }
 
@@ -132,13 +134,16 @@ public class GameController : Node, ControllerBase
         
 
         var testObj = ReadFromBinaryFile<SaveInstance>("D:/testfile.txt");
-
-        Card n =  (Card)testObj.LoadSceneData(this);
-        GD.Print(n.Position, n.GlobalPosition);
+        
+        
+        //GD.Print(n.player.animationState);
+        this.hexMap = (NewHexMapTests)SaveLoader.LoadGame(testObj, this);      
+        this.AddChild(hexMap);
+        //GD.Print(n.Position, n.GlobalPosition);
         //n.GlobalPosition =  Vector2.Zero;
         //((Card)n).cardListener.RectPosition = new Vector2(200,200);
         //((Card)n).cardListener.RectGlobalPosition = new Vector2(200,200);
-       RecursiveChildPrint(n);
+       //RecursiveChildPrint(n);
         
         GD.Print(testObj, "  ",testObj.childBook);
     }
@@ -159,12 +164,6 @@ public class GameController : Node, ControllerBase
     //     GD.Print("json: ",json);
     // }
 
-    private void RecursiveSetOwner(Node parent){
-        foreach(Node node in parent.GetChildren()){
-            node.Owner = parent;
-            GD.Print("Setting owner of node: "+node + " to Parent: "+parent);
-            RecursiveSetOwner(node);
-        }
-    }
+    
 
 }

@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Reflection;
 public class CardController : Node2D, ControllerBase {
     
-    private List<Card> cardList;
-    private List<CardModel> cardModels;
+    public List<Card> cardList;
+    //private List<CardModel> cardModels;
 
     private DeckObject deck;
 
@@ -17,7 +17,7 @@ public class CardController : Node2D, ControllerBase {
 
     private Resource mousePointer;
 
-    private Queue<Card> eventQueue;
+    public Queue<Card> eventQueue;
 
     //private CardEventHandler eventHandler;
 
@@ -25,7 +25,7 @@ public class CardController : Node2D, ControllerBase {
 
     private Card cardHoverObject;
 
-    private Dictionary<SpellSlot, Card> spellSlots;
+    public Dictionary<SpellSlot, Card> spellSlots;
 
     private Dictionary<Card, Tween> cardAnimations;
 

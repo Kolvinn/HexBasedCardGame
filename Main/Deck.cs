@@ -11,7 +11,7 @@ public class Deck : Sprite
 
     Texture toptex;
 
-    List<Card> cards;
+    //List<Card> cards;
 
 
     public override void _Ready()
@@ -24,7 +24,7 @@ public class Deck : Sprite
     }
 
     public void SetDeck(List<Card> cards){
-        this.cards = cards;
+        //this.cards = cards;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

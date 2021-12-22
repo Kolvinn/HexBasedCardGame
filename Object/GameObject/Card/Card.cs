@@ -6,12 +6,17 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 public class Card : Sprite, GameObject
 {
+
+    public List<string> testStringList =  new List<string>();
+
     public CardListener cardListener;
     private CardModel model;
 
     private TextureRect topBanner;
 
     public Texture frontImage, backImage, currentTexture;
+
+    
 
 
     public State.CardState cardState;
@@ -36,8 +41,14 @@ public class Card : Sprite, GameObject
 
     }
 
+    static ObjectWrapper wrap(object o){
+        return new ObjectWrapper(o);
+    }
     public override void _Ready()
     {
+        testStringList = new List<string>() {{"1"},{"2"},{"3"}};
+
+
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");   
         this.cardListener = GetNode<CardListener>("CardListener");
         //this.topBanner = this.GetNode<TextureRect>("CardListener/VBoxContainer/MarginContainer/TopBanner");

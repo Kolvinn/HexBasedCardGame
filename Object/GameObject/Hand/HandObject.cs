@@ -21,7 +21,7 @@ public class HandObject : Node2D
 
     public List<Card> cards = new List<Card>();
 
-    List<Node2D> holders = new List<Node2D>();
+   // List<Node2D> holders = new List<Node2D>();
 
     Dictionary<Card,Node2D> cardMap = new Dictionary<Card, Node2D>();
 

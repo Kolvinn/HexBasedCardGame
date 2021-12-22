@@ -1,13 +1,15 @@
 using Godot;
 using System.Collections.Generic;
 
-public class NewHexMapTests : Node2D
+public class NewHexMapTests : Node2D, GameObject
 {
+    
+    public Player player;
     private YSort tileMap;
 
     private AStar2D pathFinder;
 
-    Player player;
+    
 
     private static float maxSpeed = 300, friction = 2500, acceleration = 2000;
     
@@ -17,14 +19,17 @@ public class NewHexMapTests : Node2D
 
     Line2D path;
 
-    Queue<Vector2> movementQueue;
+    public Queue<Vector2> movementQueue;
 
 
     private Vector2 currentMovement = Vector2.Zero;
 
-    Dictionary<HexCell1,int> tiles;
+    
 
-    bool isMovement = false;
+    public Dictionary<HexCell1,int> tiles;
+
+    public bool isMovement = false;
+
     public override void _Ready()
     {   
         movementQueue = new Queue<Vector2>();
@@ -32,6 +37,7 @@ public class NewHexMapTests : Node2D
         tileMap = GetNode<YSort>("TileLayer1");
         pathFinder = new AStar2D();
         player = GetNode<Player>("EvnLayer/Player");
+        GD.Print("assinging palyer to hex map: ");
         path = GetNode<Line2D>("Line2D");
 
         tileMap.Owner  =this;
@@ -108,7 +114,9 @@ public class NewHexMapTests : Node2D
         if(currentMovement !=  Vector2.Zero){
             this.playerTile = (HexCell1)player.currentTile;
             if(player.Position==currentMovement){
-                //GD.print("finished current movement");
+                GD.Print("moving: ",player);
+                GD.Print("moving: ",player.animationState);
+                
                 player.animationState.Travel("Idle");              
                 currentMovement =Vector2.Zero;
             }

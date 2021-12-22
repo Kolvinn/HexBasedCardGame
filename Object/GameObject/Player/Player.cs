@@ -1,42 +1,37 @@
 using Godot;
 using System;
 
-public class Player : KinematicBody2D
+public class Player : KinematicBody2D, GameObject
 {
 	private Resource arrow;
 
 
-	public string action {
-		get; set;
-	}
+	public string action;
 	
-	public string direction {
-		get; set;
-	}
+	public string direction;
 
-	public HexCell1 currentTile{
-		get;set;
-	}
+	public HexCell1 currentTile;
 
 	private  bool mouseEntered =false;
-	Sprite sprite;
+	public Sprite sprite;
 
-	Color highlight = new Color(0.6f,0.1f,0,1f);
-	Color outline = new Color(0,0,0,1);
+	public Color highlight = new Color(0.6f,0.1f,0,1f);
+	public Color outline = new Color(0,0,0,1);
 
-	ShaderMaterial sm= null;
+	public ShaderMaterial sm= null;
 	
 	private float animationDelay = 5;
+
+
+
 	
-	private AnimationPlayer animationPlayer;
+	[Persist(IsPersist = false)]
+	public AnimationPlayer animationPlayer;
 
-	public AnimationTree animationTree
-	{
-		get; set;
-	}
+	[Persist(IsPersist = false)]
+	public AnimationTree animationTree;
 
-
-
+	[Persist(IsPersist = false)]
 	public AnimationNodeStateMachinePlayback animationState;
 
 	public override void _Ready(){
@@ -57,6 +52,7 @@ public class Player : KinematicBody2D
 
 		
 		this.animationState = (AnimationNodeStateMachinePlayback)this.animationTree.Get("parameters/playback");
+		GD.Print("loaded player: ", this.animationState,this.animationTree, this.animationState);
 		
 		
 	}

@@ -8,8 +8,6 @@ public class CardListener : TextureRect, GameObject
     private Texture currentTex;
 
     public bool canDrop{get;set;}
-
-    //private Card parent;
     
     public override void _Ready()
     {
