@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class HexCell1 : Area2D
+public class HexCell1 : Area2D, GameObject
 {
     Line2D topBorder;
 

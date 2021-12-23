@@ -3,21 +3,34 @@ using System.Collections.Generic;
 
 public class NewHexMapTests : Node2D, GameObject
 {
-    
+
+    [PostLoad]
     public Player player;
+
+    [PostLoad]
     private YSort tileMap;
 
+    [PostLoad]
+    public Dictionary<HexCell1,int> tiles;
+
+    [PostLoad]
     private AStar2D pathFinder;
 
-    
+    [PostLoad]
+    Line2D path;
+
+    [PostLoad]
+    private HexCell1 startingTile;
+
+
+
 
     private static float maxSpeed = 300, friction = 2500, acceleration = 2000;
     
     public Vector2 velocity = Vector2.Zero;
 
     HexCell1 playerTile;
-
-    Line2D path;
+    
 
     public Queue<Vector2> movementQueue;
 
@@ -25,8 +38,7 @@ public class NewHexMapTests : Node2D, GameObject
     private Vector2 currentMovement = Vector2.Zero;
 
     
-
-    public Dictionary<HexCell1,int> tiles;
+    
 
     public bool isMovement = false;
 
@@ -37,21 +49,13 @@ public class NewHexMapTests : Node2D, GameObject
         tileMap = GetNode<YSort>("TileLayer1");
         pathFinder = new AStar2D();
         player = GetNode<Player>("EvnLayer/Player");
-        GD.Print("assinging palyer to hex map: ");
         path = GetNode<Line2D>("Line2D");
-
-        tileMap.Owner  =this;
-        player.Owner = this;
-        path.Owner =this;
+        startingTile = GetNode<HexCell1>("TileLayer1/StartingTile");
+        
         
         int i =0;
         foreach(Node node in tileMap.GetChildren()){
             tiles.Add((HexCell1)node,i);
-            ////GD.print(((Area2D)node).Position);
-            if(i==0){
-                playerTile = (HexCell1)node;
-                //GD.print(playerTile);
-            }
             pathFinder.AddPoint(i++,((Area2D)node).GlobalPosition);
 
             
@@ -113,9 +117,9 @@ public class NewHexMapTests : Node2D, GameObject
         //if we are moving, continue moving
         if(currentMovement !=  Vector2.Zero){
             this.playerTile = (HexCell1)player.currentTile;
+
+            
             if(player.Position==currentMovement){
-                GD.Print("moving: ",player);
-                GD.Print("moving: ",player.animationState);
                 
                 player.animationState.Travel("Idle");              
                 currentMovement =Vector2.Zero;
@@ -142,7 +146,11 @@ public class NewHexMapTests : Node2D, GameObject
         //if we have a movement command pressed and are not currently moving,
         //create new movement queue and add to current movement
         else if(Input.IsActionJustPressed("right_click") && (this.movementQueue ==null || this.movementQueue.Count==0)){
-
+            if(playerTile == null){
+                this.playerTile = startingTile;
+                player.currentTile = this.playerTile;
+                GD.Print("Setting player tile  to: ", playerTile);
+            }
             //GD.print("right click found");
             HexCell1 found=null;
             int toindex =0;
@@ -150,9 +158,11 @@ public class NewHexMapTests : Node2D, GameObject
             foreach(HexCell1 cell in tiles.Keys){
                 path.ClearPoints();
                 if(cell.eventState == State.MouseEventState.Entered){
+                    GD.Print("Entered cell: ", cell);
 
                     found = cell;
                     tiles.TryGetValue(cell, out toindex);
+                    //GD.Print(fromI.)
 
 
                     int fromidx;
@@ -195,6 +205,9 @@ public class NewHexMapTests : Node2D, GameObject
             //velocity = Vector2.Zero;
         }
     }
+
+
+    
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)

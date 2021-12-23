@@ -19,7 +19,11 @@ public class GameController : Node, ControllerBase
     
     private Card c;
 
+    private YSort map;
+
     private SaveInstance s;
+
+    private Button saveButton;
     
     private Dictionary<string,string> dict;
     public GameController(){
@@ -31,8 +35,18 @@ public class GameController : Node, ControllerBase
         
         
         cardController = this.GetNode<CardController>("UIController/Control/CardController");
-        canvasLayer = this.GetChild<CanvasLayer>(1);
+        canvasLayer = this.GetChild<CanvasLayer>(0);
         hexMap = this.GetNode<NewHexMapTests>("NewHexMapTests");
+        saveButton = this.GetNode<Button>("Button");
+        HexGrid grid = new HexGrid(new Vector2(1500,500));
+        map = this.GetNode<YSort>("YSort");
+
+        foreach(KeyValuePair<int,HexHorizontalTest> entry in grid.storedHexes)
+        {
+            map.AddChild(entry.Value);
+            entry.Value.Position = grid.storedVectors[entry.Key];
+            GD.Print("adding hex: ", entry.Value, " at position: ",grid.storedVectors[entry.Key]);
+        }
         //new SaveInstance(this, this.GetClass());
         //c = Params.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
        // this.AddChild(c);
@@ -116,18 +130,88 @@ public class GameController : Node, ControllerBase
     
 
     public void SaveCard(){
-        //c.GlobalPosition = new Vector2(500,600);
-        //s = new SaveInstance(this.hexMap);
+  
+        GD.Print("Player current tile: ",this.hexMap.player.currentTile);
+
+        foreach(HexCell1 cell in this.hexMap.tiles.Keys){
+            GD.Print(cell);
+        }
         SaveInstance s = SaveLoader.SaveGame(this.hexMap);
         RemoveChild(this.hexMap);
         this.hexMap = null;
-        //s.PrintHeirarchy("");
-        //this.RemoveChild(c);
-        //ins.PrintHeirarchy("");
-        //ins.LoadSceneData(this);
+
         WriteToBinaryFile("D:/testfile.txt",s,false);
-       // s.PrintHeirarchy("");
+        // PropertyInfo[] fields = saveButton.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic |  BindingFlags.Instance);
+        // List<PropertyInfo> fieldList = fields.OfType<PropertyInfo>().ToList();
         
+        // foreach(PropertyInfo f in fieldList){
+            
+        //     if(f.Name =="RectSize"){
+        //         GD.Print(f.Name);
+        //         GD.Print(f.GetValue(this.saveButton));
+        //         object fieldObject = f.GetValue(this.saveButton);
+        //         object newObject = new Vector2(300,300);
+                
+        //         if(fieldObject !=null){
+
+        //         }
+        //         object o = f.GetValue(this.saveButton);
+        //         o = new Vector2(300,300);
+        //         GD.Print(f.GetValue(this.saveButton));
+        //     }
+        
+        
+    }
+
+    private void MapBuilder()
+    {
+        Vector2 mapSpace = new Vector2(1000,1000);
+        Vector2 screenSize = new Vector2(1920,1080);
+
+        float mapX = (screenSize.x/2) - (mapSpace.x/2);
+        float mapY = (screenSize.y/2) - (mapSpace.y/2);
+
+        //side radius =140
+        //top radius = 85.4
+     
+
+        Vector2 hexPos  = new Vector2(mapX +140, mapY +85.4f);
+
+        //now we go column by column because our hexes are rotated!
+        float tileHeight = 85.4f * 2;
+        float tileYOffset = 85.4f;
+        float tileYCount =0 ;
+
+        float limitY = mapY + mapSpace.y;
+        while (tileYOffset + (tileYCount * tileHeight ) <=limitY){
+            ++tileYCount;
+        }
+
+        /*
+
+	637 *205
+	427 * 291.4
+
+	637 * x = 427
+	x = 0.67032967033
+
+	427 * y = 291.4
+	y = 0.68243559719
+
+
+	*/
+        float tileWidth = 140f * 2;
+        float tileXOffset = 140;
+        float tileXCount =0 ;
+
+        float limitX = mapX + mapSpace.x;
+
+        while (tileXOffset + (tileXCount * tileWidth ) <=limitX){
+            ++tileXCount;
+        }
+
+
+
     }
 
     public void LoadCard(){
@@ -137,8 +221,14 @@ public class GameController : Node, ControllerBase
         
         
         //GD.Print(n.player.animationState);
-        this.hexMap = (NewHexMapTests)SaveLoader.LoadGame(testObj, this);      
-        this.AddChild(hexMap);
+        this.hexMap = (NewHexMapTests)SaveLoader.LoadGame(testObj, this);
+        GD.Print("Player current tile: ",this.hexMap.player.currentTile);
+
+        foreach(HexCell1 cell in this.hexMap.tiles.Keys){
+            GD.Print(cell);
+        }
+        //hexMap.Owner;
+       // this.AddChild(hexMap);
         //GD.Print(n.Position, n.GlobalPosition);
         //n.GlobalPosition =  Vector2.Zero;
         //((Card)n).cardListener.RectPosition = new Vector2(200,200);

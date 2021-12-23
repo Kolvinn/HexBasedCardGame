@@ -1,4 +1,8 @@
+
 using System;
+
+
+[Serializable]
 public class ObjectRef{
 
     public object storedReference;

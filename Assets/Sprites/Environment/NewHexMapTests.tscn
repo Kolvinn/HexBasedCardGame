@@ -11,17 +11,17 @@ script = ExtResource( 7 )
 
 [node name="TileLayer1" type="YSort" parent="."]
 
-[node name="Area2D0" parent="TileLayer1" instance=ExtResource( 3 )]
+[node name="StartingTile" parent="TileLayer1" instance=ExtResource( 3 )]
 position = Vector2( 637, 205 )
 
 [node name="Area2D1" parent="TileLayer1" instance=ExtResource( 3 )]
-position = Vector2( 428, 290 )
+position = Vector2( 427, 291 )
 
 [node name="Area2D2" parent="TileLayer1" instance=ExtResource( 3 )]
 position = Vector2( 846, 291 )
 
 [node name="Area2D3" parent="TileLayer1" instance=ExtResource( 3 )]
-position = Vector2( 428, 462 )
+position = Vector2( 427, 463.8 )
 
 [node name="Area2D4" parent="TileLayer1" instance=ExtResource( 3 )]
 position = Vector2( 846, 464 )
@@ -68,7 +68,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 0, -60 )
 
 [node name="tree5" type="Sprite" parent="EvnLayer"]
-position = Vector2( 373, 473 )
+position = Vector2( 434, 671 )
 scale = Vector2( 1.35714, 1.23571 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -60 )
