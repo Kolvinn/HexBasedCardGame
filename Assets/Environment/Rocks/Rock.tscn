@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Environment/Rocks/512x1024.png" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Resources/BasicResource.cs" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 9
+atlas = ExtResource( 1 )
+region = Rect2( 0, 533, 120, 110 )
+
+[node name="StaticBody2D" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4, -25 )
+texture = SubResource( 1 )
+region_rect = Rect2( 0, 0, 1, 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -18, -7 )
+polygon = PoolVector2Array( 69, -45, 68, 14, -29, 14, -28, -46 )

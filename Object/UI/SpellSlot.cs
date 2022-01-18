@@ -23,12 +23,12 @@ public class SpellSlot : Node2D
 
     public void _on_Area2D_mouse_entered(){
 
-        GD.Print("Area 2d entered for spell slot");
+        //GD.Print("Area 2d entered for spell slot");
         this.slotState = State.MouseEventState.Entered;
     }
 
     public void _on_Area2D_mouse_exited(){
-        GD.Print("Area 2d exited for spell slot");
+        //GD.Print("Area 2d exited for spell slot");
         this.slotState = State.MouseEventState.Exited;
     }
 

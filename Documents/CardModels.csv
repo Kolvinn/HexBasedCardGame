@@ -1,0 +1,5 @@
+ObjectId,Description,Name,FrontImagePath,BackImagePath,Rarity,Cost
+1,[center]Summon a fireball and deal [color=#b31f1f]15[/color] damage to [color=#3b5c73]1[/color] hex.[/center] ,Fireball,res://Assets/FB002.png,res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png,Bronze,2
+2,[center]Shield 1 allied unit for 15 hp[/center],Basic Shield,res://Assets/Sprites/Shields/512X512/7.png,res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png,Bronze,2
+3,[center]Swipe at 1 enemy hex and deal 15 damage[/center],Swipe,res://Assets/Sprites/swordSlash.png,res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png,Bronze,2
+4,[center]Muddify a single tile [/center],Mudify,res://Documents/pngfind.com-dirt-splatter-png-1250135.png,res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png,Bronze,1

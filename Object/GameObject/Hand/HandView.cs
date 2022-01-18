@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public class HandView : Node2D
 {
-    private float handOffset = 700f;
+    //private float handOffset = 700f;
 
-    private float rotationLimit =40;
+    private float rotationLimit =25;
     float halfRotationLimit;
 
     
-    private float cardRotationMax = 7, cardRotationMin = 3;
+    private float cardRotationMax = 3, cardRotationMin = 5;
     Vector2 startPos;
 
     private Area2D cardContainer;
@@ -22,14 +22,14 @@ public class HandView : Node2D
     public override void _Ready()
     {   
         this.halfRotationLimit = rotationLimit/2;
-        startPos = new Vector2(0,-handOffset);
+        startPos = new Vector2(0,Params.CardOffsetY);
         this.cardContainer = GetNode<Area2D>("Area2D");
     }
 
     public bool AddCardAndRotate(Node2D cardHolder, Card cardView, int cardCount,  float handLimit){
                
-        this.AddChild(cardHolder);
-        cardHolder.AddChild(cardView);
+        //this.AddChild(cardHolder);
+        //cardHolder.AddChild(cardView);
         cardView.Position = startPos;
         cardView.startingPosition = startPos;
         this.holders.Add(cardHolder);
@@ -41,11 +41,11 @@ public class HandView : Node2D
         }
     
         if(Params.Debug){
-            GD.Print("Card holder postition: ", cardHolder.Position);
+            //GD.Print("Card holder postition: ", cardHolder.Position);
 
-            GD.Print("Card view postition: ", cardView.Position);
+            //GD.Print("Card view postition: ", cardView.Position);
 
-            GD.Print("CardHolder child: ",cardHolder.GetChild(0));
+            //GD.Print("CardHolder child: ",cardHolder.GetChild(0));
 
         }
         //always need to make sure our rotation matches our card split
@@ -62,7 +62,7 @@ public class HandView : Node2D
 
         float finalCardPos = nextPos + (holders.Count * nextRotation);
 
-        //GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+        ////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
         float maxH =0, maxV =0;
         float minH= float.MaxValue, minV = float.MaxValue;
@@ -123,7 +123,7 @@ public class HandView : Node2D
 
        
 
-        //GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+        ////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
         
         //float nextPos = startingPos + nextRotation;

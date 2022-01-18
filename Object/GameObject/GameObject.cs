@@ -6,4 +6,5 @@ public interface GameObject{
     /// <returns>True if success, false otherwise</returns>
     //bool SaveObject();
     //bool LoadObject();
+
 }

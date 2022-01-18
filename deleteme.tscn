@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Test/Delete/HexHorizontalTest.tscn" type="PackedScene" id=1]
+
+[node name="Node2D" type="Node2D"]
+rotation = 0.785398
+
+[node name="Hex" parent="." instance=ExtResource( 1 )]
+rotation = -0.785398
+
+[node name="TopPoly" parent="Hex" index="2"]
+polygon = PoolVector2Array( -140, 0, -72, -140, 70, -140, 140, 0, 70, 140, -70, 140, -140, 0 )
+
+[node name="BotPoly" parent="Hex/TopPoly" index="0"]
+polygon = PoolVector2Array( -140, 0, -70, 140, 70, 140, 140, 0, 140, 40, 70, 180, -70, 180, -140, 40, -140, 0 )
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2( 104.707, -16.3721 )
+points = PoolVector2Array( 0, 120, 0, -188 )
+
+[node name="Line2D2" type="Line2D" parent="."]
+visible = false
+position = Vector2( 104.652, -15.5564 )
+points = PoolVector2Array( 0, 118.794, -310.948, 119.111 )
+
+[node name="Line2D3" type="Line2D" parent="."]
+visible = false
+position = Vector2( -104.652, 15.5564 )
+rotation = 3.14159
+points = PoolVector2Array( 0, 120, 0, -188 )
+
+[node name="Line2D4" type="Line2D" parent="."]
+visible = false
+position = Vector2( -101.823, 14.1421 )
+rotation = 3.14159
+points = PoolVector2Array( 0, 118.794, -310.948, 119.111 )
+
+[editable path="Hex"]

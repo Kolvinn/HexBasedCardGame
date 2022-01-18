@@ -2,16 +2,20 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading;
 public class HexGrid 
 {
     public int width = 6;
 	public int height = 6;
 
+	public Vector2 envBounds;
+	
 	public Dictionary<HexCell1,int> tiles;
 
     [PostLoad]
-    private AStar2D pathFinder;
+    public  AStar2D pathFinder;
+
+	public Dictionary<Vector2, Node2D> resourcePositions = new Dictionary<Vector2, Node2D>();
 
 
 	float mapX;
@@ -20,36 +24,63 @@ public class HexGrid
 	int index =0;
 	Vector2 mapSpace;
 
+	public ReferenceRect spawnArea;
+
+	public static HexHorizontalTest hoveredHex;
 	public Dictionary<int,HexHorizontalTest> storedHexes = new Dictionary<int, HexHorizontalTest>();
 	public List<Vector2> storedVectors = new List<Vector2>();
  
-    //     cells = new HexCell[height * width];
-
-	// 	for (int z = 0, i = 0; z < height; z++) {
-	// 		for (int x = 0; x < width; x++) {
-	// 			CreateCell(x, z, i++);
-	// 		}
-	// 	}
     
+	private YSort parent;
+	public HexGrid(Vector2 mapSize, YSort parent, ReferenceRect envBounds)
+	{
+		this.spawnArea = envBounds;
 
-	public HexGrid(Vector2 mapSize){
+		this.parent = parent;
 		this.mapSpace =mapSize;
 		pathFinder = new AStar2D();
-		RandomNumberGenerator rand = new RandomNumberGenerator();
+
+		System.Random rand = new System.Random();
+		rand.NextDouble();
+
 		Vector2 screenSize = new Vector2(1920,1080);
 		index = 0;
+		
+
     	mapX = (screenSize.x/2) - (mapSpace.x/2);
+
         mapY = (screenSize.y/2) - (mapSpace.y/2);
 		
-		float randX = rand.RandfRange(mapX, mapX+mapSpace.x);
-		float randY = rand.RandfRange(mapY, mapY+mapSpace.y);
-		Params.Print("screen space rec: {0} {1} {2} {3} ",mapX, mapX+mapSpace.x,mapY, mapY+mapSpace.y);
-		GD.Print("random start pos = ",randX, ",",randY);
-		RecurseGenMapTile(randX, randY,Vector2.Zero, true);
+
+		double doubleX = (double)mapX+mapSpace.x;
+		double doubleY = (double)mapY+mapSpace.y;
+		double randomX = doubleX*rand.NextDouble();
+		double randomY = doubleY*rand.NextDouble();
+		
+		//float randX = rand.RandfRange(mapX, mapX+mapSpace.x);
+		//float randY = rand.RandfRange(mapY, mapY+mapSpace.y);
+		//Params.Print("screen space rec: {0} {1} {2} {3} ",mapX, mapX+mapSpace.x,mapY, mapY+mapSpace.y);
+		////GD.Print("random start pos = ",randX, ",",randY);
+		////GD.Print(mapX ," ",mapY);
+		////GD.Print(mapX+((byte)mapSpace.x), " ",mapY+mapSpace.y);
+		RecurseGenMapTile((float)Math.Max(mapX,randomX), (float)Math.Max(mapY,randomY),Vector2.Zero, true);
 	}
 
-	
-
+	public bool PointInSpawn(Vector2 vec)
+	{
+		return (vec.x >= spawnArea.RectPosition.x 
+		&& vec.y >= spawnArea.RectPosition.y
+		&& vec.x <= spawnArea.RectPosition.x +spawnArea.RectSize.x
+		&& vec.y <= spawnArea.RectPosition.y +spawnArea.RectSize.y);
+	}
+	public Vector2[] BoundingBox(){
+		return new Vector2[]{
+			new Vector2(mapX,mapY),
+			new Vector2(mapX+mapSpace.x,mapY),
+			new Vector2(mapX+mapSpace.x,mapY+mapSpace.y),
+			new Vector2(mapX,mapY+mapSpace.y),
+			};
+	}
 	public Vector2 HasStoredVector(float x, float y){
 		return storedVectors.First(item => (item.x-2)<x && item.x+2>x && (item.y-2)<y && item.y+2>y ) ;
 	}
@@ -59,6 +90,14 @@ public class HexGrid
 		return storedVectors.IndexOf(found);
 	}
 
+
+	/// <summary>
+	/// Recursively iterate around a starting hex position to populate map with different hex types
+	/// </summary>
+	/// <param name="x"></param>
+	/// <param name="y"></param>
+	/// <param name="connectVector"></param>
+	/// <param name="startTile"></param>
 	public void RecurseGenMapTile(float x, float y, Vector2 connectVector, bool startTile = false){
 		if(x< mapX|| x> mapX+mapSpace.x)
 			return ;
@@ -72,45 +111,63 @@ public class HexGrid
 		//if we've already been here, connect to the tile that is stored at that vector
 		if(IndexOfVec(vec)>=0)
 		{	
-			//int value = ;
-			//storedHexes.TryGetValue(indexOfVec, out value);
-			pathFinder.ConnectPoints(IndexOfVec(vec),IndexOfVec(connectVector));
+			HexHorizontalTest value1 = null, value2 =null;
+			storedHexes.TryGetValue(IndexOfVec(vec), out value1);
+			storedHexes.TryGetValue(IndexOfVec(connectVector), out value2);
+
+			//both tiles must be visible
+			if(value1!= null && value1.Visible && value2 !=null && value2.Visible && (!value2.isBasicResource && !value1.isBasicResource))
+			{
+				pathFinder.ConnectPoints(IndexOfVec(vec),IndexOfVec(connectVector));
+			}
 			return;
 		}
 	
 		
 				
-		HexHorizontalTest tile = GenTileType();
+		HexHorizontalTest tile = GenTileType(vec);
 		
 		storedVectors.Add(vec);
 		int indexOfVec = IndexOfVec(vec);
 
 		//add at now stored vector
 		storedHexes.Add(indexOfVec,tile);
+		
+		//if tile has resource/environment on it
+		if(tile.HexEnv != null)
+			resourcePositions.Add(vec,tile.HexEnv);
 
 		pathFinder.AddPoint(indexOfVec,vec);
 
-		if(!startTile)
-			pathFinder.ConnectPoints(indexOfVec,IndexOfVec(connectVector));
+		HexHorizontalTest value = null;
+		storedHexes.TryGetValue(IndexOfVec(connectVector), out value);
 
-		GD.Print("storing vector2:, ",vec, " with tile: ",tile);
+		//if both visible and is not a resource tile
+		if(!startTile  && tile.Visible && value.Visible && !value.isBasicResource){
+
+			pathFinder.ConnectPoints(indexOfVec,IndexOfVec(connectVector));
+		}
+		
+		
+
+		////GD.Print("storing vector2:, ",vec, " with tile: ",tile);
 		//gen NE
-		RecurseGenMapTile(x+(HexMetrics.outerRadius * 1.5f), y-HexMetrics.innerRadius, vec);
+		RecurseGenMapTile(x+(HexMetrics.outerRadius * 1.5f), y-(HexMetrics.innerRadius * tile.Scale.y), vec);
 
 		//gen SE
-		RecurseGenMapTile(x+(HexMetrics.outerRadius * 1.5f), y+HexMetrics.innerRadius,vec);
+		RecurseGenMapTile(x+(HexMetrics.outerRadius * 1.5f), y+(HexMetrics.innerRadius * tile.Scale.y),vec);
 
 		//gen S
-		RecurseGenMapTile(x, y+HexMetrics.innerRadius*2,vec);
+		RecurseGenMapTile(x, y+(HexMetrics.innerRadius * 2 * tile.Scale.y),vec);
 
 		//gen SW
-		RecurseGenMapTile(x-(HexMetrics.outerRadius * 1.5f), y+HexMetrics.innerRadius,vec);
+		RecurseGenMapTile(x-(HexMetrics.outerRadius * 1.5f), y+(HexMetrics.innerRadius * tile.Scale.y),vec);
 
 		//gen NW
-		RecurseGenMapTile(x-(HexMetrics.outerRadius * 1.5f), y-HexMetrics.innerRadius,vec);
+		RecurseGenMapTile(x-(HexMetrics.outerRadius * 1.5f), y-(HexMetrics.innerRadius * tile.Scale.y),vec);
 
 		//gen N
-		RecurseGenMapTile(x, y+HexMetrics.innerRadius*2,vec);
+		RecurseGenMapTile(x, y+(HexMetrics.innerRadius * 2 * tile.Scale.y),vec);
 
 
 
@@ -118,10 +175,60 @@ public class HexGrid
 
 	}
 
-	public HexHorizontalTest GenTileType(){
-		return Params.LoadScene<HexHorizontalTest>("res://Test/Delete/HexHorizontalTest.tscn");
+	 
+	public HexHorizontalTest GenTileType(Vector2 vec){
+		HexHorizontalTest hex =  Params.LoadScene<HexHorizontalTest>("res://Test/Delete/HexHorizontalTest.tscn");
+		
+			Random rand = new Random();
+
+			//is now a env hex
+			
+			if(rand.NextDouble()>=0.5 && PointInSpawn(vec))
+			{
+				int nextInt = rand.Next(1,12);
+				//grass
+				if(nextInt == 1 || nextInt>=6)
+					hex.HexEnv = Params.LoadScene<YSort>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/grasspatch.tscn");
+				else if(nextInt ==2){
+					hex.isBasicResource = true;
+					hex.HexEnv = Params.LoadScene<YSort>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/rockpatch.tscn");
+				}
+				else if(nextInt == 3){
+					hex.isBasicResource = true;
+					hex.HexEnv = Params.LoadScene<YSort>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/LeavesPatch.tscn");
+				}
+				else if (nextInt == 4)
+					hex.HexEnv = LoadRandomTree();
+				else{
+					hex.isBasicResource = true;
+					hex.HexEnv = Params.LoadScene<BasicResource>("res://Assets/Environment/Wood2.tscn");					
+				}
+			}	
+		
+		return hex;
 	}
 	
+	public Tree LoadRandomTree(){
+		Tree node;
+		Random rand = new Random();
+		int next = rand.Next(1,5);
+		if(next <=3)
+		{
+			node = Params.LoadScene<Tree>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/Tree"+next +".tscn");
+		}
+		else if(next == 5)
+		{ 
+			next = 1;
+			node = Params.LoadScene<Tree>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/Tree_Green"+next +".tscn");
+		}
+		else
+		{
+			next = 2;
+			node = Params.LoadScene<Tree>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/Tree_Green"+next +".tscn");		
+		}
+		node.Scale = new Vector2(2.5f,2.5f);
+		return node;
+	}
 	public void CreateCell (int x, int z, int i) {
 
 		// Vector3 position;
@@ -134,7 +241,7 @@ public class HexGrid
 		// cell.Translation = position;
         // this.AddChild(cell);
         // //cell.SetText(x.ToString() + "\n" + z.ToString());
-        // GD.Print(position);
+        // //GD.Print(position);
 	}
 
 	private void GetMapFit()
@@ -160,7 +267,7 @@ public class HexGrid
 		List<float> xlist = new List<float>();
         float limitY = mapY + mapSpace.y;
         while (tileYOffset + (tileYCount * tileHeight ) <=limitY){
-			GD.Print("y: ",tileYOffset + (tileYCount * tileHeight));
+			//GD.Print("y: ",tileYOffset + (tileYCount * tileHeight));
 			ylist.Add(tileYOffset + (tileYCount * tileHeight));
             ++tileYCount;
         }
@@ -172,11 +279,11 @@ public class HexGrid
         float limitX = mapX + mapSpace.x;
 
         while (tileXOffset + (tileXCount * tileWidth ) <=limitX){
-			GD.Print("x: ",tileXOffset + (tileXCount * tileWidth ));
+			//GD.Print("x: ",tileXOffset + (tileXCount * tileWidth ));
 			xlist.Add(tileXOffset + (tileXCount * tileWidth ));
             ++tileXCount;
         }
-		GD.Print(tileXCount,"   ",tileYCount);
+		//GD.Print(tileXCount,"   ",tileYCount);
 
     }
     

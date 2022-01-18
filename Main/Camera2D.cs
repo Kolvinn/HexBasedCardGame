@@ -3,7 +3,7 @@ using System;
 
 public class Camera2D : Godot.Camera2D
 {
-    private float zoomspeed = 0.1f, upperLimit = 0.5f, lowerLimit = 1.5f, currentzoom = 1;
+    private float zoomspeed = 0.1f, upperLimit = 0.1f, lowerLimit = 2f, currentzoom = 1;
 
     private bool rightClick;
     public override void _Ready()
@@ -25,12 +25,12 @@ public class Camera2D : Godot.Camera2D
                 if (emb.ButtonIndex == (int)ButtonList.WheelUp && currentzoom >= upperLimit){
                     currentzoom -= zoomspeed;
                     this.Zoom = new Vector2(currentzoom,currentzoom);
-                    GD.Print(currentzoom);
+                    //GD.Print(currentzoom);
                 }
                 if (emb.ButtonIndex == (int)ButtonList.WheelDown && currentzoom < lowerLimit){
                     currentzoom += zoomspeed;
                     this.Zoom = new Vector2(currentzoom,currentzoom);
-                    GD.Print(currentzoom);
+                    //GD.Print(currentzoom);
                 }
             }
         }

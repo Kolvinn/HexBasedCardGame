@@ -34,7 +34,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=4]
-size = 38
+size = 50
 outline_color = Color( 0.298039, 0.152941, 0.152941, 1 )
 use_mipmaps = true
 use_filter = true
@@ -62,7 +62,7 @@ atlas = ExtResource( 7 )
 region = Rect2( 0, 223, 160, 160 )
 
 [node name="CardTest" type="Sprite"]
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.4, 0.4 )
 texture = SubResource( 1 )
 script = ExtResource( 8 )
 
@@ -75,6 +75,7 @@ margin_left = -280.0
 margin_top = -410.0
 margin_right = 280.0
 margin_bottom = 410.0
+mouse_filter = 0
 expand = true
 script = ExtResource( 9 )
 __meta__ = {
@@ -85,6 +86,7 @@ __meta__ = {
 show_behind_parent = true
 margin_right = 560.0
 margin_bottom = 820.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -93,24 +95,21 @@ __meta__ = {
 margin_right = 560.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 0, 120 )
-mouse_filter = 1
-size_flags_horizontal = 3
-custom_constants/margin_right = 90
-custom_constants/margin_top = 20
-custom_constants/margin_left = 90
-custom_constants/margin_bottom = 0
+mouse_filter = 2
+custom_constants/margin_right = 30
+custom_constants/margin_left = 30
 
 [node name="TopBanner" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer"]
-margin_left = 90.0
-margin_top = 20.0
-margin_right = 470.0
+margin_left = 30.0
+margin_right = 530.0
 margin_bottom = 120.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
 
-[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
+[node name="Title" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 4 )
@@ -122,18 +121,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mana" type="Sprite" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Label"]
-position = Vector2( -34.5313, 45.1875 )
+[node name="Mana" type="Sprite" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
+position = Vector2( 10, 15.5469 )
 scale = Vector2( 0.429713, 0.42156 )
 texture = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Label/Mana"]
+[node name="Cost" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Mana"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -152.5
-margin_top = -149.0
-margin_right = -152.5
-margin_bottom = -149.0
+margin_left = -155.143
+margin_top = -150.236
+margin_right = -155.143
+margin_bottom = -150.236
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 5 )
@@ -149,7 +148,7 @@ show_behind_parent = true
 margin_top = 124.0
 margin_right = 560.0
 margin_bottom = 470.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 65
@@ -160,6 +159,7 @@ custom_constants/margin_bottom = 60
 margin_left = 60.0
 margin_right = 495.0
 margin_bottom = 286.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -170,29 +170,31 @@ stretch_mode = 6
 margin_top = 474.0
 margin_right = 560.0
 margin_bottom = 820.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 70
-custom_constants/margin_top = 5
+custom_constants/margin_top = 15
 custom_constants/margin_left = 70
 custom_constants/margin_bottom = 60
 
 [node name="BottomText" type="RichTextLabel" parent="CardListener/VBoxContainer/MarginContainer3"]
 margin_left = 70.0
-margin_top = 5.0
+margin_top = 15.0
 margin_right = 490.0
 margin_bottom = 286.0
-mouse_filter = 1
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = SubResource( 6 )
 custom_colors/default_color = Color( 0.227451, 0.137255, 0.0705882, 1 )
 custom_colors/font_color_selected = Color( 0.231373, 0.360784, 0.45098, 1 )
 bbcode_enabled = true
-bbcode_text = "[center]Summon a random Yasuo with [color=#3b5c73]10 deaths[/color]. Immediately take [color=#b31f1f]depression[/color] damage upon use. [/center] 
+bbcode_text = "[center]Summon a
+ random Yasuo with [color=#3b5c73]10 deaths[/color]. Immediately take [color=#b31f1f]depression[/color] damage upon use. [/center] 
 "
-text = "Summon a random Yasuo with 10 deaths. Immediately take depression damage upon use.  
+text = "Summon a
+ random Yasuo with 10 deaths. Immediately take depression damage upon use.  
 "
 fit_content_height = true
 scroll_active = false
@@ -210,4 +212,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="mouse_entered" from="CardListener" to="CardListener" method="_on_CardListener_mouse_entered"]
+[connection signal="mouse_entered" from="CardListener" to="." method="_on_CardListener_mouse_entered"]
+[connection signal="mouse_exited" from="CardListener" to="." method="_on_CardListener_mouse_exited"]

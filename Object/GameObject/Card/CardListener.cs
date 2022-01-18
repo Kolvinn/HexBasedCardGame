@@ -26,7 +26,7 @@ public class CardListener : TextureRect, GameObject
 
 
     public override object GetDragData(Vector2 position){
-        GD.Print("trying to drag in test listener");
+        //GD.Print("trying to drag in test listener");
         Card c = (Card)this.GetParent();
         return c.TriggerGetDragDataFunc(position);
     }
@@ -40,7 +40,5 @@ public class CardListener : TextureRect, GameObject
         Card c = (Card)this.GetParent();
         c.TriggerDropDataFunc(position, data);
     }
-    public void _on_CardListener_mouse_entered(){
 
-    } 
 }   

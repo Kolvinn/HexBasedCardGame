@@ -11,13 +11,13 @@ public class HandObject : Node2D
     // Called when the node enters the scene tree for the first time.
 
     private Sprite card;
-    private float handOffset = 700;
+    private float handOffset = 1500;
 
     private float rotationLimit =40;
     
-    private float cardRotationMax = 7, cardRotationMin = 3;
+    private float cardRotationMax = 3, cardRotationMin = 3;
 
-    private float handLimit = 10f;
+    private float handLimit = 6f;
 
     public List<Card> cards = new List<Card>();
 
@@ -88,21 +88,34 @@ public class HandObject : Node2D
     /// </summary>
     /// <param name="card"></param>
     /// <returns></returns>
-    public bool AddCard(Card card){
+    public bool AddCard(CardModel cardModel){
         
         //check hand limit
         if(this.handLimit < this.cards.Count+1)
             return false;
 
         //create card holder and give refs
-        Node2D cardHolder = Loader.LoadScene<Node2D>("res://Helpers/CardHolder.tscn");
-        this.cardMap.Add(card,cardHolder);
+        long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        //GD.Print(milliseconds);
+        Card cardObj = Loader.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
+        long milliseconds2 = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
+        //GD.Print("milliseconds ", milliseconds, " and diff: ", milliseconds2);
 
-        this.cards.Add(card);
+        
 
-        this.view.AddCardAndRotate(cardHolder,card,this.cards.Count,handLimit); 
+        Node2D cardHolder = Loader.LoadScene<Node2D>("res://Test/CardHolder.tscn");
+        this.cardMap.Add(cardObj,cardHolder);
 
-        GD.Print(card.GetRect());   
+        this.cards.Add(cardObj);
+
+        this.view.AddChild(cardHolder);
+        cardHolder.AddChild(cardObj);
+
+        cardObj.LoadModel(cardModel);
+
+        this.view.AddCardAndRotate(cardHolder,cardObj,this.cards.Count,handLimit); 
+
+        // //GD.Print(card.GetRect());   
         return true;
     }
 
@@ -120,7 +133,7 @@ public class HandObject : Node2D
         if(!this.cards.Contains(card) || !this.cardMap.TryGetValue(card, out cardHolder))
             return false;
 
-        GD.Print("card holder to remove: ", cardHolder);
+        //GD.Print("card holder to remove: ", cardHolder);
         cardHolder.RemoveChild(card);
         this.cards.Remove(card);
         this.cardMap.Remove(card);

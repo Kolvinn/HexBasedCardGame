@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Object/UI/BuildingIcon.cs" type="Script" id=1]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon34.png" type="Texture" id=2]
+[ext_resource path="res://Documents/Untitled.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 10, 2, 71, 64 )
+
+[node name="BuildingIcon" type="VBoxContainer"]
+margin_right = 76.0
+margin_bottom = 61.0
+hint_tooltip = "sdfasdfasdfasdfasdf"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_right = 76.0
+margin_bottom = 43.0
+hint_tooltip = "bbbb"
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 1 )
+texture_disabled = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+margin_left = 5.0
+margin_top = 47.0
+margin_right = 71.0
+margin_bottom = 61.0
+size_flags_horizontal = 4
+text = "Basic Tent"
+align = 1
+valign = 1

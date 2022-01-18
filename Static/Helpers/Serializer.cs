@@ -22,14 +22,14 @@ public static class Serializer{
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {   
-            GD.Print("ooga booga");
+            //GD.Print("ooga booga");
             
             
 
             JToken t = JToken.FromObject(value);
             t.WriteTo(writer);
             // JToken t = JToken.FromObject(value);
-            // GD.Print(t.Type);
+            // //GD.Print(t.Type);
             // if (t.Type != JTokenType.Object)
             // {
             //     t.WriteTo(writer);
@@ -78,8 +78,8 @@ public static class Serializer{
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {   
-            GD.Print("ooga booga test model");
-            GD.Print(value);
+            //GD.Print("ooga booga test model");
+            //GD.Print(value);
            // CardModel c = new CardModel();
 
             //JToken t = JToken.FromObject(value,serializer);
@@ -91,7 +91,7 @@ public static class Serializer{
             //JsonConverter
             //writer.WriteValue(value);
             // JToken t = JToken.FromObject(value);
-            // GD.Print(t.Type);
+            // //GD.Print(t.Type);
             // if (t.Type != JTokenType.Object)
             // {
             //     t.WriteTo(writer);
@@ -131,9 +131,9 @@ public static class Serializer{
         var something = g.GetType().GetFields(BindingFlags.NonPublic |  BindingFlags.Instance |BindingFlags.Public);
         
         foreach(FieldInfo f in something){
-            GD.Print("Game controller field value: ",f.Name, "   ",f.GetType(),"    ", f.GetValue(g));
+            //GD.Print("Game controller field value: ",f.Name, "   ",f.GetType(),"    ", f.GetValue(g));
             if(typeof(ControllerBase).IsInstanceOfType(f.GetValue(g))){
-                GD.Print("Found the node");
+                //GD.Print("Found the node");
             }
         }
 

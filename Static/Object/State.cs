@@ -29,6 +29,42 @@ public static class State{
         Released
     }
 
+    [JsonConverter(typeof(StringEnumConverter))] 
+    public enum CardRarity{
+        Bronze,
+        Silver,
+        Gold,
+        Platnum
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))] 
+    public enum GameState
+    {
+        Default,
+        Build,
+        BuildingAction,
+        Wait,
+        Continue
+        
+    }
+
+    [JsonConverter(typeof(StringEnumConverter))] 
+    public enum BuildState
+    {
+        Default,
+        Building,
+        BuildingMenu,
+        BuildFinish,        
+    }
+
+    public enum ResourceType 
+    {
+        Wood,
+        Stone,
+        Leaves,
+        Essence
+    }
+
     public static object GetEnumType(string name){
         //CardState cardState = CardState.Default;
         if(Enum.TryParse(name, true, out State.CardState parsedEnumValue))
@@ -37,16 +73,19 @@ public static class State{
         //MouseEventState mouseState = MouseEventState.Exited;
         if(Enum.TryParse(name, true, out State.MouseEventState mouseState))
             return mouseState;
+
+        if(Enum.TryParse(name, true, out State.CardRarity cardRarity))
+            return cardRarity;
         // foreach(object o in Enum.GetValues(typeof(MouseEventState))){
         //     if(o.ToString() == name)
         //         return o;
-        //     GD.Print(o.ToString(), "   ",name);
+        //     //GD.Print(o.ToString(), "   ",name);
         // }
 
         // foreach(object o in Enum.GetValues(typeof(CardState))){
         //     if(o.GetType()+"+"+o.ToString() == name)
         //         return o;
-        //     GD.Print(o.ToString(), "   ",o.GetType(), "    ",name);
+        //     //GD.Print(o.ToString(), "   ",o.GetType(), "    ",name);
         // }
 
         return null;

@@ -12,11 +12,17 @@ public class Card : Sprite, GameObject
     public CardListener cardListener;
     private CardModel model;
 
+    private string objectId;
+
+    private int CardModelId;
+
     private TextureRect topBanner;
 
-    public Texture frontImage, backImage, currentTexture;
 
-    
+
+  
+
+    public Texture frontImage, backImage, currentTexture;
 
 
     public State.CardState cardState;
@@ -37,6 +43,12 @@ public class Card : Sprite, GameObject
     public Vector2 startingPosition {get;set;}
     
 
+
+    public Label Title;
+    public Label Cost;
+    public TextureRect MidBanner;
+    public RichTextLabel BottomText;
+
     public Card(){
 
     }
@@ -47,11 +59,13 @@ public class Card : Sprite, GameObject
     public override void _Ready()
     {
         testStringList = new List<string>() {{"1"},{"2"},{"3"}};
-
-
         this.animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");   
         this.cardListener = GetNode<CardListener>("CardListener");
-        //this.topBanner = this.GetNode<TextureRect>("CardListener/VBoxContainer/MarginContainer/TopBanner");
+        this.Title = GetNode<Label>("CardListener/VBoxContainer/MarginContainer/TopBanner/Title");
+        this.Cost = GetNode<Label>("CardListener/VBoxContainer/MarginContainer/TopBanner/Mana/Cost");
+        this.MidBanner = GetNode<TextureRect>("CardListener/VBoxContainer/MarginContainer2/MidBanner");
+        this.BottomText = GetNode<RichTextLabel>("CardListener/VBoxContainer/MarginContainer3/BottomText");
+        //GD.Print(Title, "  ",Cost, "  ",MidBanner);
     }
 
 
@@ -71,6 +85,14 @@ public class Card : Sprite, GameObject
         this.RotationDegrees = 0;
     }
 
+    public void LoadModel(CardModel model)
+    {
+        this.Title.Text = model.Name;
+        this.Cost.Text = ""+model.Cost;
+        this.MidBanner.Texture = ResourceLoader.Load<Texture>(model.FrontImagePath);
+        this.BottomText.BbcodeText = model.Description;
+        this.objectId = model.ObjectId;
+    }
 
     // public CardView CreateCardView(){
     //     CardView cardView = Params.LoadScene<CardView>("res://View/CardView.tscn");
@@ -102,13 +124,13 @@ public class Card : Sprite, GameObject
     public object TriggerGetDragDataFunc(Vector2 position ){
         //if there's been no icon or icon texture loaded into inventory slot
         //don't drag anything
-        GD.Print("is trying to drag");
+        //GD.Print("is trying to drag");
         
         cardState = State.CardState.Drag;
 
         Control control = new TextureRect();
 
-        //GD.Print(control.SizeFlagsHorizontal);
+        ////GD.Print(control.SizeFlagsHorizontal);
         //control.RectSize = this.cardListener.RectSize;
         Card c = (Card)this.Duplicate();
         //control.RectScale = c.Scale;
@@ -135,13 +157,17 @@ public class Card : Sprite, GameObject
 
 
     public void _on_CardListener_mouse_entered(){
+        //GD.Print("Card state set to hover");
         this.cardState = State.CardState.Hover;
+        CardController.eventQueue?.Enqueue(this);
 
     }
 
     public void _on_CardListener_mouse_exited(){
+        //GD.Print("Card state set to remove");
         this.cardState = State.CardState.HoverRemove;
-
+        
+        CardController.eventQueue?.Enqueue(this);
     }
 
    public void _on_CardListener_gui_input(InputEvent inputEvent){

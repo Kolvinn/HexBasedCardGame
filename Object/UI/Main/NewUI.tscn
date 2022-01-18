@@ -1,0 +1,436 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=1]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Icons/white.png" type="Texture" id=3]
+[ext_resource path="res://Object/UI/ResourceLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp, sorted 3.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp.png" type="Texture" id=6]
+[ext_resource path="res://Static/Helpers/Timer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Object/UI/BuildingIcon.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Object/UI/Main/NewUIController.cs" type="Script" id=9]
+[ext_resource path="res://Object/UI/BuildMenu.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Mana.png" type="Texture" id=11]
+[ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Health Bar Asset Pack 2 by Adwit Rahman/rpg (1).png" type="Texture" id=12]
+[ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Health.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sprites/Cards/0 - Icons/Mana.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sprites/Cards/0 - Icons/Health.png" type="Texture" id=15]
+[ext_resource path="res://Object/UI/TaskBox.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Regular.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://Assets/Fonts/MenuFont.tres" type="DynamicFont" id=19]
+[ext_resource path="res://Documents/DisabledTex.png" type="Texture" id=20]
+[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=21]
+[ext_resource path="res://Object/UI/Main/SpellBook.tscn" type="PackedScene" id=22]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 62, 10, 30, 36 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 21 )
+region = Rect2( 130, 418, 31, 29 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 65, 3, 30, 60 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( -2, 0, 67, 66 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 34, 50, 79, 11 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 17 )
+region = Rect2( 1, 225, 159, 159 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 18 )
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource( 9 )
+
+[node name="Control3" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DayLight" type="ColorRect" parent="Control3"]
+self_modulate = Color( 0, 0, 0, 0.501961 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 118.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control3/VBoxContainer"]
+self_modulate = Color( 0.203922, 0.196078, 0.196078, 0.85098 )
+margin_right = 1920.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+mouse_filter = 2
+size_flags_horizontal = 3
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WoodLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
+anchor_left = 0.009375
+anchor_top = 0.36
+anchor_right = 0.009375
+anchor_bottom = 0.36
+margin_top = -1.0
+margin_bottom = -1.0
+
+[node name="EssenceLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
+visible = false
+anchor_left = 0.0625
+anchor_top = 0.34
+anchor_right = 0.0625
+anchor_bottom = 0.34
+margin_left = 7.0
+margin_right = 7.0
+
+[node name="StoneLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
+anchor_left = 0.0130208
+anchor_right = 0.0130208
+anchor_bottom = 0.44
+margin_left = 220.0
+margin_top = 17.0
+margin_right = 220.0
+margin_bottom = -5.0
+
+[node name="GrassLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
+anchor_left = 0.183333
+anchor_top = 0.36
+anchor_right = 0.183333
+anchor_bottom = 0.36
+margin_top = -1.0
+margin_bottom = -1.0
+
+[node name="TimerLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 7 )]
+text = "Humans Arrive in: 1 Day"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control3/VBoxContainer"]
+margin_top = 54.0
+margin_right = 1920.0
+margin_bottom = 1094.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control3/VBoxContainer"]
+margin_top = 1098.0
+margin_right = 1920.0
+margin_bottom = 1198.0
+rect_min_size = Vector2( 0, 100 )
+rect_pivot_offset = Vector2( -670, -386 )
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="Control3"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -177.0
+margin_right = 253.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Circle01" type="Sprite" parent="Control3/Control"]
+position = Vector2( 81, 112 )
+scale = Vector2( 0.907692, 0.878846 )
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Control3/Control/Circle01"]
+position = Vector2( 0.670104, -2.73684 )
+scale = Vector2( 2.45704, 2.43275 )
+texture = SubResource( 1 )
+
+[node name="Build" type="Button" parent="Control3/Control"]
+margin_left = 78.0
+margin_top = 2.0
+margin_right = 178.0
+margin_bottom = 52.0
+text = "Build"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BuildingIcon" parent="Control3/Control" instance=ExtResource( 8 )]
+margin_left = 150.0
+margin_top = 71.0
+margin_right = 226.0
+margin_bottom = 132.0
+
+[node name="TextureButton" parent="Control3/Control/BuildingIcon" index="0"]
+disabled = true
+texture_normal = SubResource( 2 )
+texture_disabled = ExtResource( 20 )
+
+[node name="Label" parent="Control3/Control/BuildingIcon" index="1"]
+margin_left = 4.0
+text = "Spell Book"
+
+[node name="Main Building Menu" parent="Control3" instance=ExtResource( 10 )]
+
+[node name="Housing Menu" type="GridContainer" parent="Control3"]
+margin_left = 421.0
+margin_top = 1104.0
+margin_right = 875.0
+margin_bottom = 1177.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 11
+custom_constants/hseparation = 26
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BedRoll" type="TextureButton" parent="Control3/Housing Menu"]
+margin_right = 94.0
+margin_bottom = 73.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Tent" type="TextureButton" parent="Control3/Housing Menu"]
+margin_left = 120.0
+margin_right = 214.0
+margin_bottom = 73.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="Control" parent="Control3/Housing Menu" instance=ExtResource( 8 )]
+margin_left = 240.0
+margin_right = 334.0
+margin_bottom = 73.0
+
+[node name="TextureButton" parent="Control3/Housing Menu/Control" index="0"]
+margin_right = 94.0
+margin_bottom = 55.0
+texture_disabled = null
+
+[node name="Label" parent="Control3/Housing Menu/Control" index="1"]
+margin_left = 14.0
+margin_top = 59.0
+margin_right = 80.0
+margin_bottom = 73.0
+
+[node name="Control2" parent="Control3/Housing Menu" instance=ExtResource( 8 )]
+margin_left = 360.0
+margin_right = 454.0
+margin_bottom = 73.0
+
+[node name="HealthBar" type="TextureRect" parent="Control3"]
+margin_left = 867.0
+margin_top = 10.0
+margin_right = 1081.0
+margin_bottom = 41.0
+texture = SubResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control3/HealthBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="TextureProgress" parent="Control3/HealthBar/MarginContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 194.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 10.0
+texture_progress = ExtResource( 13 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control3/HealthBar"]
+margin_left = -24.0
+margin_top = 3.0
+margin_right = 1.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ManaBar" type="TextureRect" parent="Control3"]
+margin_left = 1148.0
+margin_top = 10.0
+margin_right = 1362.0
+margin_bottom = 41.0
+texture = SubResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control3/ManaBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="TextureProgress" parent="Control3/ManaBar/MarginContainer"]
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 194.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 10.0
+texture_progress = ExtResource( 11 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control3/ManaBar"]
+margin_left = -24.0
+margin_top = 3.0
+margin_right = 1.0
+margin_bottom = 29.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" parent="Control3" instance=ExtResource( 16 )]
+margin_left = 3.0
+margin_top = 56.0
+margin_right = 388.0
+margin_bottom = 121.0
+
+[node name="FoundBook" type="Control" parent="Control3"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control3/FoundBook"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -169.0
+margin_top = -167.5
+margin_right = 169.0
+margin_bottom = 167.5
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control3/FoundBook/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 13
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control3/FoundBook/TextureRect/MarginContainer"]
+margin_left = 13.0
+margin_top = 10.0
+margin_right = 328.0
+margin_bottom = 325.0
+custom_fonts/italics_font = ExtResource( 19 )
+custom_fonts/normal_font = SubResource( 7 )
+bbcode_enabled = true
+bbcode_text = "[i]You feel an ominous power flow over you, almost as if calling... waiting. Do you dare use it? [/i]
+
+You have discovered a lost page of the Book of Fire. You can explore the map to find other points of interest and lost items. But be warned, some discoveries may hold unknown concequences"
+text = "You feel an ominous power flow over you, almost as if calling... waiting. Do you dare use it? 
+
+You have discovered a lost page of the Book of Fire. You can explore the map to find other points of interest and lost items. But be warned, some discoveries may hold unknown concequences"
+
+[node name="Button" type="Button" parent="Control3/FoundBook/TextureRect"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -73.0
+margin_top = -62.5
+margin_right = 70.0
+margin_bottom = -15.5
+text = "Accept"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" parent="Control3" instance=ExtResource( 22 )]
+visible = false
+
+[editable path="Control3/VBoxContainer/TextureRect/TimerLabel"]
+[editable path="Control3/Control/BuildingIcon"]
+[editable path="Control3/Housing Menu/Control"]

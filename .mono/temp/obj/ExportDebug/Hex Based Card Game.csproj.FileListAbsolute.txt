@@ -1,0 +1,19 @@
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\Hex Based Card Game.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\Hex Based Card Game.pdb
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\CsvHelper.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\Microsoft.Bcl.HashCode.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\Newtonsoft.Json.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\System.Buffers.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\System.Memory.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\System.Numerics.Vectors.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\ExportDebug\System.Threading.Tasks.Extensions.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.csproj.AssemblyReference.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.AssemblyInfoInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.AssemblyInfo.cs
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.csproj.CoreCompileInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.csproj.CopyComplete
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\ExportDebug\Hex Based Card Game.pdb

@@ -1688,7 +1688,7 @@
                 for (int i = 0; i &lt; 100; i++)
                 {
                     await ToSignal(GetTree(), "idle_frame");
-                    GD.Print($"Frame {i}");
+                    //GD.Print($"Frame {i}");
                 }
             }
             </code>

@@ -1,26 +1,18 @@
 using System;
 using Newtonsoft.Json.Converters;
-
+using System.Collections.Generic;
 public class CardModel : AbstractObjectModel {
 
-    public TestModel testModel{
-        get;set;
-    }
     public string FrontImagePath {get;set;}
     public string BackImagePath {get;set;}
+
+    public State.CardRarity Rarity {get;set;}
+
+    public int Cost{get;set;}
     public CardModel(){
-        this.testModel = new TestModel();
-        this.Name = "THIS IS A NAME";
+
     }
 
-    
-    
-    public enum Rarity{
-        Bronze,
-        Silver,
-        Gold,
-        Platnum
-    }
 
 
 

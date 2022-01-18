@@ -18,7 +18,7 @@ public class ObjectWrapper : IComparable<ObjectWrapper>{
     }
     public int CompareTo(ObjectWrapper that)
     {   
-        GD.Print("kjsndfkjanskdjfnajksdf");
+        //GD.Print("kjsndfkjanskdjfnajksdf");
         if (this.item != that) return -1;
         if (this.item == that.item) return 0;
         return 1;

@@ -1,0 +1,288 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Light.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Fonts/arbre-font/CfArbreRegular-vaGO.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon16.png" type="Texture" id=3]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=5]
+[ext_resource path="res://Documents/IMG_0343.PNG" type="Texture" id=6]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/ProgressBar_02/BarV2_ProgressBar.png" type="Texture" id=7]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon28.png" type="Texture" id=8]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Panel04.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=10]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/ProgressBar_02/BarV2_ProgressBarBorder.png" type="Texture" id=11]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/ProgressBar_01/BarV1_ProgressBar.png" type="Texture" id=12]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 0, 16, 442, 34 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 62, 10, 30, 36 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 224, 160, 160 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 1 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 6 )
+region = Rect2( 250, 94, 1486, 1858 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 18
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+self_modulate = Color( 0.282353, 0.262745, 0.262745, 0.792157 )
+position = Vector2( -30, -11 )
+texture = SubResource( 1 )
+polygon = PoolVector2Array( 40, 40, 145, 17, 287, 29, 353, 12, 379, 36, 430, 18, 472, 31, 527, 11, 565, 30, 586, 22 )
+
+[node name="TextureProgress" type="TextureProgress" parent="Polygon2D"]
+margin_left = 426.0
+margin_top = 19.0
+margin_right = 531.0
+margin_bottom = 31.0
+step = 50.0
+page = 50.0
+value = 50.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+texture_under = ExtResource( 11 )
+texture_over = ExtResource( 7 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Icon28" type="Sprite" parent="Polygon2D/TextureProgress"]
+position = Vector2( -22, 6 )
+scale = Vector2( 0.324263, 0.28574 )
+texture = ExtResource( 8 )
+
+[node name="BarV1_ProgressBar" type="Sprite" parent="Polygon2D"]
+position = Vector2( 677.663, 25.6038 )
+scale = Vector2( 0.461753, 0.600341 )
+texture = ExtResource( 12 )
+
+[node name="Icon16" type="Sprite" parent="Polygon2D/BarV1_ProgressBar"]
+position = Vector2( -172.936, -1.41786 )
+scale = Vector2( 0.440337, 0.249923 )
+texture = ExtResource( 3 )
+
+[node name="Circle01" type="Sprite" parent="."]
+position = Vector2( 53, 552 )
+scale = Vector2( 0.557692, 0.542308 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Circle01"]
+position = Vector2( 0.670104, -2.73684 )
+scale = Vector2( 2.45704, 2.43275 )
+texture = SubResource( 2 )
+
+[node name="Explore" type="Button" parent="."]
+margin_left = 5.0
+margin_top = 490.0
+margin_right = 68.0
+margin_bottom = 518.0
+text = "Explore"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Build" type="Button" parent="."]
+margin_left = 71.0
+margin_top = 491.0
+margin_right = 138.0
+margin_bottom = 518.0
+disabled = true
+text = "Build"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scavenge" type="Button" parent="."]
+margin_left = 92.0
+margin_top = 527.0
+margin_right = 159.0
+margin_bottom = 554.0
+disabled = true
+text = "Scavenge"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Build Camp" type="Button" parent="."]
+margin_left = 87.0
+margin_top = 567.0
+margin_right = 172.0
+margin_bottom = 594.0
+disabled = true
+text = "Build Camp"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ExploreUI" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -136.5
+margin_top = -45.5
+margin_right = 136.5
+margin_bottom = 45.5
+texture = SubResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ExploreUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="HBoxContainer" parent="ExploreUI/HBoxContainer"]
+margin_right = 273.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 20, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="ExploreUI/HBoxContainer/VBoxContainer"]
+margin_right = 88.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Explore"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="ExploreUI/HBoxContainer/VBoxContainer"]
+margin_left = 92.0
+margin_right = 180.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Duration: 2H"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="ExploreUI/HBoxContainer/VBoxContainer"]
+margin_left = 184.0
+margin_right = 273.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ExploreUI/HBoxContainer"]
+margin_top = 34.0
+margin_right = 273.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="ExploreUI/HBoxContainer/MarginContainer"]
+margin_left = 20.0
+margin_right = 253.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 4 )
+text = "Your exploration has been successful"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ExploreUI/HBoxContainer"]
+margin_top = 64.0
+margin_right = 273.0
+margin_bottom = 91.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Continue" type="Button" parent="ExploreUI"]
+margin_left = 17.5
+margin_top = 65.5
+margin_right = 66.5
+margin_bottom = 85.5
+text = "Continue"
+
+[node name="Letter" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -204.0
+margin_top = -193.5
+margin_right = 204.0
+margin_bottom = 193.5
+texture = SubResource( 5 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Letter"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Letter/MarginContainer"]
+margin_left = 60.0
+margin_top = 50.0
+margin_right = 358.0
+margin_bottom = 337.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 6 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+text = "I fear my time is short so let these be my final words.
+
+To those of you unlucky enough to pass this way
+ 
+Do NOT travel at night 
+
+They will find you
+They will kill you
+
+Good luck to you. 
+You will need it in this God forsaken place.
+
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 public static class Params{
 
     public static string CardDirectory = "res://Helpers/Pixel Fantasy Playing Cards/Playing Cards/";
@@ -27,13 +28,44 @@ public static class Params{
 
     public static float GlobalScale = 1.5f;
 
-    public static float CardOffsetY = -700f;
+    public static float CardOffsetY = -3000;
 
+
+    public static float CardDefaultScale = 0.4f;
+
+    public static float CardHoverScale = 0.48f;
+
+    public static List<string> Quests = new List<string>(){
+        "Gather enough resources to craft a Fire and sleeping spot and rest the night (to heal and regain mana)",
+        "Investigate the glowing light",
+        "Prepare for the hu"
+    };
 
     public static void Print(string str, params object[] o){
 
-        GD.Print(String.Format(str,o));
+        //GD.Print(String.Format(str,o));
     }   
+    
+//    public  static Dictionary<string, TextureButton> buildingMenu =new Dictionary<string, TextureButton>
+//    {
+//         {"Leaf-Sleep-Roll", Params.LoadScene<TextureButton>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BedRoll.tscn")},
+//         {"Basic Tent", Params.LoadScene<TextureButton>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/Tent.tscn")},
+//         {"Basic Camp", Params.LoadScene<TextureButton>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BasicCamp.tscn")}
+   
+//    };
 
+
+   public static List<string> Buildings = new List<string>(){
+       "Leaf-Bed-Roll",
+       "Fire",
+       "Basic Tent"
+   };
+
+   public static List<string> RawResources = new List<string>(){
+       "Wood",
+       "Stone",
+       "Leaves",
+       "Essence"
+   };
 
 }

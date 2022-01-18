@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Object/UI/BuildMenu.cs" type="Script" id=1]
+
+[node name="BuildMenu" type="GridContainer"]
+margin_left = 421.0
+margin_top = 1091.0
+margin_right = 1025.0
+margin_bottom = 1177.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 11
+custom_constants/hseparation = 26
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

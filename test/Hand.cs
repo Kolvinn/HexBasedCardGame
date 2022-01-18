@@ -47,7 +47,7 @@ public class Hand : Node2D
         this.AddChild(cardHolder);
         cardHolder.AddChild(card);
         card.Position = startPos;
-        GD.Print("Card holder postition: ", cardHolder.Position);
+        //GD.Print("Card holder postition: ", cardHolder.Position);
 
         if(cards.Count == 0){
             this.cards.Add(card);
@@ -75,7 +75,7 @@ public class Hand : Node2D
 
             float finalCardPos = nextPos + (holders.Count * nextRotation);
 
-            GD.Print("card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+            //GD.Print("card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
             
             //float nextPos = startingPos + nextRotation;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=2]
 [ext_resource path="res://Object/GameObject/Player/Player.cs" type="Script" id=10]
@@ -36,12 +36,12 @@ shader_param/line_color = Color( 0, 0, 0, 1 )
 shader_param/line_thickness = 0.0
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
+flags = 9
 atlas = ExtResource( 2 )
 region = Rect2( 0, 5, 156, 285 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 41.6667, 83.3333 )
+extents = Vector2( 32.5251, 26.7304 )
 
 [sub_resource type="Animation" id=5]
 length = 0.1
@@ -237,7 +237,10 @@ start_node = "Idle"
 resource_local_to_scene = false
 
 [sub_resource type="RectangleShape2D" id=27]
-extents = Vector2( 15, 12 )
+extents = Vector2( 11.4863, 10 )
+
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 138.1, 117.679 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -1.49831, 0.374588 )
@@ -255,7 +258,7 @@ vframes = 4
 frame = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 1.49831, -24.3746 )
+position = Vector2( 1.27559, -4.1609 )
 scale = Vector2( 0.36, 0.36 )
 shape = SubResource( 4 )
 
@@ -277,12 +280,21 @@ parameters/playback = SubResource( 26 )
 parameters/Idle/blend_position = Vector2( 0.168659, 0.0960318 )
 parameters/Walk/blend_position = Vector2( 0.515371, -0.0174603 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2DHex" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 1.49831, -6.37459 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2DHex"]
+position = Vector2( 1.72104, -4.14734 )
 shape = SubResource( 27 )
+
+[node name="EncounterArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EncounterArea"]
+shape = SubResource( 28 )
 
 [connection signal="mouse_entered" from="." to="." method="_on_Player_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Player_mouse_exited"]
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="Area2DHex" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="EncounterArea" to="." method="_on_EncounterArea_area_entered"]
+[connection signal="area_exited" from="EncounterArea" to="." method="_on_EncounterArea_area_exited"]
+[connection signal="body_entered" from="EncounterArea" to="." method="_on_EncounterArea_body_entered"]
+[connection signal="body_exited" from="EncounterArea" to="." method="_on_EncounterArea_body_exited"]

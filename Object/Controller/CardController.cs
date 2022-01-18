@@ -7,6 +7,8 @@ using System.Reflection;
 public class CardController : Node2D, ControllerBase {
     
     public List<Card> cardList;
+
+    private List<CardModel> cardModels;
     //private List<CardModel> cardModels;
 
     private DeckObject deck;
@@ -17,7 +19,7 @@ public class CardController : Node2D, ControllerBase {
 
     private Resource mousePointer;
 
-    public Queue<Card> eventQueue;
+    public static Queue<Card> eventQueue;
 
     //private CardEventHandler eventHandler;
 
@@ -46,9 +48,12 @@ public class CardController : Node2D, ControllerBase {
 
     public override void _Ready()
     {
+        
+        this.cardModels = LoadCardModels();
+        SetDeck();
         //this.eventHandler = new CardEventHandler();
         busyThread = false;
-        this.eventQueue = new Queue<Card>();
+        eventQueue = new Queue<Card>();
         this.mousePointer = ResourceLoader.Load("res://Assets/UI/pointer.bmp");
 
         this.cardAnimations = new Dictionary<Card, Tween>();
@@ -65,9 +70,9 @@ public class CardController : Node2D, ControllerBase {
         Input.SetCustomMouseCursor(mousePointer,Input.CursorShape.Arrow);
         Input.SetCustomMouseCursor(mousePointer,Input.CursorShape.Drag);
         this.topTex = GD.Load<Texture>("res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png");
-        LoadCards();
+        //LoadCards();
         LoadHand();
-        SetDeck();
+        
 
     }
 
@@ -77,18 +82,22 @@ public class CardController : Node2D, ControllerBase {
             TriggerCardDrop(dragCard);
         }
         
-        else if(eventQueue.Count >0){
+        else if(eventQueue.Count >0)
+        {
             Card card = eventQueue.Dequeue();
             if(!this.busyThread)
-                ProcessCardState(card);
-            // if(this.hand != null){
-            //     foreach(Card card in this.hand.cards){
-            //         if(card.cardState != State.CardState.Default){
-            //             ProcessCardState(card);
-            //         }
-            //     }
-            // }
+               ProcessCardState(card);
         }
+        // if(this.hand != null)
+        // {
+        //     foreach(Card card in this.hand.cards)
+        //     {
+        //         if(card.cardState != State.CardState.Default)
+        //         {
+        //             ProcessCardState(card);
+        //         }
+        //     }         
+        // }
     }
 
     private void ProcessCardState(Card card){
@@ -118,6 +127,7 @@ public class CardController : Node2D, ControllerBase {
         }
     }
 
+
     private void TriggerCardDrag(Card card){
         this.dragCard = card;
         busyThread = true;
@@ -138,7 +148,7 @@ public class CardController : Node2D, ControllerBase {
         //if we are dropping back into hand, no need to trigger card removes
         if(this.hand.view.eventState == State.MouseEventState.Entered){
             //return card to hand
-            GD.Print("dragged card entered hand");
+            //GD.Print("dragged card entered hand");
             //card.Visible = true;
             return;
         }
@@ -151,7 +161,7 @@ public class CardController : Node2D, ControllerBase {
 
         foreach(SpellSlot ss in this.spellSlots.Keys){
             if(ss.slotState == State.MouseEventState.Entered){
-                GD.Print("Found spell slot");
+                //GD.Print("Found spell slot");
                 spellSlot = ss;
                 break;
             }
@@ -184,7 +194,7 @@ public class CardController : Node2D, ControllerBase {
 
 
     public void _on_Control_pressed(){
-        GD.Print("pressed control");
+        //GD.Print("pressed control");
         foreach(SpellSlot ss in this.spellSlots.Keys){
                 ss.RemoveChild(ss.card);
                 ss.card = null;
@@ -192,17 +202,17 @@ public class CardController : Node2D, ControllerBase {
     }
 
     private bool TryAddToSpellSlot(SpellSlot spellSlot, Card card){
-        GD.Print("Adding card: " +card+" to spell slot: "+spellSlot);
+        //GD.Print("Adding card: " +card+" to spell slot: "+spellSlot);
 
         if(spellSlot.card != null){
-            GD.Print("Removing card: " +spellSlot.card+" from spell slot: "+spellSlot);
+            //GD.Print("Removing card: " +spellSlot.card+" from spell slot: "+spellSlot);
 
             spellSlot.RemoveChild(spellSlot.card);
         }
         spellSlot.AddChild(card);
         spellSlot.card = card;
 
-        GD.Print(spellSlot.GetChildren());
+        //GD.Print(spellSlot.GetChildren());
         return true;
     }
 
@@ -228,7 +238,7 @@ public class CardController : Node2D, ControllerBase {
     }
 
     private void TriggerCardHover(Card card){
-        GD.Print("hover for card:  "+card);
+        //GD.Print("hover for card:  "+card);
 
         Tween tween = ResetTweenState("add",card);
         //ignore if it's active
@@ -237,7 +247,7 @@ public class CardController : Node2D, ControllerBase {
 
         Vector2 newPos = new Vector2(card.Position.x, GetCardPositionContext(card) - 30);
         tween.InterpolateProperty(card, "position", card.Position, newPos, 0.1f, Tween.TransitionType.Quart, Tween.EaseType.Out);
-        tween.InterpolateProperty(card, "scale", card.Scale, new Vector2(1.2f,1.2f), 0.05f, Tween.TransitionType.Quart, Tween.EaseType.Out);
+        tween.InterpolateProperty(card, "scale", card.Scale, new Vector2(Params.CardHoverScale,Params.CardHoverScale), 0.05f, Tween.TransitionType.Quart, Tween.EaseType.Out);
         tween.Start();
         //this.RemoveChild(tween);
         //tween.Dispose();
@@ -254,7 +264,7 @@ public class CardController : Node2D, ControllerBase {
         Tween tween = GetActiveTween(card);
 
         if(tween.IsActive()){
-            GD.Print("stopping tween success: ",tween.Stop(card) + "\n   from method: "+method + "\n   for card: "+card);           
+            //GD.Print("stopping tween success: ",tween.Stop(card) + "\n   from method: "+method + "\n   for card: "+card);           
             
             //card.Position = new Vector2(card.Position.x, -700);
 
@@ -276,7 +286,7 @@ public class CardController : Node2D, ControllerBase {
     private float GetCardPositionContext(Card card){
 
         if(card.GetParent() != null && card.GetParent().GetType() == typeof(SpellSlot)){
-            GD.Print("YES BBY");
+            //GD.Print("YES BBY");
             return 0f;
         }
 
@@ -285,12 +295,12 @@ public class CardController : Node2D, ControllerBase {
 
     
     private void TriggerCardHoverRemove(Card card){
-        GD.Print("hover remove for card:  "+card);
+        //GD.Print("hover remove for card:  "+card);
         Tween tween = ResetTweenState("remove",card);
 
         Vector2 newPos = new Vector2(card.Position.x, GetCardPositionContext(card));
         tween.InterpolateProperty(card, "position", card.Position, newPos, 0.1f, Tween.TransitionType.Quart, Tween.EaseType.Out);
-        tween.InterpolateProperty(card, "scale", card.Scale, new Vector2(1.0f,1.0f), 0.05f, Tween.TransitionType.Quart, Tween.EaseType.Out);
+        tween.InterpolateProperty(card, "scale", card.Scale, new Vector2(Params.CardDefaultScale,Params.CardDefaultScale), 0.05f, Tween.TransitionType.Quart, Tween.EaseType.Out);
         tween.Start();
         //tween.Dispose();
         
@@ -303,7 +313,9 @@ public class CardController : Node2D, ControllerBase {
         this.hand = GetNode<HandObject>("HandObject");
     }
     private List<CardModel> LoadCardModels(){
-        return null;
+        List<CardModel> models = CSVReader.LoadCardCSV();
+        //GD.Print("Loaded ", models.Count, " models");
+        return models;
     }
 
     
@@ -313,16 +325,17 @@ public class CardController : Node2D, ControllerBase {
     /// </summary>
     public void AddRandomCardToHand(){
 
-        int rand = new Random().Next(deck.GetDeck().Count);
-        Card card = deck.GetDeck()[rand];
+        int rand = new Random().Next(deck.modelDeck.Count);
+        //GD.Print("Card range: ", deck.modelDeck.Count);
+        CardModel card = deck.modelDeck[rand];
         //eventHandler.BindCardListen(card.GetCardView());
         
-        GD.Print("adding random card to hand from deck: ",card.frontImage);
+        //GD.Print("adding random card to hand from deck: ",card.FrontImagePath);
 
         if(this.hand.AddCard(card)){
-            GD.Print(this.hand.cards[0] == deck.GetDeck()[rand]);
-            //GD.Print(deck.GetDeck()[rand].ID);
-            this.deck.GetDeck().Remove(card);
+           
+            //don't forget buddy
+            //this.deck.modelDeck.Remove(card);
         }
 
         
@@ -350,7 +363,7 @@ public class CardController : Node2D, ControllerBase {
         // var something = typeof(CardController).GetFields(BindingFlags.Public |  BindingFlags.NonPublic | BindingFlags.Public |  BindingFlags.Instance);
 
         // foreach(FieldInfo f in something){
-        //     GD.Print(f.GetValue(this));
+        //     //GD.Print(f.GetValue(this));
         // }
         // CardModel model = new CardModel();
         // //
@@ -364,14 +377,14 @@ public class CardController : Node2D, ControllerBase {
          //var vec = Vector2.Zero;
         // string vecString = JsonConvert.SerializeObject(vec);
 
-        // GD.Print(vecString);
+        // //GD.Print(vecString);
 
-         //GD.Print(JsonConvert.DeserializeObject<Vector2>(vecString));
+         ////GD.Print(JsonConvert.DeserializeObject<Vector2>(vecString));
          //string json = JsonConvert.SerializeObject(testDic, Formatting.Indented, new KeysJsonConverter(typeof(Dictionary<CardModel, string>)));
-        // GD.Print(json);
-        //GD.Print(ss);
+        // //GD.Print(json);
+        ////GD.Print(ss);
        // Dictionary<CardModel, string> obj = JsonConvert.DeserializeObject<Dictionary<CardModel, string>>(json);
-        // GD.Print(obj.TryGetValue((model)=>{
+        // //GD.Print(obj.TryGetValue((model)=>{
 
         // }).GetAnotherName());
         // Texture back = GD.Load<Texture>(Params.CardDirectory+ "card-back2.png");
@@ -404,9 +417,8 @@ public class CardController : Node2D, ControllerBase {
 
     private void SetDeck(){
         //this.deck = new DeckObject();
-        this.deck = GetNode<DeckObject>("DeckObject");
-       
-        deck.SetDeck(cardList);
+        this.deck = GetNode<DeckObject>("DeckObject");      
+        deck.modelDeck = this.cardModels;
         deck.SetTopTex(this.topTex);
         
     }
