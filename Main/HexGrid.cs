@@ -115,6 +115,9 @@ public class HexGrid
 			storedHexes.TryGetValue(IndexOfVec(vec), out value1);
 			storedHexes.TryGetValue(IndexOfVec(connectVector), out value2);
 
+			value1.connections.Add(value2);
+			value2.connections.Add(value2);
+
 			//both tiles must be visible
 			if(value1!= null && value1.Visible && value2 !=null && value2.Visible && (!value2.isBasicResource && !value1.isBasicResource))
 			{
@@ -146,6 +149,12 @@ public class HexGrid
 		if(!startTile  && tile.Visible && value.Visible && !value.isBasicResource){
 
 			pathFinder.ConnectPoints(indexOfVec,IndexOfVec(connectVector));
+			
+
+		}
+		if(value!=null && tile != null){
+			tile.connections.Add(value);
+			value.connections.Add(tile);
 		}
 		
 		

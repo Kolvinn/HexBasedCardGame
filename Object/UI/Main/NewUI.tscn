@@ -71,6 +71,7 @@ __meta__ = {
 }
 
 [node name="DayLight" type="ColorRect" parent="Control3"]
+visible = false
 self_modulate = Color( 0, 0, 0, 0.501961 )
 anchor_right = 1.0
 anchor_bottom = 1.0

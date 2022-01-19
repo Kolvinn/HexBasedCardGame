@@ -65,6 +65,15 @@ public static class State{
         Essence
     }
 
+    public enum WorkerState 
+    {
+        Gather,
+        GatherFinish,
+        Dropping,
+        DroppingFinish,
+        Default
+    }
+
     public static object GetEnumType(string name){
         //CardState cardState = CardState.Default;
         if(Enum.TryParse(name, true, out State.CardState parsedEnumValue))

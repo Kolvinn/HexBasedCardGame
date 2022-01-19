@@ -25,7 +25,7 @@ public class CharacterController :ControllerInstance
     private Vector2 currentMovement = Vector2.Zero;
 
 
-    private static float maxSpeed = 100, friction = 20000, acceleration = 20000;
+    private static float maxSpeed = 500, friction = 20000, acceleration = 20000;
     
     public Vector2 velocity = Vector2.Zero;
     
@@ -42,14 +42,26 @@ public class CharacterController :ControllerInstance
 
     [Signal]
 	public delegate void CapacityFull(CharacterController c);
-    
 
+    [Signal]
+	public delegate void HexDepleted(HexHorizontalTest hex);
+    
+    [Signal]
+    public delegate void ResourceDepleted(CharacterController c,BasicResource res);
+    
+    public State.WorkerState workerState = State.WorkerState.Default;
 
     public string CurrentTask = "null";
+
 
     public CharacterController(){
         eventQueue = new List<GameObject>();
     }
+
+    public Node Garbage = null;
+
+    public BasicResource currentTargetResource;
+    public int HighestTime =int.MinValue;
 
     public override void _Ready()
     {
@@ -58,12 +70,20 @@ public class CharacterController :ControllerInstance
 
     public override void _PhysicsProcess(float delta)
     {
-        if(CurrentTask == "Gather" && capacity < character.InventoryCapacity
-        && currentMovement == Vector2.Zero && movementQueue != null && movementQueue.Count == 0)
-        {
-            GatherResource();
-        }
+        
+        // if(Garbage!= null)
+        // {
+        //     GD.Print("Removing garbage node from parent: " ,Garbage.GetParent().GetType());
+        //     Garbage.GetParent().RemoveChild(Garbage);
+            
+        //     Garbage.QueueFree();
+        //     Garbage = null;
+            
+        // }
+       
+        
         ParseHexMovementCommand(delta);
+
     }
 
     public void On_DestinationReached(){
@@ -71,21 +91,20 @@ public class CharacterController :ControllerInstance
         this.DestinationReached = true;
         currentMovement = Vector2.Zero;
         movementQueue= new Queue<Vector2>();
-
         EmitSignal("TargetHexReached", this, CurrentTask);
     }
-   
+
 
     public void GatherResource(){
         //this.character.TargetHex.Get
-        Node n = null;
         int i = 0;
         
         
         BasicResource res = null;
 
         if(this.character.TargetHex.HexEnv is YSort)
-        {
+        {   
+            Node n = null;
             GD.Print("is rock or leaves");
             while(n == null){
                 n = this.character.TargetHex.HexEnv.GetChild(i);
@@ -97,34 +116,58 @@ public class CharacterController :ControllerInstance
         {
             GD.Print("is wood");
             res = (BasicResource)this.character.TargetHex.HexEnv;
+   
         }
-        if(n == null){
-            GD.Print("Resource depleted");
-            return;
-        }
-        resType = res;
+      
+        resType = new BasicResource();
+        resType.ResourceType = res.ResourceType;
+
+        // if(!res.IsBusy)
+        //     res.IsBusy = true;
+        // else
+        // {
+        //     GatherResource();
+        //     return;
+
+        // }
         GD.Print("Gathering Resource ", res.ResourceType);
+
         while(res.Capacity != 0 && capacity != character.InventoryCapacity)
         {
             res.Capacity -= 1;
             capacity +=1;
-            
+
+            //hex is now out of resources
         }
 
-        if(capacity == character.InventoryCapacity)
-        {
-            GD.Print("Capacity reached");
-            EmitSignal(nameof(CapacityFull),this);
-        }
+        
 
         if(res.Capacity == 0){
             GD.Print("one insataance of bassiced resource depleted ");
-            //this.character.TargetHex?.HexEnv?.RemoveChild(n);  
-            GD.Print(n.GetParent().GetType());
-            n.GetParent().RemoveChild(n);
-            n.QueueFree();
+            //Garbage = res;
 
-        }                  
+            EmitSignal("ResourceDepleted",this, res);
+            
+            if(!this.character.TargetHex.HasAvailableResource())
+            {
+                GD.Print("dealing with depleted hex");
+                EmitSignal("HexDepleted", this.character.TargetHex);
+            }           
+            
+            //this.character.TargetHex?.HexEnv?.RemoveChild(n);  
+            
+        }
+        // if(this.character.TargetHex.HexEnv == null || this.character.TargetHex.HexEnv.GetChildren().Count==0)
+        // {
+        //     GD.Print("dealing with depleted hex");
+        //     EmitSignal("HexDepleted", this.character.TargetHex);
+        // }   
+
+            //GD.Print("Capacity reached");
+            //EmitSignal(nameof(CapacityFull),this);
+            
+        
+                     
         
     }
 
@@ -167,7 +210,7 @@ public class CharacterController :ControllerInstance
                 character.SetAnimation("parameters/Idle/blend_position", direction);
 
                 character.animationState.Travel("Walk");
-                character.Position = character.Position.MoveToward(currentMovement,delta*250);
+                character.Position = character.Position.MoveToward(currentMovement,delta*maxSpeed);
                 ////GD.Print("current character position: "+character.Position);
                 //this.character.move(velocity);
                 //MoveToPoint(currentMovement, delta);
@@ -178,6 +221,11 @@ public class CharacterController :ControllerInstance
                           
             currentMovement = this.movementQueue.Dequeue();
             GD.Print("Dequing vector: ",currentMovement) ; 
+        }
+        else if(currentMovement == Vector2.Zero && !DestinationReached && character.TargetHex != null)
+        {
+            GD.Print("moving to targetHex");
+            character.Position = character.Position.MoveToward(character.TargetHex.Position,delta*maxSpeed);
         }
         //if we have a movement command pressed and are not currently moving,
         //create new movement queue and add to current movement

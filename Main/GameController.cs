@@ -69,6 +69,14 @@ public class GameController : Node, ControllerBase
 
 
     private Building BuildingAction;
+
+    public int HighestTime =int.MinValue;
+
+    public float LowestFrames = float.MaxValue;
+
+
+    int first10 = 100;
+
     
     private List<BuildingModel> buildingModels;
     public GameController(){
@@ -161,7 +169,7 @@ public class GameController : Node, ControllerBase
         ////GD.Print("processing tent click");
         gameState = State.GameState.Build;
         //Resource tent = ResourceLoader.Load("res://Assets/UI/pointer.bmp");
-        if(this.buildController!= null){
+        if(  IsInstanceValid(this.buildController) &&  this.buildController != null){
             this.RemoveChild(this.buildController);
             
         }
@@ -192,15 +200,12 @@ public class GameController : Node, ControllerBase
     {
         ////GD.Print("processing build cancel");
         gameState = State.GameState.Default;
+        controller.buildState = State.BuildState.Default;
         this.RemoveChild(controller);
         controller.QueueFree();
         
     }
 
-    public override void _Process(float delta)
-    {
-        
-    }
 
 
     public void On_BuildMenuExited(){
@@ -208,7 +213,20 @@ public class GameController : Node, ControllerBase
     }
 
     public override void _PhysicsProcess(float delta)
-    {   
+    { 
+        float en = Engine.GetFramesPerSecond();
+        if(en<LowestFrames)
+        {
+            if(first10==0)
+            {    
+                LowestFrames = en;
+                GD.Print("Found lowest Fraames of :",LowestFrames);
+            }
+            else{
+                first10--;
+            }
+        }
+        int current = System.DateTime.Now.Millisecond;
         UpdateResourceValues();
         
         //finished frame continue, reset input state
@@ -241,6 +259,12 @@ public class GameController : Node, ControllerBase
             this.playerController.state = ControllerInstance.ControllerState.Wait;
         }
 
+        if(System.DateTime.Now.Millisecond - current >= 10)
+        {   
+            //HighestTime = System.DateTime.Now.Millisecond - current;
+            GD.Print("Found GameController +10milli of: ", System.DateTime.Now.Millisecond - current);
+        }
+ 
         
     }
 
@@ -257,6 +281,13 @@ public class GameController : Node, ControllerBase
             this.AddChild(resourcePostController);
             
             //Character c = SpawnRandomCharacter();
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
             resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
 
         }

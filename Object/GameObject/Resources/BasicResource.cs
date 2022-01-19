@@ -12,6 +12,7 @@ public class BasicResource : StaticBody2D, GameResource
         get;set;
     }
 
+    public bool IsBusy =false;
     public AtlasTexture GenTex;
 
     public Sprite sprite;

@@ -19,6 +19,9 @@ public class HexHorizontalTest: Area2D, GameObject
     public Building building;
     
     public BasicResource GatherableResource;
+
+    public HashSet<HexHorizontalTest> connections = new HashSet<HexHorizontalTest>();
+
     
 
     public StaticBody2D staticHitBox;
@@ -61,8 +64,49 @@ public class HexHorizontalTest: Area2D, GameObject
 
     }
 
-    public void SetNextBasicResource(){
+    public BasicResource GetNextNonBusyResource(){
+        if(HexEnv is YSort)
+        {   
+            foreach(Node n in HexEnv.GetChildren())
+            {
+                if(((BasicResource)n).Capacity >0 && !((BasicResource)n).IsBusy)
+                {
+                    return ((BasicResource)n);
+                }
+            }
+            return null;
+         
+        }
+        else if(HexEnv is BasicResource)
+        {   
+            if(((BasicResource)HexEnv).Capacity > 0 && !((BasicResource)HexEnv).IsBusy)
+                return ((BasicResource)HexEnv);
+        }
+        return null;
+    }
+    
+    public bool HasAvailableResource(){
         
+        if(HexEnv is YSort)
+        {   
+            foreach(Node n in HexEnv.GetChildren())
+            {
+                if(((BasicResource)n).Capacity >0)
+                {
+                    return true;
+                }
+            }
+            return false;
+         
+        }
+        else if(HexEnv is BasicResource)
+        {
+            
+            GD.Print("returning wood: ",((BasicResource)HexEnv).Capacity > 0);
+            return ((BasicResource)HexEnv).Capacity > 0;
+        }
+        GD.Print("returning end ",HexEnv == null); 
+        return HexEnv == null;
     }
 
     public  void _on_Hex_mouse_exited(){
