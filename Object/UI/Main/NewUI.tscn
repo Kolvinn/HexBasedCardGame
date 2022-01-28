@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=1]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Documents/DisabledTex.png" type="Texture" id=20]
 [ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=21]
 [ext_resource path="res://Object/UI/Main/SpellBook.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Object/UI/SpellSlot.tscn" type="PackedScene" id=23]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -139,6 +140,19 @@ margin_bottom = -1.0
 [node name="TimerLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 7 )]
 text = "Humans Arrive in: 1 Day"
 
+[node name="MovementLabel" type="Label" parent="Control3/VBoxContainer/TextureRect"]
+visible = false
+margin_left = 1419.0
+margin_top = 6.0
+margin_right = 1592.0
+margin_bottom = 46.0
+text = "Movement left: 3"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control3/VBoxContainer"]
 margin_top = 54.0
 margin_right = 1920.0
@@ -186,18 +200,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BuildingIcon" parent="Control3/Control" instance=ExtResource( 8 )]
+[node name="SpellBookButton" parent="Control3/Control" instance=ExtResource( 8 )]
 margin_left = 150.0
 margin_top = 71.0
 margin_right = 226.0
 margin_bottom = 132.0
 
-[node name="TextureButton" parent="Control3/Control/BuildingIcon" index="0"]
-disabled = true
+[node name="TextureButton" parent="Control3/Control/SpellBookButton" index="0"]
 texture_normal = SubResource( 2 )
 texture_disabled = ExtResource( 20 )
 
-[node name="Label" parent="Control3/Control/BuildingIcon" index="1"]
+[node name="Label" parent="Control3/Control/SpellBookButton" index="1"]
 margin_left = 4.0
 text = "Spell Book"
 
@@ -369,6 +382,7 @@ margin_bottom = 121.0
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -429,9 +443,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control3" parent="Control3" instance=ExtResource( 22 )]
+[node name="SpellBook" parent="Control3" instance=ExtResource( 22 )]
 visible = false
 
+[node name="Spell Slots" type="Control" parent="Control3"]
+margin_left = 239.0
+margin_top = 917.0
+margin_right = 529.0
+margin_bottom = 1059.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpellSlot" parent="Control3/Spell Slots" instance=ExtResource( 23 )]
+position = Vector2( 42, 85 )
+
+[node name="SpellSlot2" parent="Control3/Spell Slots" instance=ExtResource( 23 )]
+position = Vector2( 121, 84 )
+
+[node name="Label" type="Label" parent="Control3/Spell Slots"]
+margin_left = 34.0
+margin_top = 131.0
+margin_right = 74.0
+margin_bottom = 145.0
+text = "1"
+
+[node name="Label2" type="Label" parent="Control3/Spell Slots"]
+margin_left = 114.0
+margin_top = 131.0
+margin_right = 154.0
+margin_bottom = 145.0
+text = "2"
+
+[connection signal="pressed" from="Control3/Control/SpellBookButton/TextureButton" to="Control3/Control/SpellBookButton" method="_on_TextureButton_pressed"]
+
 [editable path="Control3/VBoxContainer/TextureRect/TimerLabel"]
-[editable path="Control3/Control/BuildingIcon"]
+[editable path="Control3/Control/SpellBookButton"]
 [editable path="Control3/Housing Menu/Control"]

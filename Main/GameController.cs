@@ -13,72 +13,53 @@ using System.Collections;
 public class GameController : Node, ControllerBase
 
 {   
-    public static Rect2 envBounds = new Rect2(new Vector2(1273,436),new Vector2(1712,1213));
-    private static bool freed = true;
 
     public List<CharacterController> CharacterControllers;
+    public BuildController buildController;
+    private CardController cardController;
+    private PlayerController playerController;
+    private NewUIController newUIController;
+    private SpellBookController spellBookController;
+    private SpellController spellController;
+    private ResourcePostController resourcePostController;
+
 
     public static Control WoodLabel, StoneLabel, EssenceLabel,GrassLabel;
-    private CardController cardController;
+    
     private CanvasLayer canvasLayer;
 
     private Timer InputFlush;
 
     private NewHexMapTests hexMap;
 
-    public BuildController buildController;
+   
 
     public static State.GameState gameState = State.GameState.Default;
+
+    public static Dictionary<Building, CharacterController> RestSpots = new Dictionary<Building,CharacterController>();
     
-    private Polygon2D poly;
-    private Card c;
-
+    public static List<CharacterController> IdleWorkers = new List<CharacterController>();
     private YSort map, env;
-
-    private SaveInstance s;
 
     private Button saveButton;
 
     private HexGrid grid;
 
-    private PlayerController playerController;
-
+    
 
     public Player player;
 
-    [PostLoad]
-    private YSort tileMap;
-
-    [PostLoad]
-    public Dictionary<HexCell1,int> tiles;
-
-    [PostLoad]
-    Line2D path;
-
-    [PostLoad]
-    private HexCell1 startingTile;
-
-    private NewUIController newUIController;
-    private ResourcePostController resourcePostController;
-
-    private List<Node> toFree = new List<Node>();
 
     private Interactable currentInteractive = null;
-
-    private static string test = "this is a test";
 
 
     private Building BuildingAction;
 
-    public int HighestTime =int.MinValue;
-
-    public float LowestFrames = float.MaxValue;
-
-
-    int first10 = 100;
-
-    
+    static TextureRect WarningMessage;
+  
     private List<BuildingModel> buildingModels;
+
+
     public GameController(){
         PopulateCardStates();
         CharacterControllers = new List<CharacterController>();
@@ -89,34 +70,69 @@ public class GameController : Node, ControllerBase
     {   
         buildingModels = CSVReader.LoadBuildingCSV();
         CSVReader.LoadResourceCosts(buildingModels.Cast<AbstractObjectModel>().ToList());
-
-        LoadUI();
-        
-        //cardController = this.GetNode<CardController>("UIController/Control/CardController");
-        //canvasLayer = this.GetNode<CanvasLayer>("UIController");
+        WarningMessage  = this.GetNode<TextureRect>("CanvasLayer/WarningMessage");
         hexMap = this.GetNode<NewHexMapTests>("NewHexMapTests");
         saveButton = this.GetNode<Button>("UIController/Control/Button");
         map = this.GetNode<YSort>("Node2D/HexLayer");
         env = this.GetNode<YSort>("Node2D/EnvLayer");
+        WoodLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/WoodLabel");       
+        StoneLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/StoneLabel");       
+        EssenceLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/EssenceLabel");
+        GrassLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/GrassLabel");
+
+        this.GetNode<Timer>("CanvasLayer/Control3/VBoxContainer/TextureRect/TimerLabel/Timer").Start(500);
+
+        LoadUI();
+        LoadSpellControllers();
+        
+        //cardController = this.GetNode<CardController>("UIController/Control/CardController");
+        //canvasLayer = this.GetNode<CanvasLayer>("UIController");
+        
+        
+        
+        LoadHexGrid();
+        LoadPlayerController();
+        this.LoadCard();
+        
+        
+        spellController.player = player;
+        spellController.environmentLayer = this.env;
+          
+        //this.resourcePostController = new ResourcePostController();
+       // this.AddChild(resourcePostController);
+    }
+
+
+    public void _on_Button_pressed()
+    {
+        WarningMessage.Visible = false;
+    }
+    public static void ShowWarning(CharacterController c)
+    {
+        WarningMessage.Visible = true;
+        IdleWorkers.Add(c);
+    }
+
+
+
+    private void LoadPlayerController()
+    {
         playerController = new PlayerController();
         playerController.grid = this.grid;
         this.AddChild(playerController);
         this.playerController.Connect("TriggerInteractive", this,nameof(On_TriggerInteractive));
         this.playerController.Connect("TriggerBuildingAction", this, nameof(On_TriggerBuildingAction));
-        this.SaveCard();
-        this.LoadCard();
-        
-        WoodLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/WoodLabel");
-        
-        StoneLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/StoneLabel");
-        
-        EssenceLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/EssenceLabel");
-        GrassLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/GrassLabel");
+    }
 
-        this.GetNode<Timer>("CanvasLayer/Control3/VBoxContainer/TextureRect/TimerLabel/Timer").Start(500);
-        //this.resourcePostController = new ResourcePostController();
-       // this.AddChild(resourcePostController);
-    } 
+    private void LoadSpellControllers()
+    {
+        this.spellBookController =  LoadSpellBook();
+        this.newUIController.GetNode<BuildingIcon>("Control3/Control/SpellBookButton").Connect("ButtonPress", this, nameof(On_SpellBookButtonPressed));
+        spellController = new SpellController();
+        this.AddChild(spellController);
+        this.AddChild(spellBookController);
+        spellController.spells = spellBookController.spellSlots;
+    }
 
     private void LoadUI(){
         newUIController = GetNode<NewUIController>("CanvasLayer");
@@ -126,13 +142,48 @@ public class GameController : Node, ControllerBase
         newUIController.Connect("BuildingMenuExited", this, nameof(On_BuildMenuExited));
     }
 
-    public void On_TriggerBuildingAction(Building model)
+    private SpellBookController LoadSpellBook()
     {
-        GD.Print("On_TriggerBuildingAction");
-        gameState = State.GameState.BuildingAction;
-        this.playerController.state = ControllerInstance.ControllerState.Wait;
-        this.BuildingAction = model;
+        Control r = newUIController.GetNode<Control>("Control3/SpellBook");
+        
+        SpellBookController book = new SpellBookController();
+        this.AddChild(book);
+        SpellSlot slot = newUIController.GetNode<SpellSlot>("Control3/Spell Slots/SpellSlot");
+        SpellSlot slot2 = newUIController.GetNode<SpellSlot>("Control3/Spell Slots/SpellSlot2");
+        slot.BoundAction = "1";
+        slot2.BoundAction = "2";
+        
+        //GD.Print("slot :", slot);
+        book.AddSpellSlots(slot);       
+        book.AddSpellSlots(slot2);
+        Vector2 offset = new Vector2(112,164);
+
+        foreach(CardModel model in book.cardModels)
+        {
+            Control control = new Control();
+            control.SizeFlagsHorizontal = 3;
+            control.SizeFlagsVertical = 3;
+            
+            Card card = Params.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
+            card.Connect("CardEvent", book, nameof(book.On_CardEvent));
+
+            book.cardList.Add(card);
+            control.AddChild(card);
+            card.Position = offset;
+            r.GetNode<GridContainer>("TextureRect/MarginContainer/GridContainer").AddChild(control);
+            card.LoadModel(model);
+        }
+        book.BookUI = r;
+        return book;
     }
+
+    private void On_SpellBookButtonPressed(string label)
+    {
+        this.spellBookController.BookUI.Visible = !this.spellBookController.BookUI.Visible;
+        GD.Print("SpellBookController is now visible: ",this.spellBookController.Visible);
+        //this.spellBookController.Update();
+    }
+    
 
     /// <summary>
     /// When a player clicks on an interactable object. Is emitted via PlayerController
@@ -140,7 +191,7 @@ public class GameController : Node, ControllerBase
     /// <param name="itv"></param>
     public void On_TriggerInteractive(Interactable itv)
     {
-        //GD.Print("On_TriggerInteractive", itv);
+        ////GD.Print("On_TriggerInteractive", itv);
         currentInteractive = itv;
         this.RemoveChild(this.GetNode<Area2D>("Node2D/EnvLayer/Light2D"));
         this.newUIController.GetNode<Control>("Control3/FoundBook").Visible = true;
@@ -153,6 +204,15 @@ public class GameController : Node, ControllerBase
         this.newUIController.GetNode<BuildingIcon>("Control3/Control/BuildingIcon").button.Disabled =false;
     }
 
+
+#region BuildController
+    public void On_TriggerBuildingAction(Building model)
+    {
+        //GD.Print("On_TriggerBuildingAction");
+        gameState = State.GameState.BuildingAction;
+        this.playerController.state = ControllerInstance.ControllerState.Wait;
+        this.BuildingAction = model;
+    }
     public void TriggerBuild(string buildingName)
     {
         foreach(KeyValuePair<int, HexHorizontalTest> p in grid.storedHexes){
@@ -166,39 +226,46 @@ public class GameController : Node, ControllerBase
 
     public void BuildBuilding(BuildingModel building)
     {
-        ////GD.Print("processing tent click");
+        //////GD.Print("processing tent click");
         gameState = State.GameState.Build;
         //Resource tent = ResourceLoader.Load("res://Assets/UI/pointer.bmp");
-        if(  IsInstanceValid(this.buildController) &&  this.buildController != null){
+        if( IsInstanceValid(this.buildController) &&  this.buildController != null){
             this.RemoveChild(this.buildController);
             
         }
-        BuildController b = new BuildController();
+        BuildController b = new BuildController(building);
         b.Connect("BuildCancel", this, nameof(TriggerBuildCancel));
-
-        Sprite r = new Sprite();
-        r.Texture = Params.LoadScene<TextureButton>(building.TextureResource).TextureNormal;
-
+        b.Connect("BuildBuildingComplete", this, nameof(BuildBuildingComplete));
         this.AddChild(b);
+
+        //IMPORTANT -- make sure that the buildcontroller is the first child processed in the heirarchy
         this.MoveChild(b,0);
-        //this.AddChild(r);
-        b.AddChild(r);
-        b.buildSprite= r;
-        b.grid = this.grid;
-        b.playerController = this.playerController;
-        b.model = building;
-        b.player = this.player;
-        r.Scale = new Vector2(3,3);
-        r.ZIndex = 50;
-        b.environmentLayer = this.env;
         this.buildController = b;
     }
     
+    public void BuildBuildingComplete(Building building)
+    {
+        this.env.AddChild(building.buildingAsset);
+        if(building.model.Name == "Leaf-Sleep-Roll")
+        {
+            RestSpots.Add(building,null);
+            if(IdleWorkers.Count >0){
+                CharacterController c = IdleWorkers[0];
+                c.Rest();
+                IdleWorkers.RemoveAt(0);
+            }
+        }
+        foreach(var item in building.model?.RequiredResources.GetResourceCosts()){
+            this.playerController.ResourceUpdate[item.Key] -= item.Value;
+        }
+        buildController.buildState = State.BuildState.BuildFinish;
+        gameState  = State.GameState.Continue;
+    }
 
     
     public void TriggerBuildCancel(BuildController controller)
     {
-        ////GD.Print("processing build cancel");
+        //////GD.Print("processing build cancel");
         gameState = State.GameState.Default;
         controller.buildState = State.BuildState.Default;
         this.RemoveChild(controller);
@@ -211,21 +278,11 @@ public class GameController : Node, ControllerBase
     public void On_BuildMenuExited(){
         this.playerController.state = ControllerInstance.ControllerState.AcceptAllInput;
     }
+#endregion BuildController
 
     public override void _PhysicsProcess(float delta)
     { 
-        float en = Engine.GetFramesPerSecond();
-        if(en<LowestFrames)
-        {
-            if(first10==0)
-            {    
-                LowestFrames = en;
-                GD.Print("Found lowest Fraames of :",LowestFrames);
-            }
-            else{
-                first10--;
-            }
-        }
+        
         int current = System.DateTime.Now.Millisecond;
         UpdateResourceValues();
         
@@ -262,7 +319,7 @@ public class GameController : Node, ControllerBase
         if(System.DateTime.Now.Millisecond - current >= 10)
         {   
             //HighestTime = System.DateTime.Now.Millisecond - current;
-            GD.Print("Found GameController +10milli of: ", System.DateTime.Now.Millisecond - current);
+            //GD.Print("Found GameController +10milli of: ", System.DateTime.Now.Millisecond - current);
         }
  
         
@@ -301,7 +358,7 @@ public class GameController : Node, ControllerBase
     {
         if(BuildingAction.model.Name == "Leaf-Sleep-Roll")
         {
-            //GD.Print("Creating option box and connecting");
+            ////GD.Print("Creating option box and connecting");
             this.newUIController.CreateOption("Do you want to rest and recover?").Connect("OnResponse",this,nameof(BuildingOption));
             
         }
@@ -317,11 +374,11 @@ public class GameController : Node, ControllerBase
         Character character = Params.LoadScene<Character>("res://Object/GameObject/Characters/Character.tscn");
         //character.Position = playerController.player.Position;
         character.Scale = player.Scale;
-        GD.Print("player position: ", this.playerController.player.Position);
+        //GD.Print("player position: ", this.playerController.player.Position);
         CharacterController c1 = new CharacterController();
 
         c1.character = character;
-
+        c1.grid = grid;
         foreach(KeyValuePair<int, HexHorizontalTest> p in grid.storedHexes){
             if(p.Key>50 && !p.Value.isBasicResource){
                 c1.character.Position = p.Value.Position;
@@ -332,9 +389,9 @@ public class GameController : Node, ControllerBase
         this.AddChild(c1);
         CharacterControllers.Add(c1);
         
-        GD.Print("spawning character at: ",character.Position);
-        GD.Print(character.ZIndex);
-        GD.Print(character.Scale);
+        //GD.Print("spawning character at: ",character.Position);
+        //GD.Print(character.ZIndex);
+        //GD.Print(character.Scale);
         return c1;
     }
 
@@ -356,7 +413,7 @@ public class GameController : Node, ControllerBase
             SetContinueState();                      
         }
         if(option != null){
-            GD.Print("removing current option: ", option);
+            //GD.Print("removing current option: ", option);
             this.newUIController.RemoveChild(option);
             option.QueueFree();
         }
@@ -371,7 +428,7 @@ public class GameController : Node, ControllerBase
     }
 
     private void CheckCanBuild(KeyValuePair<string, TextureButton> button){
-        ////GD.Print("Checking if can build");
+        //////GD.Print("Checking if can build");
         ResourceCost buildingCost = buildingModels.First(item => item.Name == button.Key).RequiredResources;
 
         //make sure that the resource cost of building is <= stored resources.
@@ -403,7 +460,7 @@ public class GameController : Node, ControllerBase
     }
 
     public void AddBulkResource(BasicResource res, int amount){
-        GD.Print("Addin bulk resource of type: ",res.ResourceType, " with amount: ", amount);
+        //GD.Print("Addin bulk resource of type: ",res.ResourceType, " with amount: ", amount);
         if(res.ResourceType == "Wood"){
             this.playerController.ResourceUpdate["Wood"]   = this.playerController.ResourceUpdate["Wood"]  + amount;
             WoodLabel.GetNode<Label>("Label").Text = "Wood: "+ this.playerController.ResourceUpdate["Wood"];
@@ -426,12 +483,12 @@ public class GameController : Node, ControllerBase
         foreach(Node n in node.GetChildren()){
             RecursiveChildPrint(n);
             if(n.GetType() == typeof(TextureRect)){
-                //GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
+                ////GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
                
 
             }
             if(n.GetType() == typeof(CardListener)){
-                //GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
+                ////GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
                
 
             }
@@ -480,19 +537,10 @@ public class GameController : Node, ControllerBase
     }
     
     
-    public void ThreadProc(){
-        foreach(KeyValuePair<int,HexHorizontalTest> entry in this.grid.storedHexes)
-        {
-            map.AddChild(entry.Value);
-            entry.Value.Position = grid.storedVectors[entry.Key];
-            ////GD.Print("adding hex: ", entry.Value, " at position: ",grid.storedVectors[entry.Key]);
-            //System.Threading.Thread.Sleep(300);
-        }
-    }
-    public void SaveCard(){
 
-        //this.GetNode<Node>("Area2D").RemoveChild(poly);
-        
+  
+    public void LoadHexGrid(){
+
         foreach(Node node in this.map.GetChildren())
         {
             node.QueueFree();
@@ -501,51 +549,32 @@ public class GameController : Node, ControllerBase
         }
         float width = 3000;
         float height = 3000;
+        GD.Print("Name is : ", this.Name);
+        if(this.Name == "GameController2"){
+            width = 1200;
+            height = 700;
+        }
+
 
         System.Random rand = new System.Random();
-        //height = (float)rand.NextDouble()*height;
-        //width = (float)rand.NextDouble()*width;
+
         grid = new HexGrid(new Vector2(width,height), map, this.GetNode<ReferenceRect>("ResourceArea/ReferenceRect"));
+
+        HexHorizontalTest ExitTile = new HexHorizontalTest();
+        ExitTile.Position= new Vector2(grid.lastY.x+(HexMetrics.outerRadius * 1.5f), (grid.lastY.y-(HexMetrics.innerRadius * ExitTile.Scale.y)));
+        this.GetNode<Sprite>("Node2D/EnvLayer/TileMap2").Position = ExitTile.Position;
+        this.GetNode<Sprite>("Node2D/EnvLayer/LogInTheWay").Position = ExitTile.Position;
         
-        ThreadProc();
-        //GenEnvironment();
-        //poly = new Polygon2D();
-       // poly.Polygon = grid.BoundingBox();
-        //this.GetNode<Node>("Area2D").AddChild(poly);
-       // System.Threading.Thread t = new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProc));
-        //t.Start();
+        
+            foreach(KeyValuePair<int,HexHorizontalTest> entry in this.grid.storedHexes)
+            {
+                map.AddChild(entry.Value);
+                entry.Value.Position = grid.storedVectors[entry.Key];
+            }
+
 
     }
   
-    public void GenEnvironment()
-    {
-        System.Random rand = new System.Random();
-        foreach(Node n in this.env.GetChildren())
-            env.RemoveChild(n);
-       // height = (float)rand.NextDouble()*height;
-        foreach(Vector2 vec in grid.storedVectors){
-            if(rand.NextDouble()>0.3)
-            {
-                HexHorizontalTest test = null;
-                grid.storedHexes.TryGetValue(grid.storedVectors.IndexOf(vec), out test);
-                if(test.Visible)
-                {   
-                    YSort grass = Params.LoadScene<YSort>("res://Assets/Environment/EnvHex.tscn");
-                    this.env.AddChild(grass);
-                    grass.Position = vec;
-
-                    if(rand.NextDouble() > 0.5)
-                    {
-                        YSort fire  = Params.LoadScene<YSort>("res://Assets/Sprites/Environment/FireCell.tscn");
-                        
-                        this.env.AddChild(fire);
-                        fire.Position = grass.Position;
-                    }
-                }
-            }
-
-        }
-    }
     public void LoadCard(){
         this.map.RemoveChild(player);   
         player?.QueueFree();     
@@ -555,7 +584,7 @@ public class GameController : Node, ControllerBase
         this.player.Scale = new Vector2(2f,2f);
 
         int index = (int)(new System.Random().NextDouble() * this.grid.storedVectors.Count);
-        //GD.Print("getting index: ",index);
+        ////GD.Print("getting index: ",index);
         HexHorizontalTest test = null;
 
         // while(player.currentTestTile == null)
@@ -564,10 +593,10 @@ public class GameController : Node, ControllerBase
         //     if(test.Visible)
         //         player.currentTestTile = test;
         // }
-        foreach(Node n in this.env.GetChildren())
-        {
-            n.QueueFree();
-        }
+        // foreach(Node n in this.env.GetChildren())
+        // {
+        //     n.QueueFree();
+        // }
         this.env.AddChild(player);
 
         foreach(KeyValuePair<Vector2, Node2D> pair in grid.resourcePositions)
@@ -575,29 +604,46 @@ public class GameController : Node, ControllerBase
             pair.Value.Position = pair.Key;
             this.env.AddChild(pair.Value);
         }
-        player.Position = new Vector2(1000,1720);
-       
-        //player.Position = test.Position;
         Camera2D cam = Params.LoadScene<Camera2D>("res://Main/Camera.tscn");
         player.AddChild(cam);
+        player.Position = new Vector2(1000,1720);
+
+
+        if(this.Name == "GameController2")
+        {
+            
+            player.currentTestTile = grid.storedHexes[grid.IndexOfVec(grid.biggestY)];
+            player.Position  = player.currentTestTile.Position;
+
+            Sprite skeleton = Params.LoadScene<Sprite>("res://Assets/Sprites/Skeleton/Node2D.tscn");
+            skeleton.Position = grid.storedHexes[grid.IndexOfVec(grid.lastY)].Position;
+            this.env.AddChild(skeleton);
+            cam.LimitRight = (int)player.Position.x + 500 ;
+            cam.LimitBottom = (int)player.Position.x + 500 ;
+        }
+
+
+       
+        //player.Position = test.Position;
+        
         //cam.Position = player.Position;
  
-        //GD.Print("Getting tile: ", test);
+        ////GD.Print("Getting tile: ", test);
         
         //path = new Line2D();
         // var testObj = ReadFromBinaryFile<SaveInstance>("D:/testfile.txt");
         //this.AddChild(path);
         
-        // ////GD.Print(n.player.animationState);
+        // //////GD.Print(n.player.animationState);
         // this.hexMap = (NewHexMapTests)SaveLoader.LoadGame(testObj, this);
-        // //GD.Print("Player current tile: ",this.hexMap.player.currentTile);
+        // ////GD.Print("Player current tile: ",this.hexMap.player.currentTile);
 
         // foreach(HexCell1 cell in this.hexMap.tiles.Keys){
-        //     //GD.Print(cell);
+        //     ////GD.Print(cell);
         // }
 
         
-        // //GD.Print(testObj, "  ",testObj.childBook);
+        // ////GD.Print(testObj, "  ",testObj.childBook);
     }
 }
     

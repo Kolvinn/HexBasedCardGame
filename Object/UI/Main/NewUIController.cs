@@ -38,7 +38,7 @@ public class NewUIController : CanvasLayer
     }
 
     public void FadeToDark(){
-        GD.Print("Fading to night");
+        //GD.Print("Fading to night");
 
         Tween t = new Tween();
         ColorRect c = this.GetNode<ColorRect>("Control3/DayLight");
@@ -54,7 +54,7 @@ public class NewUIController : CanvasLayer
     public void FadeToLight()
     {
         
-        GD.Print("Fading to light");
+        //GD.Print("Fading to light");
         Tween t = new Tween();
         ColorRect c = this.GetNode<ColorRect>("Control3/DayLight");
         Color color = c.SelfModulate;
@@ -75,7 +75,7 @@ public class NewUIController : CanvasLayer
     public OptionBox CreateOption (String text){
         
         OptionBox ob = Params.LoadScene<OptionBox>("res://Object/UI/Helpers/OptionBox.tscn");
-        GD.Print("Creating option: ",ob ," at loop count: ",++i);
+        //GD.Print("Creating option: ",ob ," at loop count: ",++i);
         ob.SetOptionText(text);
         this.currentOption = ob;
         this.AddChild(ob);
@@ -149,8 +149,8 @@ public class NewUIController : CanvasLayer
         mainMenu = menu;
         this.AddChild(mainMenu);
         mainMenu.Visible = false;
-        ////GD.Print(mainMenu.RectPosition);
-        ////GD.Print(mainMenu.RectSize);
+        //////GD.Print(mainMenu.RectPosition);
+        //////GD.Print(mainMenu.RectSize);
 
     }
     public void _on_BuildResource_pressed()
@@ -168,8 +168,8 @@ public class NewUIController : CanvasLayer
         //this.mainMenu.RemoveChild(exitButton);
         
         //GridContainer n  = this.GetNode<GridContainer>("CanvasLayer/Main Building Menu");
-        GD.Print("changing menu to "+nameof(menu), " with children :", menu.GetChildren().Count);
-        GD.Print(menu.RectPosition);
+        //GD.Print("changing menu to "+nameof(menu), " with children :", menu.GetChildren().Count);
+        //GD.Print(menu.RectPosition);
         
         mainMenu.Visible =false;
         Vector2 pos = mainMenu.RectPosition;
@@ -198,16 +198,16 @@ public class NewUIController : CanvasLayer
             else 
             {
                 ++menu2Col;
-                GD.Print("adding icon to resource menu");
+                //GD.Print("adding icon to resource menu");
                 menu2.AddChild(icon);
             }
             //var item = buildingModels.FirstOrDefault(building => building.Name == p.Key);
             icon.button.HintTooltip = model.RequiredResources.GetFormattedResource();
-            ////GD.Print("first button time: ", icon.button);
+            //////GD.Print("first button time: ", icon.button);
             icon.Connect("ButtonPress", this, nameof(ButtonPressed));
             // //p.Value.Connect("ButtonPress", this,nameof(ButtonPressed));
             TextureButton b = Params.LoadScene<TextureButton>(model.TextureResource);
-            GD.Print("B ", b.Name);
+            //GD.Print("B ", b.Name);
             icon.button.Disabled =true;
             this.buildingButtons.Add(model.Name, icon.button);
             icon.UpdateIcon(model.Name,b);          
@@ -222,7 +222,7 @@ public class NewUIController : CanvasLayer
         this.housingMenu.AddChild(CreateMenuExitButton());
         this.resourceMenu.AddChild(CreateMenuExitButton());
        // this.housingMenu.AddChild(exitButton);
-        ////GD.Print(exitButton.si)
+        //////GD.Print(exitButton.si)
         housingMenu.Visible =false;
         resourceMenu.Visible = false;
     }

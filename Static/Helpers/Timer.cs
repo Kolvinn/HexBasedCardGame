@@ -16,7 +16,7 @@ public class TimerLabel : Label
         this.Text = "Humans Arrive In: ";
         if (timer !=null)
         {
-            //GD.Print("skjldnsfkjsndfknsjkdfnjksdnf");
+            ////GD.Print("skjldnsfkjsndfknsjkdfnjksdnf");
             this.Text += timer.TimeLeft;
         }
     }

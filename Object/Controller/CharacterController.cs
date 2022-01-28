@@ -15,6 +15,7 @@ using System.Collections;
 /// </summary>
 public class CharacterController :ControllerInstance
 {
+    public bool hasEnergy = true;
     public int capacity = 0;
     HexHorizontalTest characterTile;
 
@@ -25,7 +26,7 @@ public class CharacterController :ControllerInstance
     private Vector2 currentMovement = Vector2.Zero;
 
 
-    private static float maxSpeed = 500, friction = 20000, acceleration = 20000;
+    private static float maxSpeed = 2000, friction = 20000, acceleration = 20000;
     
     public Vector2 velocity = Vector2.Zero;
     
@@ -48,20 +49,27 @@ public class CharacterController :ControllerInstance
     
     [Signal]
     public delegate void ResourceDepleted(CharacterController c,BasicResource res);
+
+    [Signal]
+    public delegate void RestCompleted(CharacterController c);
+
+    public Timer workerTimer;
+    public Timer restTimer;
     
     public State.WorkerState workerState = State.WorkerState.Default;
 
     public string CurrentTask = "null";
-
-
-    public CharacterController(){
-        eventQueue = new List<GameObject>();
-    }
-
     public Node Garbage = null;
 
     public BasicResource currentTargetResource;
     public int HighestTime =int.MinValue;
+
+    
+    public CharacterController(){
+        eventQueue = new List<GameObject>();
+    }
+
+   
 
     public override void _Ready()
     {
@@ -70,10 +78,27 @@ public class CharacterController :ControllerInstance
 
     public override void _PhysicsProcess(float delta)
     {
+        if(this.workerState != State.WorkerState.Default){
+            if(hasEnergy && workerTimer == null)
+            {
+                workerTimer = new Timer();
+                this.AddChild(workerTimer);
+                workerTimer.Connect("timeout", this, nameof(On_Timeout));
+                workerTimer.Start(5);
+            }
+            else if(!hasEnergy && restTimer == null)
+            {
+                restTimer = new Timer();
+                this.AddChild(restTimer);
+                restTimer.Connect("timeout", this, nameof(On_Timeout));
+                restTimer.Start(5);
+
+            }
+        }
         
         // if(Garbage!= null)
         // {
-        //     GD.Print("Removing garbage node from parent: " ,Garbage.GetParent().GetType());
+        //     //GD.Print("Removing garbage node from parent: " ,Garbage.GetParent().GetType());
         //     Garbage.GetParent().RemoveChild(Garbage);
             
         //     Garbage.QueueFree();
@@ -86,8 +111,74 @@ public class CharacterController :ControllerInstance
 
     }
 
+    public void Rest()
+    {
+        CharacterController c = null;
+        Building b = null;
+        foreach(var v in GameController.RestSpots)
+        {
+            if(v.Value == null || v.Value == this)
+            {
+                //c = null;
+                b = v.Key;
+                break;
+            }
+            // else if()
+            // {
+            //     b = v.Key;
+            //     c= this;
+            //     break;
+            // }
+        }
+        
+        //if no building, then we need to trigger warning message
+        if(b == null){
+            GameController.ShowWarning(this);
+        }
+        
+        if(b!=null)
+        {
+            //if empty
+            if(c == null)
+            {
+                GameController.RestSpots[b] = this;
+            }
+            
+            //GD.Print("Bulding asset is: ",grid);
+            //GD.Print("Bulding asset postion is: ",grid.IndexOfVec(b.buildingAsset.Position));
+            foreach(var v in grid.pathFinder.GetPointPath(grid.IndexOfVec(character.currentTestTile.Position),grid.IndexOfVec(b.buildingAsset.Position)))
+            {
+               // GD.Print("Populating movement vector to rest spot: ", v);
+                this.movementQueue.Enqueue(v);
+            }
+        }
+    }
+    public void On_Timeout()
+    {
+        
+        if(workerTimer!= null)
+        {
+            GD.Print("Working time timeout");
+            hasEnergy = false;
+            this.RemoveChild(workerTimer);
+            workerTimer.QueueFree();
+            workerTimer = null;
+        }
+
+        else if(restTimer != null)
+        {
+            
+            GD.Print("rest time timeout");
+            hasEnergy = true;
+            this.RemoveChild(restTimer);
+            restTimer.QueueFree();
+            restTimer = null;
+            EmitSignal(nameof(RestCompleted), this);
+        }
+    }
+
     public void On_DestinationReached(){
-        GD.Print("Destination reached in charcter controller");
+        //GD.Print("Destination reached in charcter controller");
         this.DestinationReached = true;
         currentMovement = Vector2.Zero;
         movementQueue= new Queue<Vector2>();
@@ -105,7 +196,7 @@ public class CharacterController :ControllerInstance
         if(this.character.TargetHex.HexEnv is YSort)
         {   
             Node n = null;
-            GD.Print("is rock or leaves");
+            //GD.Print("is rock or leaves");
             while(n == null){
                 n = this.character.TargetHex.HexEnv.GetChild(i);
             }
@@ -114,7 +205,7 @@ public class CharacterController :ControllerInstance
         }
         else if(this.character.TargetHex.HexEnv is BasicResource)
         {
-            GD.Print("is wood");
+            //GD.Print("is wood");
             res = (BasicResource)this.character.TargetHex.HexEnv;
    
         }
@@ -130,7 +221,7 @@ public class CharacterController :ControllerInstance
         //     return;
 
         // }
-        GD.Print("Gathering Resource ", res.ResourceType);
+        //GD.Print("Gathering Resource ", res.ResourceType);
 
         while(res.Capacity != 0 && capacity != character.InventoryCapacity)
         {
@@ -143,14 +234,14 @@ public class CharacterController :ControllerInstance
         
 
         if(res.Capacity == 0){
-            GD.Print("one insataance of bassiced resource depleted ");
+            //GD.Print("one insataance of bassiced resource depleted ");
             //Garbage = res;
 
             EmitSignal("ResourceDepleted",this, res);
             
             if(!this.character.TargetHex.HasAvailableResource())
             {
-                GD.Print("dealing with depleted hex");
+                //GD.Print("dealing with depleted hex");
                 EmitSignal("HexDepleted", this.character.TargetHex);
             }           
             
@@ -159,11 +250,11 @@ public class CharacterController :ControllerInstance
         }
         // if(this.character.TargetHex.HexEnv == null || this.character.TargetHex.HexEnv.GetChildren().Count==0)
         // {
-        //     GD.Print("dealing with depleted hex");
+        //     //GD.Print("dealing with depleted hex");
         //     EmitSignal("HexDepleted", this.character.TargetHex);
         // }   
 
-            //GD.Print("Capacity reached");
+            ////GD.Print("Capacity reached");
             //EmitSignal(nameof(CapacityFull),this);
             
         
@@ -172,7 +263,7 @@ public class CharacterController :ControllerInstance
     }
 
     private Vector2 GetVectorAnimationSpace(Vector2 target){
-        ////GD.Print("calc direction from character: "+ character.Position+ "     and target position "+ target);
+        //////GD.Print("calc direction from character: "+ character.Position+ "     and target position "+ target);
         float x = 0f, y= 0f;
         if(target.x != character.Position.x)
             x = character.Position.x > target.x ? -1f:1f;
@@ -180,7 +271,7 @@ public class CharacterController :ControllerInstance
         if(target.y != character.Position.y)
             y = character.Position.y > target.y ? -1f:1f;
 
-        ////GD.Print("returning vector: ", new Vector2(x,y));
+        //////GD.Print("returning vector: ", new Vector2(x,y));
         return new Vector2(x,y);
     }
 
@@ -211,7 +302,7 @@ public class CharacterController :ControllerInstance
 
                 character.animationState.Travel("Walk");
                 character.Position = character.Position.MoveToward(currentMovement,delta*maxSpeed);
-                ////GD.Print("current character position: "+character.Position);
+                //////GD.Print("current character position: "+character.Position);
                 //this.character.move(velocity);
                 //MoveToPoint(currentMovement, delta);
             }
@@ -220,19 +311,22 @@ public class CharacterController :ControllerInstance
         if(currentMovement == Vector2.Zero && this.movementQueue != null && this.movementQueue.Count !=0){   
                           
             currentMovement = this.movementQueue.Dequeue();
-            GD.Print("Dequing vector: ",currentMovement) ; 
+            //GD.Print("Dequing vector: ",currentMovement) ; 
         }
         else if(currentMovement == Vector2.Zero && !DestinationReached && character.TargetHex != null)
         {
-            GD.Print("moving to targetHex");
+            //GD.Print("moving to targetHex");
             character.Position = character.Position.MoveToward(character.TargetHex.Position,delta*maxSpeed);
+        }
+        else{
+            character.animationState.Travel("Idle");    
         }
         //if we have a movement command pressed and are not currently moving,
         //create new movement queue and add to current movement
         // else if(this.character != null && Input.IsActionJustPressed("right_click") 
         // && (this.movementQueue ==null || this.movementQueue.Count==0))
         // {
-        //     ////GD.Print("right click found");
+        //     //////GD.Print("right click found");
         //     HexHorizontalTest found=null;
         //     int toindex =-1, fromidx = -1;
 
@@ -241,7 +335,7 @@ public class CharacterController :ControllerInstance
 
         //         //get the last tile that the mouse was in
         //         if(cell.Value.eventState == State.MouseEventState.Entered){
-        //             //GD.Print("Entered cell: ", cell);
+        //             ////GD.Print("Entered cell: ", cell);
 
         //             found = cell.Value;
         //             toindex = cell.Key;
@@ -263,10 +357,10 @@ public class CharacterController :ControllerInstance
         //     //tiles.TryGetValue(characterTile, out fromidx);
         //     if(toindex >=0 && fromidx >=0)
         //     {
-        //         //GD.Print("movementQueue populating");
+        //         ////GD.Print("movementQueue populating");
         //         foreach(Vector2 vec in grid.pathFinder.GetPointPath(fromidx, toindex))
         //         {
-        //             //GD.Print(vec);
+        //             ////GD.Print(vec);
         //             //path.AddPoint(vec);
         //             movementQueue.Enqueue(vec);
 

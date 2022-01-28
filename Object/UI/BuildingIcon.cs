@@ -11,13 +11,13 @@ public class BuildingIcon : VBoxContainer
     public override void _Ready()
     {
 
-        ////GD.Print("entering ready for Building Icon");
+        //////GD.Print("entering ready for Building Icon");
         this.button = GetNode<TextureButton>("TextureButton");
         this.label = GetNode<Label>("Label");
-       // //GD.Print("button: ",this.button);
+       // ////GD.Print("button: ",this.button);
         foreach(Node n in this.GetChildren())
         {
-           // //GD.Print("Node n: ", n);
+           // ////GD.Print("Node n: ", n);
         }
         //this.SizeFlagsHorizontal = 3;
         //this.SizeFlagsVertical = 3;
@@ -30,7 +30,7 @@ public class BuildingIcon : VBoxContainer
         //     this.RemoveChild(n);
         //     n.QueueFree();
         // }
-        ////GD.Print("button: ",button);
+        //////GD.Print("button: ",button);
         this.button.TextureNormal = new AtlasTexture(){
             Atlas = ((AtlasTexture)btn.TextureNormal).Atlas,
             Region = ((AtlasTexture)btn.TextureNormal).Region,
@@ -43,6 +43,12 @@ public class BuildingIcon : VBoxContainer
         this.button.Connect("pressed",this, nameof(on_pressed));
         this.Update();
 
+    }
+
+    public void _on_TextureButton_pressed()
+    {
+        GD.Print("is pressed");
+         EmitSignal(nameof(ButtonPress),this.label.Text);
     }
     public override void _Process(float delta)
     {   

@@ -26,7 +26,7 @@ public class OptionBox : Control
     }
     public void _on_Accept_pressed()
     {
-        GD.Print("Emitting signal of true");
+        //GD.Print("Emitting signal of true");
         EmitSignal(nameof(OnResponse), true, this);
        // this.QueueFree();
     }
@@ -38,7 +38,7 @@ public class OptionBox : Control
 
     public void _on_Finish_pressed()
     {
-        GD.Print("Emitting finished pressed of false and null");
+        //GD.Print("Emitting finished pressed of false and null");
         EmitSignal(nameof(OnResponse), false, null);
     }
 
@@ -50,7 +50,7 @@ public class OptionBox : Control
 
     public void _on_Decline_pressed()
     {
-        GD.Print("decline pressed");
+        //GD.Print("decline pressed");
         EmitSignal(nameof(OnResponse), false, this);
         //this.QueueFree();
     }

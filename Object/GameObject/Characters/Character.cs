@@ -68,7 +68,7 @@ public class Character : KinematicBody2D, GameObject
 		
 
 		if(typeof(ShaderMaterial) == spMat.GetType()){
-			//GD.Print("is the same type");
+			////GD.Print("is the same type");
 			sm = (ShaderMaterial)spMat;
 			//sm.SetShaderParam("Color", new Color(0,0,0,1));
 		}
@@ -77,7 +77,7 @@ public class Character : KinematicBody2D, GameObject
 
 		
 		this.animationState = (AnimationNodeStateMachinePlayback)this.animationTree.Get("parameters/playback");
-		//GD.Print("loaded player: ", this.animationState,this.animationTree, this.animationState);
+		////GD.Print("loaded player: ", this.animationState,this.animationTree, this.animationState);
 		
 		
 	}
@@ -96,14 +96,14 @@ public class Character : KinematicBody2D, GameObject
         Vector2 pos = new Vector2(randW, randH +2);
         Vector2 size = new Vector2(sectionW, sectionH);
         tex.Region = new Rect2(pos, size);
-		GD.Print("Spawning random aatlas pos at :", tex.Region);
+		//GD.Print("Spawning random aatlas pos at :", tex.Region);
         tex.Flags = 1;
 		tex.FilterClip  =true;
         return tex;
     }
 
 	public void _on_Area2D_area_entered(Area2D area){
-		////GD.Print("Area entered: ", area.Name + "    with pos: "+area.GlobalPosition);
+		//////GD.Print("Area entered: ", area.Name + "    with pos: "+area.GlobalPosition);
 		if(area?.GetType() == typeof(HexHorizontalTest))
 		{
 			if((HexHorizontalTest)area == TargetHex){
@@ -112,14 +112,14 @@ public class Character : KinematicBody2D, GameObject
 			else{
 				currentTestTile = (HexHorizontalTest)area;
 			}
-			////GD.Print("Setting current hex to ;",currentTestTile.Name);
+			//////GD.Print("Setting current hex to ;",currentTestTile.Name);
 		}
 	}
 
 	public void _on_EncounterArea_area_entered(Area2D area)
 	{
 		if(area is Interactable){
-			//GD.Print("Adding interactable");
+			////GD.Print("Adding interactable");
 			encounters.Add((Interactable)area);
 		}
 	}
@@ -133,7 +133,7 @@ public class Character : KinematicBody2D, GameObject
 	public void _on_EncounterArea_body_entered(Node body){
 		if(typeof(GameObject).IsInstanceOfType(body) && body != this)
 		{
-			//GD.Print("Adding body: ", body.Name);
+			////GD.Print("Adding body: ", body.Name);
 			encounters.Add((GameObject)body);
 		}
 	}

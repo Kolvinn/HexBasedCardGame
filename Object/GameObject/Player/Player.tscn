@@ -36,7 +36,7 @@ shader_param/line_color = Color( 0, 0, 0, 1 )
 shader_param/line_thickness = 0.0
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 9
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 0, 5, 156, 285 )
 

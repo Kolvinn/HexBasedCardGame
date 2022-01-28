@@ -8,7 +8,7 @@ public class Interactable : Area2D, GameObject
     public State.MouseEventState mouseEventState;
     public void _on_Area2D_mouse_entered()
     {
-        //GD.Print("Mouse entered for the light2d");
+        ////GD.Print("Mouse entered for the light2d");
         this.mouseEventState =  State.MouseEventState.Entered;
         PlayerController.TryAddObjectToQueue(this);
     }

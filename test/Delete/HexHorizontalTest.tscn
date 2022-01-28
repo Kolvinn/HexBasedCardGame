@@ -34,7 +34,6 @@ texture = ExtResource( 1 )
 texture_mode = 2
 
 [node name="TopBorder" type="Line2D" parent="."]
-visible = false
 light_mask = 16517
 points = PoolVector2Array( -24, -61.4286 )
 width = 3.0

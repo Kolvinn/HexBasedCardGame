@@ -337,7 +337,7 @@ animations = [ {
 
 [node name="Node2D" type="AnimatedSprite"]
 frames = SubResource( 66 )
-frame = 33
+frame = 58
 speed_scale = 1.5
 playing = true
-offset = Vector2( 0, -20 )
+offset = Vector2( 0, -16 )

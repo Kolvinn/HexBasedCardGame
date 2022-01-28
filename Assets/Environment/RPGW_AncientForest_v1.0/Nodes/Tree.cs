@@ -22,7 +22,7 @@ public class Tree : Sprite
             this.RemoveChild(t);
         t = new Tween();
         if(area is Player){
-            //GD.Print(area);
+            ////GD.Print(area);
             Color c = this.SelfModulate;
             c.a = 0.2f;
             //this.SelfModulate = c;

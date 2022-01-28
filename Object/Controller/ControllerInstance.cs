@@ -6,7 +6,9 @@ public class ControllerInstance : Node2D, ControllerBase{
     public enum ControllerState{
         AcceptAllInput,
         AcceptPartialInput,
-        Wait
+        BattleInput,
+        Wait,
+
     }
 
     public ControllerState state;

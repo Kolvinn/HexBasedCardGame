@@ -1,11 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Object/GameObject/Card/Card.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Sprites/book/book-1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/IMG_0343.PNG" type="Texture" id=3]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-SemiBold.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 9
+atlas = ExtResource( 2 )
+region = Rect2( 1, 224, 159, 160 )
+filter_clip = true
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+use_mipmaps = true
+font_data = ExtResource( 4 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -19,7 +32,8 @@ margin_left = -696.0
 margin_top = -541.0
 margin_right = 696.0
 margin_bottom = 541.0
-texture = ExtResource( 2 )
+mouse_filter = 2
+texture = ExtResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -28,129 +42,79 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/margin_right = 120
-custom_constants/margin_top = 120
-custom_constants/margin_left = 120
+custom_constants/margin_right = 300
+custom_constants/margin_top = 150
+custom_constants/margin_left = 300
 custom_constants/margin_bottom = 120
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GridContainer" type="GridContainer" parent="TextureRect/MarginContainer"]
-margin_left = 120.0
-margin_top = 120.0
-margin_right = 1272.0
+margin_left = 300.0
+margin_top = 150.0
+margin_right = 1092.0
 margin_bottom = 962.0
 rect_pivot_offset = Vector2( -1157, -122 )
-columns = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_right = 285.0
-margin_bottom = 419.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
+[node name="Instructions" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -484.5
+margin_top = -436.5
+margin_right = 484.5
+margin_bottom = 436.5
+texture = SubResource( 3 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Control2" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 289.0
-margin_right = 574.0
-margin_bottom = 419.0
+[node name="MarginContainer" type="MarginContainer" parent="Instructions"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/margin_right = 230
+custom_constants/margin_top = 0
+custom_constants/margin_left = 230
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control2" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
-
-[node name="Control3" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 578.0
-margin_right = 863.0
-margin_bottom = 419.0
+[node name="Label" type="Label" parent="Instructions/MarginContainer"]
+margin_left = 230.0
+margin_right = 739.0
+margin_bottom = 873.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "This is your book of spells from the lost pages you find. 
 
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control3" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
+You can use these as part of a deck when fighting.
 
-[node name="Control4" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 867.0
-margin_right = 1152.0
-margin_bottom = 419.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+You can also learn as many spells as you have spell slots. Learning spells have a cool down and can only be used occasionally, so pick your learned spells well!
 
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control4" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
+Drag and drop your desired spell into the slots below to learn your spell. Once learned, you may use these spells in, and outside of, combat,  on cooldown, and as your mana allows. This means these spells can affect the environment and characters around you!
 
-[node name="Control5" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_top = 423.0
-margin_right = 285.0
-margin_bottom = 842.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
+BUT BE WARNED
 
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control5" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
-
-[node name="Control6" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 289.0
-margin_top = 423.0
-margin_right = 574.0
-margin_bottom = 842.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control6" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
-
-[node name="Control7" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 578.0
-margin_top = 423.0
-margin_right = 863.0
-margin_bottom = 842.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control7" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
-
-[node name="Control8" type="Control" parent="TextureRect/MarginContainer/GridContainer"]
-margin_left = 867.0
-margin_top = 423.0
-margin_right = 1152.0
-margin_bottom = 842.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CardTest" parent="TextureRect/MarginContainer/GridContainer/Control8" instance=ExtResource( 1 )]
-position = Vector2( 112, 164 )
+Spells used incorrectly, accidentally, or without thought, can have unwanted affects on your environment! With great power comes great responsbility - at least that's what Uncle Ben taught me."
+align = 1
+valign = 1
+autowrap = true

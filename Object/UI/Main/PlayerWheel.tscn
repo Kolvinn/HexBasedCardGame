@@ -5,7 +5,7 @@
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon16.png" type="Texture" id=3]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=5]
-[ext_resource path="res://Documents/IMG_0343.PNG" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/IMG_0343.PNG" type="Texture" id=6]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/ProgressBar_02/BarV2_ProgressBar.png" type="Texture" id=7]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon28.png" type="Texture" id=8]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Panel04.png" type="Texture" id=9]

@@ -41,11 +41,11 @@ public class HandView : Node2D
         }
     
         if(Params.Debug){
-            //GD.Print("Card holder postition: ", cardHolder.Position);
+            ////GD.Print("Card holder postition: ", cardHolder.Position);
 
-            //GD.Print("Card view postition: ", cardView.Position);
+            ////GD.Print("Card view postition: ", cardView.Position);
 
-            //GD.Print("CardHolder child: ",cardHolder.GetChild(0));
+            ////GD.Print("CardHolder child: ",cardHolder.GetChild(0));
 
         }
         //always need to make sure our rotation matches our card split
@@ -62,7 +62,7 @@ public class HandView : Node2D
 
         float finalCardPos = nextPos + (holders.Count * nextRotation);
 
-        ////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+        //////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
         float maxH =0, maxV =0;
         float minH= float.MaxValue, minV = float.MaxValue;
@@ -123,7 +123,7 @@ public class HandView : Node2D
 
        
 
-        ////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
+        //////GD.Print("next rotation amount: "+nextRotation+ " card rot: "+this.holders[0].RotationDegrees+ "   next pos: "+nextPos);
 
         
         //float nextPos = startingPos + nextRotation;

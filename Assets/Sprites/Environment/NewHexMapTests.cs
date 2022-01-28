@@ -100,7 +100,7 @@ public class NewHexMapTests : Node2D, GameObject
     
 
     private Vector2 GetVectorAnimationSpace(Vector2 target){
-        ////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
+        //////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
         float x = 0f, y= 0f;
         if(target.x != player.Position.x)
             x = player.Position.x > target.x ? -1f:1f;
@@ -108,7 +108,7 @@ public class NewHexMapTests : Node2D, GameObject
         if(target.y != player.Position.y)
             y = player.Position.y > target.y ? -1f:1f;
 
-        ////GD.Print("returning vector: ", new Vector2(x,y));
+        //////GD.Print("returning vector: ", new Vector2(x,y));
         return new Vector2(x,y);
     }
 
@@ -134,7 +134,7 @@ public class NewHexMapTests : Node2D, GameObject
 
                 player.animationState.Travel("Walk");
                 player.Position = player.Position.MoveToward(currentMovement,delta*250);
-                ////GD.Print("current player position: "+player.Position);
+                //////GD.Print("current player position: "+player.Position);
                 //this.player.move(velocity);
                 //MoveToPoint(currentMovement, delta);
             }
@@ -149,27 +149,27 @@ public class NewHexMapTests : Node2D, GameObject
             if(playerTile == null){
                 this.playerTile = startingTile;
                 player.currentTile = this.playerTile;
-                //GD.Print("Setting player tile  to: ", playerTile);
+                ////GD.Print("Setting player tile  to: ", playerTile);
             }
-            ////GD.Print("right click found");
+            //////GD.Print("right click found");
             HexCell1 found=null;
             int toindex =0;
 
             foreach(HexCell1 cell in tiles.Keys){
                 path.ClearPoints();
                 if(cell.eventState == State.MouseEventState.Entered){
-                    //GD.Print("Entered cell: ", cell);
+                    ////GD.Print("Entered cell: ", cell);
 
                     found = cell;
                     tiles.TryGetValue(cell, out toindex);
-                    ////GD.Print(fromI.)
+                    //////GD.Print(fromI.)
 
 
                     int fromidx;
                     tiles.TryGetValue(playerTile, out fromidx);
-                    //GD.Print("movementQueue populating");
+                    ////GD.Print("movementQueue populating");
                     foreach(Vector2 vec in pathFinder.GetPointPath(fromidx, toindex)){
-                        //GD.Print(vec);
+                        ////GD.Print(vec);
                         path.AddPoint(vec);
                         movementQueue.Enqueue(vec);
 

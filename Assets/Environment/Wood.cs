@@ -14,7 +14,7 @@ public class Wood : KinematicBody2D
 
     // public void _on_Wood_mouse_entered()
     // {
-    //     ////GD.Print("Mouse entered for the wooooooood");
+    //     //////GD.Print("Mouse entered for the wooooooood");
     //     this.mouseEventState =  State.MouseEventState.Entered;
     //     PlayerController.TryAddObjectToQueue(this);
     // }

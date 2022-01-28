@@ -52,7 +52,7 @@ public class ResourcePostController: Node2D, ControllerBase
   
     public ResourcePostController(OptionBox box, HexGrid grid, Building b)
     {
-        GD.Print("genning test task");
+        //GD.Print("genning test task");
         TestTask t = new TestTask();
         WorkerThread = new System.Threading.Thread(new ThreadStart(ParseWorkerState));
         this.grid = grid;
@@ -77,7 +77,7 @@ public class ResourcePostController: Node2D, ControllerBase
         {   
 
             //get random connected neighbour. Make this better later
-            GD.Print("testing connection for : ", hex, " aaand : ",h);
+            //GD.Print("testing connection for : ", hex, " aaand : ",h);
             
             int path = grid.pathFinder.GetPointPath(grid.IndexOfVec(h.Position), fromIndex).Length;
             if(path > 0)
@@ -95,25 +95,21 @@ public class ResourcePostController: Node2D, ControllerBase
     {
         
         c.DestinationReached = false;
-        GD.Print("Worker going to gather");
-        //BasicResource FoundResource = null;
 
-        //if we have a resource to go back to, then
-        if(c.currentTargetResource != null){
-            GD.Print("resource is not null");
-        }
-        else 
+        int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
+
+        if(pos == -1)
         {
-            GD.Print("resource is null");
-            int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
+            return;
+        }
             int toIndex = grid.IndexOfVec(resourceMap.GetPointPosition(pos));
             int fromIndex = grid.IndexOfVec(c.character.currentTestTile.Position);
             HexHorizontalTest hex=  grid.storedHexes[toIndex];
             
 
             BasicResource res = hex.GetNextNonBusyResource();
-            GD.Print("Resource is: ", res);
-            GD.Print("hex is: ", hex);
+            //GD.Print("Resource is: ", res);
+            //GD.Print("hex is: ", hex);
             //We've found a resource that isn't busy, so let's go gaather it
             if(res != null)
             {   
@@ -126,7 +122,7 @@ public class ResourcePostController: Node2D, ControllerBase
             else
             {
                 BusyHexes.Add(hex);
-                GD.Print("Disabling point at pos: ", pos);
+                //GD.Print("Disabling point at pos: ", pos);
                 resourceMap.SetPointDisabled(HexToInt[hex], true);
 
                 WorkerGoToGather(c);
@@ -138,12 +134,12 @@ public class ResourcePostController: Node2D, ControllerBase
 
             if(newHex == null)
             {
-                GD.Print("no valid border");
+                //GD.Print("no valid border");
 
             }
             else
             {
-                GD.Print("border is valid, populating destination with new hex");
+                //GD.Print("border is valid, populating destination with new hex");
                 c.character.TargetHex = hex;
                 c.workerState = State.WorkerState.Gather;
                 PopulateCharacterPath(c,fromIndex, grid.IndexOfVec(newHex.Position));
@@ -153,17 +149,17 @@ public class ResourcePostController: Node2D, ControllerBase
             // if(!grid.pathFinder.ArePointsConnected(fromIndex,toIndex))
             // {
             //     BusyHexes.Add(hex);
-            //     GD.Print("POINTS ARE NOT CONENCTED MUFUSA : ", hex.connections.Count);
+            //     //GD.Print("POINTS ARE NOT CONENCTED MUFUSA : ", hex.connections.Count);
 
             //     resourceMap.SetPointDisabled(HexToInt[hex], true);
             //     WorkerGoToGather(c);
             //     return;
             // }
-            // GD.Print("from: ", fromIndex, "  to: ",toIndex, " with c: ",c);
+            // //GD.Print("from: ", fromIndex, "  to: ",toIndex, " with c: ",c);
             // c.character.TargetHex = hex;
             // c.workerState = State.WorkerState.Gather;
             // PopulateCharacterPath(c,fromIndex, toIndex);
-        }
+        
     //     while(FoundResource == null)
     //     {
             
@@ -182,7 +178,7 @@ public class ResourcePostController: Node2D, ControllerBase
     //         //if(BusyResources[FoundResource] == )
     //     }
     //         //int fromIndex = grid.IndexOfVec(c.character.currentTestTile.Position);
-    //    // GD.Print("fromIdx: ", fromIndex, " toIndex: ", toIndex);
+    //    // //GD.Print("fromIdx: ", fromIndex, " toIndex: ", toIndex);
         
     //     //if()
         
@@ -195,7 +191,7 @@ public class ResourcePostController: Node2D, ControllerBase
     public void WorkerDrop(CharacterController c)
     {
         BasicResource b = c.resType;
-        GD.Print("Emitting signala with ", c.resType, c.capacity);
+        //GD.Print("Emitting signala with ", c.resType, c.capacity);
         EmitSignal(nameof(ResourceDrop),b,c.capacity);
         c.capacity = 0;
         //this.AssignedWorkers.Add(c);
@@ -207,11 +203,11 @@ public class ResourcePostController: Node2D, ControllerBase
     {
         c.DestinationReached = false;
         //int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
-        //GD.Print("Worker Position: ", AssignedWorkers[0].Position);
-        GD.Print("Worker Go to Drop with state: ", c.workerState);
+        ////GD.Print("Worker Position: ", AssignedWorkers[0].Position);
+        //GD.Print("Worker Go to Drop with state: ", c.workerState);
         int toIndex = grid.IndexOfVec(this.ResourcePost.buildingAsset.Position);
         int fromIndex = grid.IndexOfVec(c.character.currentTestTile.Position);
-        GD.Print("fromIdx: ", fromIndex, " toIndex: ", toIndex);
+        //GD.Print("fromIdx: ", fromIndex, " toIndex: ", toIndex);
         HexHorizontalTest hex=  grid.storedHexes[toIndex];
         c.character.TargetHex = hex;
         c.workerState = State.WorkerState.Dropping;
@@ -221,7 +217,7 @@ public class ResourcePostController: Node2D, ControllerBase
 
     public void WorkerGather(CharacterController c)
     {
-        GD.Print("Gather Resource");
+        //GD.Print("Gather Resource");
         c.GatherResource();
     }
 
@@ -252,10 +248,10 @@ public class ResourcePostController: Node2D, ControllerBase
 
             // int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
             // Vector2 vec = resourceMap.GetClosestPositionInSegment(this.ResourcePost.buildingAsset.Position);
-            // GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
-            // GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
-            // GD.Print("Worker Position: ", AssignedWorkers[0].character.Position);
-            // //GD.Print("Worker Position: ", AssignedWorkers[0].Position);
+            // //GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
+            // //GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
+            // //GD.Print("Worker Position: ", AssignedWorkers[0].character.Position);
+            // ////GD.Print("Worker Position: ", AssignedWorkers[0].Position);
             // int toIndex = grid.IndexOfVec(resourceMap.GetPointPosition(pos));
             // int fromIndex = grid.IndexOfVec(AssignedWorkers[0].character.Position);
 
@@ -265,10 +261,10 @@ public class ResourcePostController: Node2D, ControllerBase
             // contr.CurrentTask = "Gather";
             // this.AssignedWorkers.Remove(contr);
             // //AssignedWorkers[0].
-            // GD.Print("toIndex: ", toIndex, "   fromIndex: ", fromIndex);
+            // //GD.Print("toIndex: ", toIndex, "   fromIndex: ", fromIndex);
             // PopulateCharacterPath(contr,fromIndex, toIndex);
             
-            //GD.Print("Index of vector ",grid.IndexOfVec(resourceMap.GetPointPosition(pos)));
+            ////GD.Print("Index of vector ",grid.IndexOfVec(resourceMap.GetPointPosition(pos)));
             //this.AssignedWorkers[0].movementQueue
             //this.AssignedWorkers = null;
             
@@ -277,7 +273,7 @@ public class ResourcePostController: Node2D, ControllerBase
 
     public void On_WorkerAmountChange(int amount)
     {
-        GD.Print("worker amount: ", this.workerAmount, " chanigng with ", amount, " worker");
+        //GD.Print("worker amount: ", this.workerAmount, " chanigng with ", amount, " worker");
         if(amount <0)
         {
             if(workerAmount+amount >= 0)
@@ -295,13 +291,14 @@ public class ResourcePostController: Node2D, ControllerBase
         else{
             if(AvailableWorkers?.Count > 0)
             {
-                GD.Print("Workers are available, setting 1 to Idle");
+                //GD.Print("Workers are available, setting 1 to Idle");
                 CharacterController c = AvailableWorkers[0];
                 c.character.Connect("TargetHexReached", c, "On_DestinationReached");
                 c.Connect("TargetHexReached", this, nameof( On_DestinationReached));
                 c.Connect("CapacityFull", this, nameof(On_CapacityFull));
                 c.Connect("HexDepleted", this, "On_HexDepleted");
                 c.Connect("ResourceDepleted", this, "On_ResourceDepleted");
+                c.Connect("RestCompleted",this, "On_RestCompleted");
                 AvailableWorkers.RemoveAt(0);   
                 AssignedWorkers.Add(c);
                 IdleWorkers.Enqueue(c);
@@ -317,9 +314,13 @@ public class ResourcePostController: Node2D, ControllerBase
         //this.optionBox.GetNode<Label>("TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/Label").Text = "Workers: "+workerAmount;
     }
 
+    public void On_RestCompleted(CharacterController c){
+        this.IdleWorkers.Enqueue(c);
+    }
+
     public void On_ResourceDepleted(CharacterController c, BasicResource res)
     {
-        GD.Print("on depleted res", res);
+        //GD.Print("on depleted res", res);
         if(BusyResources.ContainsKey(res))
             BusyResources.Remove(res);
         c.currentTargetResource = null;
@@ -329,7 +330,7 @@ public class ResourcePostController: Node2D, ControllerBase
     {
         
         int index = HexToInt[hex];
-        GD.Print("depleted hex with index", index);
+        //GD.Print("depleted hex with index", index);
         //resourceMap.RemovePoint(index);
         resourceMap.SetPointDisabled(index, true);
         BusyHexes.Remove(hex);
@@ -338,15 +339,21 @@ public class ResourcePostController: Node2D, ControllerBase
 
     public void On_DestinationReached(CharacterController c, string task)
     {
-        if(c.workerState == State.WorkerState.Gather)
+        if(c.hasEnergy)
         {
-            c.GatherResource();
-            WorkerGoToDrop(c);
+            if(c.workerState == State.WorkerState.Gather)
+            {
+                c.GatherResource();
+                WorkerGoToDrop(c);
+            }
+            else if(c.workerState == State.WorkerState.Dropping)
+            {
+                WorkerDrop(c);
+                WorkerGoToGather(c);
+            }
         }
-        else if(c.workerState == State.WorkerState.Dropping)
-        {
-            WorkerDrop(c);
-            WorkerGoToGather(c);
+        else {
+            c.Rest();
         }
         //IdleWorkers.Enqueue(c);
         // if(task == "Gather")
@@ -357,7 +364,7 @@ public class ResourcePostController: Node2D, ControllerBase
         // else if(task  == "Drop")
         // {
         //     BasicResource b = c.resType;
-        //     GD.Print("Emitting signala with ", c.resType, c.capacity);
+        //     //GD.Print("Emitting signala with ", c.resType, c.capacity);
         //     EmitSignal(nameof(ResourceDrop),b,c.capacity);
         //     c.capacity = 0;
         //     //this.AssignedWorkers.Add(c);
@@ -371,10 +378,10 @@ public class ResourcePostController: Node2D, ControllerBase
         int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
         
         Vector2 vec = resourceMap.GetClosestPositionInSegment(this.ResourcePost.buildingAsset.Position);
-        GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
-        GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
-        GD.Print("Worker Position: ", c.character.Position);
-        //GD.Print("Worker Position: ", AssignedWorkers[0].Position);
+        //GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
+        //GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
+        //GD.Print("Worker Position: ", c.character.Position);
+        ////GD.Print("Worker Position: ", AssignedWorkers[0].Position);
         int toIndex = grid.IndexOfVec(resourceMap.GetPointPosition(pos));
         int fromIndex = grid.IndexOfVec(c.character.currentTestTile.Position);
 
@@ -384,7 +391,7 @@ public class ResourcePostController: Node2D, ControllerBase
         c.CurrentTask = "Gather";
         //this.AssignedWorkers.Remove(contr);
         //AssignedWorkers[0].
-        GD.Print("toIndex: ", toIndex, "   fromIndex: ", fromIndex);
+        //GD.Print("toIndex: ", toIndex, "   fromIndex: ", fromIndex);
         PopulateCharacterPath(c,fromIndex, toIndex);
     }
 
@@ -433,10 +440,10 @@ public class ResourcePostController: Node2D, ControllerBase
         // int pos = resourceMap.GetClosestPoint(this.ResourcePost.buildingAsset.Position);
 
         // //Vector2 vec = resourceMap.GetClosestPositionInSegment(this.ResourcePost.buildingAsset.Position);
-        // GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
-        // GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
-        // GD.Print("Worker Position: ", c.character.Position);
-        // //GD.Print("Worker Position: ", AssignedWorkers[0].Position);
+        // //GD.Print("closest vector to post pos: ", this.ResourcePost.buildingAsset.Position, " is ", resourceMap.GetPointPosition(pos));
+        // //GD.Print("closest vector as ID: ", resourceMap.GetPointPosition(pos));
+        // //GD.Print("Worker Position: ", c.character.Position);
+        // ////GD.Print("Worker Position: ", AssignedWorkers[0].Position);
         // int toIndex = grid.IndexOfVec(this.ResourcePost.buildingAsset.Position);
         // int fromIndex = grid.IndexOfVec(c.character.currentTestTile.Position);
         // HexHorizontalTest hex=  grid.storedHexes[toIndex];
@@ -449,12 +456,12 @@ public class ResourcePostController: Node2D, ControllerBase
     public void PopulateCharacterPath(CharacterController c, int from, int to)
     {
 
-        GD.Print("populating charactyer path with c: ", c, " aand path length: ",grid.pathFinder.GetPointPath(from, to).Length);
+        //GD.Print("populating charactyer path with c: ", c, " aand path length: ",grid.pathFinder.GetPointPath(from, to).Length);
         Queue<Vector2> qT = new Queue<Vector2>();
         foreach( Vector2 v in grid.pathFinder.GetPointPath(from, to))
             { 
                 
-                GD.Print("populating character path with : ",v);              
+                //GD.Print("populating character path with : ",v);              
                 qT.Enqueue(v);                
             }
         c.movementQueue = qT;
@@ -475,12 +482,13 @@ public class ResourcePostController: Node2D, ControllerBase
 
         if(this.AssignedWorkers!=null && resourceMap != null && this.AssignedWorkers.Count>0)
         {
-            if(IdleWorkers.Count > 0 && ( WorkerThread.ThreadState == ThreadState.Unstarted || WorkerThread.ThreadState == ThreadState.Stopped))
+            if(IdleWorkers.Count > 0 )//&& ( WorkerThread.ThreadState == ThreadState.Unstarted || WorkerThread.ThreadState == ThreadState.Stopped))
             {
-                
+                GD.Print("Starting new worker thread");
                 NextIdleWorker = IdleWorkers.Dequeue();
-                GD.Print("Starting worker thread for worker: ", NextIdleWorker);
-                GD.Print("Thread State: ", WorkerThread.ThreadState);
+                NextIdleWorker.workerState = State.WorkerState.Default;
+                //GD.Print("Starting worker thread for worker: ", NextIdleWorker);
+                //GD.Print("Thread State: ", WorkerThread.ThreadState);
                 WorkerThread = new System.Threading.Thread(new ThreadStart(ParseWorkerState));
                 WorkerThread.Start();
             }

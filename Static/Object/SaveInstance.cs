@@ -71,7 +71,7 @@ public class SaveInstance{
 //                 else
 //                 {      
                     
-//                     ////GD.Print("      custom attributes: ", f.Attributes,"      ",f.CustomAttributes);
+//                     //////GD.Print("      custom attributes: ", f.Attributes,"      ",f.CustomAttributes);
 //                     object ret = ParseSaveObject(f.Name,f.GetValue(o),o);
 //                     loopNum++;
 
@@ -79,7 +79,7 @@ public class SaveInstance{
 //                     if(ret !=null)
 //                     {
 //                         this.childBook.Add(f.Name,ParseSaveObject(f.Name,f.GetValue(o), o));   
-//                         ////GD.Print("writing field: ",f.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
+//                         //////GD.Print("writing field: ",f.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
 //                     } 
 //                 } 
 //             }
@@ -105,7 +105,7 @@ public class SaveInstance{
 //                 //make sure that we aren't storing something null that we can't parse!
 //                 if(ret !=null){
 //                     this.childBook.Add(p.Name,ParseSaveObject(p.Name,p.GetValue(o),o));    
-//                     ////GD.Print("writing property: ",p.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
+//                     //////GD.Print("writing property: ",p.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
 //                 }
 //             }
                 
@@ -126,13 +126,13 @@ public class SaveInstance{
 //         List<object> objList = new List<object>();
 //         Dictionary<object,object> objDict = new Dictionary<object, object>();
 //         Queue<object> objQueue = new Queue<object>();
-//         //GD.Print("Attempting to store: ", fieldName, " as ",o, " in parent: ",parent.GetType());
+//         ////GD.Print("Attempting to store: ", fieldName, " as ",o, " in parent: ",parent.GetType());
 //         if(parent.GetType() == typeof(Card))
 //         {
 //             if(fieldName == "testStringList")
 //             {
 //                 foreach(object thing in (List<string>)o){
-//                     //GD.Print("      parsing string object ",thing.ToString());
+//                     ////GD.Print("      parsing string object ",thing.ToString());
 //                     objList.Add(ParseSaveObject(null,thing,null));
 //                 }
 //                 return objList;
@@ -278,7 +278,7 @@ public class SaveInstance{
 //     {      
 //         object returnValue = null;
         
-//         ////GD.Print("parsing ",fieldName,": ", o, " as ",o.GetType());
+//         //////GD.Print("parsing ",fieldName,": ", o, " as ",o.GetType());
 //         //need to expand on nodes that are GameObjects, otherwise we can just store a generic Node
 //         if(typeof(Node).IsInstanceOfType(o) && o.GetType() != typeof(Godot.AnimationPlayer))
 //         {           
@@ -349,13 +349,13 @@ public class SaveInstance{
 //     //         }
 //     //         else if(typeof(Enum).IsInstanceOfType(o)){
                 
-//     //             ////GD.Print(o.GetType(), "  ",o, "   ",f);
+//     //             //////GD.Print(o.GetType(), "  ",o, "   ",f);
 //     //             parentDict.Add(f.Name, o);
-//     //             //////GD.Print(Enum.Format)
+//     //             ////////GD.Print(Enum.Format)
 //     //             //TryWriteSingleToJson(f,o,parentDict);
 //     //         }
 //     //         else if(typeof(Vector2).IsInstanceOfType(o)){
-//     //             ////GD.Print("creating an vector 2 save obj");
+//     //             //////GD.Print("creating an vector 2 save obj");
 //     //             TryWriteSingleToJson(f,new Vector2Save((Vector2)o),parentDict);
 //     //             //parentDict.Add(f.Name, new Vector2Save);
 //     //         }
@@ -378,10 +378,10 @@ public class SaveInstance{
 //     //             }
 //     //             else if(save.objectType.GetGenericTypeDefinition() == typeof(Queue<>)){
 //     //             }
-//     //             //GD.Print("is a generic type yay");
+//     //             ////GD.Print("is a generic type yay");
 //     //         }
 //     //         else if(typeof(ICollection<>).IsInstanceOfType(o) ){
-//     //             //GD.Print("something");
+//     //             ////GD.Print("something");
 //     //         }
 
 //     //         else{
@@ -425,7 +425,7 @@ public class SaveInstance{
 //     // //                 }
                     
 //     // //             }catch(Exception e){
-//     // //                 //////GD.Print("EXCEPTION");
+//     // //                 ////////GD.Print("EXCEPTION");
 //     // //             }
 //     // //         }
 //     // // }
@@ -442,17 +442,17 @@ public class SaveInstance{
 //     //     }
 //     //     catch(Exception e)
 //     //     {
-//     //         // ////GD.Print("EXCEPTION");
+//     //         // //////GD.Print("EXCEPTION");
 //     //     }          
 //     // }
 
 //     private string TryWriteObjectToJson(object o){
 //        string returnValue = null;
 //         try{
-//             // ////GD.Print("serializing: ",JsonConvert.SerializeObject(o));
+//             // //////GD.Print("serializing: ",JsonConvert.SerializeObject(o));
 //             returnValue = JsonConvert.SerializeObject(o);
 //         }catch(Exception e){
-//             // ////GD.Print("EXCEPTION");
+//             // //////GD.Print("EXCEPTION");
 //         }
 //         return returnValue;
             
@@ -461,20 +461,20 @@ public class SaveInstance{
 //     private object TryReadObjectFromJson(string json){
 //        object returnValue = null;
 //         try{
-//             //GD.Print("attempting to deserialize: ",json);
+//             ////GD.Print("attempting to deserialize: ",json);
 //             returnValue = JsonConvert.DeserializeObject(json);
-//             //GD.Print("deserialized: ",json, " to: ",returnValue);
+//             ////GD.Print("deserialized: ",json, " to: ",returnValue);
 //         }catch(Exception e){
-//             //GD.Print("EXCEPTION: ");
+//             ////GD.Print("EXCEPTION: ");
 //         }
 //         return returnValue;
             
 //     }
 
 //     public void PrintHeirarchy(string indent){
-//         //GD.Print(indent+"SaveInstance with type: ",this.objectType);
+//         ////GD.Print(indent+"SaveInstance with type: ",this.objectType);
 //         indent += "     ";
-//         //GD.Print(indent+"Resource Path: "+this.ResPath);
+//         ////GD.Print(indent+"Resource Path: "+this.ResPath);
         
 //         foreach(string s in this.childBook?.Keys){
 //             object o = null;
@@ -485,7 +485,7 @@ public class SaveInstance{
 //                 saveInstance.PrintHeirarchy(indent);
 //             }
 //             else{
-//                 //GD.Print(indent+s+"  "+o);
+//                 ////GD.Print(indent+s+"  "+o);
 //             }
 //         }
 //     }
@@ -500,18 +500,18 @@ public class SaveInstance{
 //             try{
 //                 object classField = p.GetValue(saveInstanceObject);
 //             }catch(Exception e){
-//                 //GD.Print("FOUND THE EXCEPTION");
-//             }////GD.Print("   p:",p.Name);
+//                 ////GD.Print("FOUND THE EXCEPTION");
+//             }//////GD.Print("   p:",p.Name);
 
 //             //if the field exists in our save instance object, but not already parsed by from our fields
 //             if(save.childBook.TryGetValue(p.Name, out value) && !fieldList.Any(item => item.Name == p.Name))
 //             {
-//                 //GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
-//                // //GD.Print("         ---> ",value);
+//                 ////GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
+//                // ////GD.Print("         ---> ",value);
 //                 //f.SetValue(saveInstanceObject, LoadProperty(f.Name, classField ,value, saveInstanceObject));
                 
 //                 if(saveInstanceObject.GetType() == typeof(Player)){
-//                     ////GD.Print("assinging property ",p.Name,"    ",p.GetValue(saveInstanceObject));
+//                     //////GD.Print("assinging property ",p.Name,"    ",p.GetValue(saveInstanceObject));
 //                 }
 //                 object o = null;
 //                 if(value.GetType().IsGenericType)
@@ -539,8 +539,8 @@ public class SaveInstance{
 //             //if the field exists in our save instance object
 //             if(save.childBook.TryGetValue(f.Name, out value))
 //             {
-//                 //GD.Print("Field Loader: ",f.Name,"   ",classField, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
-//                // //GD.Print(f.Name, " ---> ",value);
+//                 ////GD.Print("Field Loader: ",f.Name,"   ",classField, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
+//                // ////GD.Print(f.Name, " ---> ",value);
 //                 //f.SetValue(saveInstanceObject, LoadProperty(f.Name, classField ,value, saveInstanceObject));
                 
 //                 object o = null;
@@ -558,7 +558,7 @@ public class SaveInstance{
 //                     if(typeof(Player).IsInstanceOfType(f.GetValue(saveInstanceObject))){
 //                         Player p = (Player)f.GetValue(saveInstanceObject);
                         
-//                         //GD.Print("got the player ", p.animationState," ",p.animationPlayer," ",p.animationTree);
+//                         ////GD.Print("got the player ", p.animationState," ",p.animationPlayer," ",p.animationTree);
 //                     }
 //                 }
 //             }
@@ -572,7 +572,7 @@ public class SaveInstance{
 //     /// <param name="value"></param>
 //     /// <returns></returns>
 //     public object LoadSingleProperty(object fieldObject, object value){
-//         ////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
+//         //////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
 //         object o = null;
 //         // if(fieldObject !=null){
 //         //     //this means we've loaded in a gameobject via _Ready()
@@ -604,8 +604,8 @@ public class SaveInstance{
 //                 o =  TryReadObjectFromJson((string)value);
 //             }
 //             catch (Exception e){
-//                 //GD.Print(e);
-//                 //GD.Print(fieldObject,"   ",value);
+//                 ////GD.Print(e);
+//                 ////GD.Print(fieldObject,"   ",value);
 //             }
 //         }
 //         return o;
@@ -651,7 +651,7 @@ public class SaveInstance{
 //                 returnobj = loadedObject;
 //             }
 //             else{
-//                 ////GD.Print("Attempting to change ",saveInstanceNode, " with type ",saveInstanceNode.GetType(), " to " ,save.objectType);
+//                 //////GD.Print("Attempting to change ",saveInstanceNode, " with type ",saveInstanceNode.GetType(), " to " ,save.objectType);
 //                 returnobj = Activator.CreateInstance(save.objectType);
 //             }
 
@@ -667,7 +667,7 @@ public class SaveInstance{
 
 //         //we now have a non-null object that we can set properties and fields.
 //         // if(save.objectType == typeof(Player)){
-//         //     //GD.Print("starting to parse player with animation state: ", ((Player)returnobj).animationState); 
+//         //     ////GD.Print("starting to parse player with animation state: ", ((Player)returnobj).animationState); 
 //         // }
 //         List<FieldInfo> fields = LoadFields(save,returnobj);   
 //         LoadProperties(save,returnobj,fields);
@@ -680,7 +680,7 @@ public class SaveInstance{
 
 
     // public object LoadProperty(string fieldName, object fieldObject, object o, object parent){
-    //     //GD.Print("attemping to load object ", o, " as ",o.GetType(), parent, fieldName);
+    //     ////GD.Print("attemping to load object ", o, " as ",o.GetType(), parent, fieldName);
     //     object returnValue = null;
     //     //need to expand on nodes that are GameObjects, otherwise we can just store a generic Node
     //     if(typeof(SaveInstance).IsInstanceOfType(fieldObject))
@@ -695,10 +695,10 @@ public class SaveInstance{
     //         }
     //         else if(typeof(Vector2Save).IsInstanceOfType(fieldObject))
     //         {
-    //             //GD.Print("Attempting to desserialize vector2: ",o, ", ",fieldName);
+    //             ////GD.Print("Attempting to desserialize vector2: ",o, ", ",fieldName);
     //             object json = JsonConvert.DeserializeObject((string)o);
 
-    //             //GD.Print(json, "   ",json.GetType());
+    //             ////GD.Print(json, "   ",json.GetType());
     //             JObject conv = (JObject)JsonConvert.DeserializeObject((string)o);
                 
     //             returnValue = conv.ToObject<Vector2Save>().ToVector();
@@ -713,8 +713,8 @@ public class SaveInstance{
     //                 returnValue =  TryReadObjectFromJson((string)o);
     //             }
     //             catch (Exception e){
-    //                 //GD.Print(e);
-    //                 //GD.Print();
+    //                 ////GD.Print(e);
+    //                 ////GD.Print();
     //             }
     //         }
 
@@ -724,7 +724,7 @@ public class SaveInstance{
 
 
 //     public void LoadPropertyForNode(string fieldName, object fieldObject, Node parent){
-//         ////GD.Print(parent);
+//         //////GD.Print(parent);
 //         var fields = parent.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic |  BindingFlags.Instance);
 //         var properties = parent.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic |  BindingFlags.Instance);
 //         List<string> fieldNames = new List<string>();
@@ -739,7 +739,7 @@ public class SaveInstance{
 //             {   
 //                 //unpack Saveinstance for nodes & Collections
 //                 if(typeof(SaveInstance) == fieldObject.GetType()){
-//                     ////GD.Print("is type of SaveINstance");
+//                     //////GD.Print("is type of SaveINstance");
 //                     SaveInstance si = ((SaveInstance)fieldObject);
 
 //                     foreach(string name in si.childBook?.Keys){
@@ -753,7 +753,7 @@ public class SaveInstance{
 //                 }
 //                 else if(f.GetValue(parent) is Enum){
 //                     object o = State.GetEnumType(fieldObject.ToString());
-//                     ////GD.Print("Found an enum. Setting variable to: ",o, "  from string: ", fieldObject.ToString());
+//                     //////GD.Print("Found an enum. Setting variable to: ",o, "  from string: ", fieldObject.ToString());
 //                     f.SetValue(parent,o);
 //                 }   
 //                 else if(f.GetValue(parent) is Vector2){
@@ -764,18 +764,18 @@ public class SaveInstance{
 //                 }
 //                 else{
 //                     try{
-//                         ////GD.Print("      Attempting to deserialize field: " ,fieldName," with type: ",fieldObject.GetType(), "  on parent", parent);
+//                         //////GD.Print("      Attempting to deserialize field: " ,fieldName," with type: ",fieldObject.GetType(), "  on parent", parent);
 //                         string s = (string)fieldObject;
 //                         f.SetValue(parent,JsonConvert.DeserializeObject(s));
 //                     }
 //                     catch(Exception e){
-//                         ////GD.Print(e);
-//                         ////GD.Print("Cannot convert from ", fieldObject, " to ", (string)fieldObject);
+//                         //////GD.Print(e);
+//                         //////GD.Print("Cannot convert from ", fieldObject, " to ", (string)fieldObject);
 //                     }
 //                 }
 //             }
 //             else if(originObject ==null && f.Name == fieldName){
-//                 ////GD.Print("Foudn null field: ", fieldName);
+//                 //////GD.Print("Foudn null field: ", fieldName);
 //             }
 //             else{
                 
@@ -784,17 +784,17 @@ public class SaveInstance{
 
 //         foreach(PropertyInfo p in properties){
 //             if(p.Name == fieldName){
-//                // //GD.Print("found name: ", fieldName, " for object: ",parent);
+//                // ////GD.Print("found name: ", fieldName, " for object: ",parent);
 //             }
 //             //if it's not null, then use it to set the value
 //             //we assume all scenes have been loaded in at this point and referenced by _Ready or similar
 //             object originObject = p.GetValue(parent);
 //             if(originObject != null && p.Name ==fieldName)
 //             {   
-//                 ////GD.Print("Found non null field: ", fieldName, ": ",fieldObject, "  ",f.GetValue(parent).GetType());
+//                 //////GD.Print("Found non null field: ", fieldName, ": ",fieldObject, "  ",f.GetValue(parent).GetType());
 //                 //unpack Saveinstance for nodes
 //                 if(typeof(SaveInstance) == fieldObject.GetType()){
-//                     ////GD.Print("is type of SaveINstance");
+//                     //////GD.Print("is type of SaveINstance");
 //                     SaveInstance si = ((SaveInstance)fieldObject);
 
 //                     foreach(string name in si.childBook?.Keys){
@@ -809,7 +809,7 @@ public class SaveInstance{
 //                 else if(p.GetValue(parent) is Enum){
 //                     try{
 //                         object o = State.GetEnumType(fieldObject.ToString());
-//                         ////GD.Print("Found an enum. Setting variable to: ",o, "  from string: ", fieldObject.ToString());
+//                         //////GD.Print("Found an enum. Setting variable to: ",o, "  from string: ", fieldObject.ToString());
 //                         p.SetValue(parent,o);
 //                     }
 //                     catch(Exception e){
@@ -818,7 +818,7 @@ public class SaveInstance{
 //                 }   
 //                 else if(p.GetValue(parent) is Vector2){
 //                     if(parent.GetParent() != null){
-//                         //GD.Print("set position relative to parent, not global");
+//                         ////GD.Print("set position relative to parent, not global");
 //                         if(p.Name.Contains("Global")){
 //                             continue;
 //                         }
@@ -827,11 +827,11 @@ public class SaveInstance{
 //                         //continue;
 //                     JObject conv = (JObject)JsonConvert.DeserializeObject((string)fieldObject);
 
-//                     //GD.Print("Found ",parent.Name, " Vector2 ",p.Name, ": ",conv);
+//                     ////GD.Print("Found ",parent.Name, " Vector2 ",p.Name, ": ",conv);
 
 //                     p.SetValue(parent,conv.ToObject<Vector2Save>().ToVector());
 //                     if(typeof(Control).IsInstanceOfType(parent)){
-//                         //GD.Print("New control positions are: ,",((Control)parent).RectPosition,((Control)parent).RectGlobalPosition);
+//                         ////GD.Print("New control positions are: ,",((Control)parent).RectPosition,((Control)parent).RectGlobalPosition);
 //                     }
 //                 }
 //                 else if(p.GetValue(parent) is AnimationPlayer){
@@ -839,18 +839,18 @@ public class SaveInstance{
 //                 }
 //                 else{
 //                     try{
-//                         ////GD.Print("      Attempting to deserialize field: " ,fieldName," with type: ",fieldObject.GetType(), "  on parent", parent);
+//                         //////GD.Print("      Attempting to deserialize field: " ,fieldName," with type: ",fieldObject.GetType(), "  on parent", parent);
 //                         string s = (string)fieldObject;
 //                         p.SetValue(parent,JsonConvert.DeserializeObject(s));
 //                     }
 //                     catch(Exception e){
-//                         ////GD.Print(e);
-//                         ////GD.Print("Cannot convert from ", fieldObject, " to ", (string)fieldObject);
+//                         //////GD.Print(e);
+//                         //////GD.Print("Cannot convert from ", fieldObject, " to ", (string)fieldObject);
 //                     }
 //                 }
 //             }
 //             else if(originObject ==null && p.Name == fieldName){
-//                 ////GD.Print("Foudn null field: ", fieldName);
+//                 //////GD.Print("Foudn null field: ", fieldName);
 //             }
 //             else{
                 

@@ -13,7 +13,7 @@ public class Rock : KinematicBody2D
 
 //     public void _on_KinematicBody2D_mouse_entered()
 //     {
-//         //GD.Print("Mouse entered for the ROCK");
+//         ////GD.Print("Mouse entered for the ROCK");
 //         this.mouseEventState =  State.MouseEventState.Entered;
 //         PlayerController.TryAddObjectToQueue(this);
 //     }

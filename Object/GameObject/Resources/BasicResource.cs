@@ -32,12 +32,12 @@ public class BasicResource : StaticBody2D, GameResource
         this.ResourceType = new String(this.Name.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
         //Regex.Replace(ResourceType, @"[\d-]", string.Empty);   
         if(ResourceType.Contains("Rock") || ResourceType.Contains("Stone")){
-            ////GD.Print("Setting random rock atlas");
-            ////GD.Print(this.Scale);
+            //////GD.Print("Setting random rock atlas");
+            //////GD.Print(this.Scale);
             this.GetNode<Sprite>("Sprite").Texture = this.GenRandomRockSprite();
         }
         
-        //GD.Print(this.ResourceType);
+        ////GD.Print(this.ResourceType);
     }
 
     public AtlasTexture GenRandomRockSprite(){
@@ -54,7 +54,7 @@ public class BasicResource : StaticBody2D, GameResource
 
     public void _on_mouse_entered()
     {
-        ////GD.Print("Mouse entered for the wooooooood");
+        //////GD.Print("Mouse entered for the wooooooood");
         this.mouseEventState =  State.MouseEventState.Entered;
         PlayerController.TryAddObjectToQueue(this);
     }

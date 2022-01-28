@@ -10,7 +10,7 @@ public class Card : Sprite, GameObject
     public List<string> testStringList =  new List<string>();
 
     public CardListener cardListener;
-    private CardModel model;
+    public  CardModel model;
 
     private string objectId;
 
@@ -42,7 +42,8 @@ public class Card : Sprite, GameObject
 
     public Vector2 startingPosition {get;set;}
     
-
+    [Signal]
+    public delegate void CardEvent(Card c );
 
     public Label Title;
     public Label Cost;
@@ -65,7 +66,7 @@ public class Card : Sprite, GameObject
         this.Cost = GetNode<Label>("CardListener/VBoxContainer/MarginContainer/TopBanner/Mana/Cost");
         this.MidBanner = GetNode<TextureRect>("CardListener/VBoxContainer/MarginContainer2/MidBanner");
         this.BottomText = GetNode<RichTextLabel>("CardListener/VBoxContainer/MarginContainer3/BottomText");
-        //GD.Print(Title, "  ",Cost, "  ",MidBanner);
+        ////GD.Print(Title, "  ",Cost, "  ",MidBanner);
     }
 
 
@@ -81,7 +82,7 @@ public class Card : Sprite, GameObject
     /// Used to reset card variables before moving parents
     /// </summary>
     public void ResetCardState(){
-        this.Position = Vector2.Zero;
+        //this.Position = Vector2.Zero;
         this.RotationDegrees = 0;
     }
 
@@ -92,6 +93,7 @@ public class Card : Sprite, GameObject
         this.MidBanner.Texture = ResourceLoader.Load<Texture>(model.FrontImagePath);
         this.BottomText.BbcodeText = model.Description;
         this.objectId = model.ObjectId;
+        this.model = model;
     }
 
     // public CardView CreateCardView(){
@@ -105,6 +107,7 @@ public class Card : Sprite, GameObject
 
     public void TriggerCardStateChange(State.CardState state){
         this.cardState = state;
+        EmitSignal("CardEvent", this);
     }
 
     public bool LoadObject()
@@ -124,13 +127,12 @@ public class Card : Sprite, GameObject
     public object TriggerGetDragDataFunc(Vector2 position ){
         //if there's been no icon or icon texture loaded into inventory slot
         //don't drag anything
-        //GD.Print("is trying to drag");
-        
-        cardState = State.CardState.Drag;
+        ////GD.Print("is trying to drag");
+        this.TriggerCardStateChange(State.CardState.Drag);
 
         Control control = new TextureRect();
 
-        ////GD.Print(control.SizeFlagsHorizontal);
+        //////GD.Print(control.SizeFlagsHorizontal);
         //control.RectSize = this.cardListener.RectSize;
         Card c = (Card)this.Duplicate();
         //control.RectScale = c.Scale;
@@ -151,23 +153,18 @@ public class Card : Sprite, GameObject
     }
 
     public bool TriggerDropDataFunc(Vector2 position, object data){
-
+        
         return true;
     }
 
-
-    public void _on_CardListener_mouse_entered(){
-        //GD.Print("Card state set to hover");
-        this.cardState = State.CardState.Hover;
-        CardController.eventQueue?.Enqueue(this);
-
+    public void _on_CardListener_mouse_entered()
+    {
+        this.TriggerCardStateChange(State.CardState.Hover);
     }
 
-    public void _on_CardListener_mouse_exited(){
-        //GD.Print("Card state set to remove");
-        this.cardState = State.CardState.HoverRemove;
-        
-        CardController.eventQueue?.Enqueue(this);
+    public void _on_CardListener_mouse_exited()
+    {
+        this.TriggerCardStateChange(State.CardState.HoverRemove);
     }
 
    public void _on_CardListener_gui_input(InputEvent inputEvent){

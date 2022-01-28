@@ -20,6 +20,8 @@ public class HexHorizontalTest: Area2D, GameObject
     
     public BasicResource GatherableResource;
 
+    public YSort EnvironmentAffect;
+
     public HashSet<HexHorizontalTest> connections = new HashSet<HexHorizontalTest>();
 
     
@@ -41,13 +43,13 @@ public class HexHorizontalTest: Area2D, GameObject
 
     private void GenOutLine()
     {
-        ////GD.Print("gen outlines and hitbox for ",this);
+        //////GD.Print("gen outlines and hitbox for ",this);
         topBorder.Points = topPoly.Polygon;
         hitBox.Polygon = topPoly.Polygon;
         //staticHitBox.GetNode<CollisionPolygon2D>("CollisionPolygon2D").Polygon = topPoly.Polygon;
         // staticHitBox.GetNode<CollisionPolygon2D>("CollisionPolygon2D").Visible = false;
         //staticHitBox.Visible = false;// foreach(Vector2 vec in topBorder.Points){
-        //     //GD.Print(vec);
+        //     ////GD.Print(vec);
         // }
         //botBorder.Points = botPoly.Polygon;
         //topBorder.Update();
@@ -55,7 +57,7 @@ public class HexHorizontalTest: Area2D, GameObject
     }
 
     public void _on_Hex_mouse_entered(){
-        ////GD.Print("mouse entered for: ",this);
+        //////GD.Print("mouse entered for: ",this);
         topBorder.Width =6;
         //topBorder.ZIndex =5;
         topBorder.DefaultColor = new Color(0.6f,0.27f,0.09f,0.5f);
@@ -102,10 +104,10 @@ public class HexHorizontalTest: Area2D, GameObject
         else if(HexEnv is BasicResource)
         {
             
-            GD.Print("returning wood: ",((BasicResource)HexEnv).Capacity > 0);
+            //GD.Print("returning wood: ",((BasicResource)HexEnv).Capacity > 0);
             return ((BasicResource)HexEnv).Capacity > 0;
         }
-        GD.Print("returning end ",HexEnv == null); 
+        //GD.Print("returning end ",HexEnv == null); 
         return HexEnv == null;
     }
 

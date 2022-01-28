@@ -61,7 +61,7 @@ public class PlayerController : CharacterController
         this.state = ControllerState.AcceptAllInput;
     }
     private Vector2 GetVectorAnimationSpace(Vector2 target){
-        ////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
+        //////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
         float x = 0f, y= 0f;
         if(target.x != player.Position.x)
             x = player.Position.x > target.x ? -1f:1f;
@@ -69,7 +69,7 @@ public class PlayerController : CharacterController
         if(target.y != player.Position.y)
             y = player.Position.y > target.y ? -1f:1f;
 
-        ////GD.Print("returning vector: ", new Vector2(x,y));
+        //////GD.Print("returning vector: ", new Vector2(x,y));
         return new Vector2(x,y);
     }
 
@@ -123,14 +123,14 @@ public class PlayerController : CharacterController
 
     public static void TryAddObjectToQueue(GameObject obj)
      {
-         //GD.Print("trying to add object to the queue of type: ", obj.GetType());
+         ////GD.Print("trying to add object to the queue of type: ", obj.GetType());
          if(!eventQueue.Contains(obj) && Player.encounters.Contains(obj))
             eventQueue.Add(obj);
      }
     
     public static void TryremoveObjectFromQueue(GameObject obj)
     {
-        //GD.Print("trying to remove object from the queue");
+        ////GD.Print("trying to remove object from the queue");
         eventQueue.Remove(obj);
     }
     public void ParseEventQueue()
@@ -144,10 +144,11 @@ public class PlayerController : CharacterController
 
                     for(int i =0; i<eventQueue.Count;i++)
                     {//foreach(GameObject o in eventQueue){
-                        ////GD.Print("Parsing event from Queue");
+                        //////GD.Print("Parsing event from Queue");
                         GameObject o = eventQueue[i];
                         //eventQueue.Remove(o);
-                        HandleRightClick(o);
+                        if(IsInstanceValid((Node)o))
+                            HandleRightClick(o);
                     }
                     //}
                     //eventQueue.Remove(o);
@@ -157,7 +158,7 @@ public class PlayerController : CharacterController
         else {
             bool action = Input.IsActionJustPressed("left_click");
             if(action){
-                //GD.Print("haandling left click for hex cos nothing in queue");
+                ////GD.Print("haandling left click for hex cos nothing in queue");
                 HandleRightClick(HexGrid.hoveredHex);
             }
         }
@@ -167,10 +168,11 @@ public class PlayerController : CharacterController
 
     public void HandleRightClick(GameObject gameObject)
     {
-        //GD.Print("handling gameObject: ",gameObject.GetType());
+        ////GD.Print("handling gameObject: ",gameObject.GetType());
         if(gameObject is GameResource)
         {
-            
+            //if we aren't trying to get something that's busy
+            //if(gameObject)
             GatherResource((GameResource)gameObject);
             if(((GameResource)gameObject).Capacity<=0)
             {
@@ -199,14 +201,14 @@ public class PlayerController : CharacterController
 
     public void GatherResource(GameResource gameObject)
     {
-        ////GD.Print("Gathering resource and playing animations");
+        //////GD.Print("Gathering resource and playing animations");
         this.isBusy = true;
         var woodp = Params.LoadScene<WoodAnim>("res://Assets/Environment/WoodAnim.tscn");
         //this.AddChild(woodp);
         Node2D node = ((Node2D)gameObject);
         node.AddChild(woodp);
         woodp.ZIndex =3;
-        ////GD.Print(((Node2D)gameObject).GlobalPosition, "   ", ((Node2D)gameObject).Position);
+        //////GD.Print(((Node2D)gameObject).GlobalPosition, "   ", ((Node2D)gameObject).Position);
         woodp.GlobalPosition = ((Node2D)gameObject).GlobalPosition;
 
         woodp.GetNode<AnimationPlayer>("AnimationPlayer").Play("HoverAndFaade");

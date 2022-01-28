@@ -88,13 +88,13 @@ public static class State{
         // foreach(object o in Enum.GetValues(typeof(MouseEventState))){
         //     if(o.ToString() == name)
         //         return o;
-        //     //GD.Print(o.ToString(), "   ",name);
+        //     ////GD.Print(o.ToString(), "   ",name);
         // }
 
         // foreach(object o in Enum.GetValues(typeof(CardState))){
         //     if(o.GetType()+"+"+o.ToString() == name)
         //         return o;
-        //     //GD.Print(o.ToString(), "   ",o.GetType(), "    ",name);
+        //     ////GD.Print(o.ToString(), "   ",o.GetType(), "    ",name);
         // }
 
         return null;

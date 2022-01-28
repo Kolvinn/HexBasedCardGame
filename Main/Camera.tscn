@@ -6,5 +6,5 @@
 visible = false
 current = true
 limit_left = -900
-limit_top = -1000
+limit_top = -1400
 script = ExtResource( 1 )

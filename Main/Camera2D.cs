@@ -25,12 +25,12 @@ public class Camera2D : Godot.Camera2D
                 if (emb.ButtonIndex == (int)ButtonList.WheelUp && currentzoom >= upperLimit){
                     currentzoom -= zoomspeed;
                     this.Zoom = new Vector2(currentzoom,currentzoom);
-                    //GD.Print(currentzoom);
+                    ////GD.Print(currentzoom);
                 }
                 if (emb.ButtonIndex == (int)ButtonList.WheelDown && currentzoom < lowerLimit){
                     currentzoom += zoomspeed;
                     this.Zoom = new Vector2(currentzoom,currentzoom);
-                    //GD.Print(currentzoom);
+                    ////GD.Print(currentzoom);
                 }
             }
         }

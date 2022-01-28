@@ -43,7 +43,7 @@ public static class Params{
 
     public static void Print(string str, params object[] o){
 
-        //GD.Print(String.Format(str,o));
+        ////GD.Print(String.Format(str,o));
     }   
     
 //    public  static Dictionary<string, TextureButton> buildingMenu =new Dictionary<string, TextureButton>
@@ -67,5 +67,18 @@ public static class Params{
        "Leaves",
        "Essence"
    };
+
+
+    /// <summary>
+    /// Clones in world paramters for newNode from baseNode to match node state
+    /// </summary>
+    /// <param name="baseNode"></param>
+    /// <param name="newNode"></param>
+   public static void CloneWorldParams(Node2D baseNode, Node2D newNode)
+   {
+        newNode.Scale = baseNode.Scale;
+        newNode.Position = baseNode.Position;
+        newNode.ZIndex = baseNode.ZIndex;
+   }
 
 }

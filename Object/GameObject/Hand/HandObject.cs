@@ -96,10 +96,10 @@ public class HandObject : Node2D
 
         //create card holder and give refs
         long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        //GD.Print(milliseconds);
+        ////GD.Print(milliseconds);
         Card cardObj = Loader.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
         long milliseconds2 = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
-        //GD.Print("milliseconds ", milliseconds, " and diff: ", milliseconds2);
+        ////GD.Print("milliseconds ", milliseconds, " and diff: ", milliseconds2);
 
         
 
@@ -115,7 +115,7 @@ public class HandObject : Node2D
 
         this.view.AddCardAndRotate(cardHolder,cardObj,this.cards.Count,handLimit); 
 
-        // //GD.Print(card.GetRect());   
+        // ////GD.Print(card.GetRect());   
         return true;
     }
 
@@ -133,7 +133,7 @@ public class HandObject : Node2D
         if(!this.cards.Contains(card) || !this.cardMap.TryGetValue(card, out cardHolder))
             return false;
 
-        //GD.Print("card holder to remove: ", cardHolder);
+        ////GD.Print("card holder to remove: ", cardHolder);
         cardHolder.RemoveChild(card);
         this.cards.Remove(card);
         this.cardMap.Remove(card);

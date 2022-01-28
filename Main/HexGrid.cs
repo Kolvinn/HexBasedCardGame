@@ -30,7 +30,8 @@ public class HexGrid
 	public Dictionary<int,HexHorizontalTest> storedHexes = new Dictionary<int, HexHorizontalTest>();
 	public List<Vector2> storedVectors = new List<Vector2>();
  
-    
+	public Vector2 lastY = new Vector2(1000,1000);
+	public Vector2 biggestY = new Vector2(0,0);
 	private YSort parent;
 	public HexGrid(Vector2 mapSize, YSort parent, ReferenceRect envBounds)
 	{
@@ -60,9 +61,9 @@ public class HexGrid
 		//float randX = rand.RandfRange(mapX, mapX+mapSpace.x);
 		//float randY = rand.RandfRange(mapY, mapY+mapSpace.y);
 		//Params.Print("screen space rec: {0} {1} {2} {3} ",mapX, mapX+mapSpace.x,mapY, mapY+mapSpace.y);
-		////GD.Print("random start pos = ",randX, ",",randY);
-		////GD.Print(mapX ," ",mapY);
-		////GD.Print(mapX+((byte)mapSpace.x), " ",mapY+mapSpace.y);
+		//////GD.Print("random start pos = ",randX, ",",randY);
+		//////GD.Print(mapX ," ",mapY);
+		//////GD.Print(mapX+((byte)mapSpace.x), " ",mapY+mapSpace.y);
 		RecurseGenMapTile((float)Math.Max(mapX,randomX), (float)Math.Max(mapY,randomY),Vector2.Zero, true);
 	}
 
@@ -107,7 +108,6 @@ public class HexGrid
 
 		Vector2 vec = new Vector2(x,y);
 		//
-		
 		//if we've already been here, connect to the tile that is stored at that vector
 		if(IndexOfVec(vec)>=0)
 		{	
@@ -129,7 +129,12 @@ public class HexGrid
 		
 				
 		HexHorizontalTest tile = GenTileType(vec);
+		if(vec.y<lastY.y)
+			lastY = vec;
 		
+		if(vec.y> biggestY.y)
+			biggestY =vec;
+
 		storedVectors.Add(vec);
 		int indexOfVec = IndexOfVec(vec);
 
@@ -159,7 +164,7 @@ public class HexGrid
 		
 		
 
-		////GD.Print("storing vector2:, ",vec, " with tile: ",tile);
+		//////GD.Print("storing vector2:, ",vec, " with tile: ",tile);
 		//gen NE
 		RecurseGenMapTile(x+(HexMetrics.outerRadius * 1.5f), y-(HexMetrics.innerRadius * tile.Scale.y), vec);
 
@@ -250,7 +255,7 @@ public class HexGrid
 		// cell.Translation = position;
         // this.AddChild(cell);
         // //cell.SetText(x.ToString() + "\n" + z.ToString());
-        // //GD.Print(position);
+        // ////GD.Print(position);
 	}
 
 	private void GetMapFit()
@@ -276,7 +281,7 @@ public class HexGrid
 		List<float> xlist = new List<float>();
         float limitY = mapY + mapSpace.y;
         while (tileYOffset + (tileYCount * tileHeight ) <=limitY){
-			//GD.Print("y: ",tileYOffset + (tileYCount * tileHeight));
+			////GD.Print("y: ",tileYOffset + (tileYCount * tileHeight));
 			ylist.Add(tileYOffset + (tileYCount * tileHeight));
             ++tileYCount;
         }
@@ -288,11 +293,11 @@ public class HexGrid
         float limitX = mapX + mapSpace.x;
 
         while (tileXOffset + (tileXCount * tileWidth ) <=limitX){
-			//GD.Print("x: ",tileXOffset + (tileXCount * tileWidth ));
+			////GD.Print("x: ",tileXOffset + (tileXCount * tileWidth ));
 			xlist.Add(tileXOffset + (tileXCount * tileWidth ));
             ++tileXCount;
         }
-		//GD.Print(tileXCount,"   ",tileYCount);
+		////GD.Print(tileXCount,"   ",tileYCount);
 
     }
     

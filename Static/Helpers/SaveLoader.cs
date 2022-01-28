@@ -22,7 +22,7 @@ public static class SaveLoader
         Type objectType = o.GetType();
         
         //parsedClasses.Add(o);
-        ////GD.Print("Adding parent object: ", o, " with type: ", o.GetType());
+        //////GD.Print("Adding parent object: ", o, " with type: ", o.GetType());
         SaveInstance s = new SaveInstance(objectType);
          
         if(typeof(Node).IsInstanceOfType(o))
@@ -58,7 +58,7 @@ public static class SaveLoader
                     object ret;
                     if(parsedClasses.Keys.Contains(fieldObject))
                     {
-                        //GD.Print("      Already parsed object: ",fieldObject, " for parent", o.GetType());
+                        ////GD.Print("      Already parsed object: ",fieldObject, " for parent", o.GetType());
                         object savedRef;
                         parsedClasses.TryGetValue(fieldObject, out savedRef);
                         ret = new ObjectRef(savedRef);
@@ -74,10 +74,10 @@ public static class SaveLoader
                     //make sure that we aren't storing something null that we can't parse!
                     if(ret !=null)
                     {                                             
-                        ////GD.Print("Adding field object: ", fieldObject, " with type: ", fieldObject.GetType());
+                        //////GD.Print("Adding field object: ", fieldObject, " with type: ", fieldObject.GetType());
                         
                         s.childBook.Add(f.Name,ret);   
-                        //////GD.Print("writing field: ",f.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
+                        ////////GD.Print("writing field: ",f.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
                     } 
                 } 
             }
@@ -106,7 +106,7 @@ public static class SaveLoader
                 //make sure that we aren't storing something null that we can't parse!
                 if(ret !=null){
                     s.childBook.Add(p.Name,ParseSaveObject(p.Name,p.GetValue(o),o));    
-                    //////GD.Print("writing property: ",p.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
+                    ////////GD.Print("writing property: ",p.Name,": ", ret, " as ",ret.GetType(), " under Namespace: ",ret.GetType().Namespace);
                 }
             }
                 
@@ -119,7 +119,7 @@ public static class SaveLoader
     {      
         object returnValue = null;
         
-        //////GD.Print("parsing ",fieldName,": ", o, " as ",o.GetType());
+        ////////GD.Print("parsing ",fieldName,": ", o, " as ",o.GetType());
         //need to expand on nodes that are GameObjects, otherwise we can just store a generic Node
         if(typeof(Node).IsInstanceOfType(o) && o.GetType() != typeof(Godot.AnimationPlayer))
         {           
@@ -172,10 +172,10 @@ public static class SaveLoader
     private static string TryWriteObjectToJson(object o){
        string returnValue = null;
         try{
-            // //////GD.Print("serializing: ",JsonConvert.SerializeObject(o));
+            // ////////GD.Print("serializing: ",JsonConvert.SerializeObject(o));
             returnValue = JsonConvert.SerializeObject(o);
         }catch(Exception e){
-            // //////GD.Print("EXCEPTION");
+            // ////////GD.Print("EXCEPTION");
         }
         return returnValue;
             
@@ -227,7 +227,7 @@ public static class SaveLoader
             if(loadedObject == null && !String.IsNullOrEmpty(save.ResPath))
             {
                 
-                    //GD.Print("ecks dee      ",save.objectType);
+                    ////GD.Print("ecks dee      ",save.objectType);
                 
                 //check that this scene has a parent 
                     saveInstanceNode = Params.LoadScene(save.ResPath);
@@ -242,7 +242,7 @@ public static class SaveLoader
                 returnobj = loadedObject;
             }
             else{
-                //////GD.Print("Attempting to change ",saveInstanceNode, " with type ",saveInstanceNode.GetType(), " to " ,save.objectType);
+                ////////GD.Print("Attempting to change ",saveInstanceNode, " with type ",saveInstanceNode.GetType(), " to " ,save.objectType);
                 returnobj = Activator.CreateInstance(save.objectType);
             }
 
@@ -258,7 +258,7 @@ public static class SaveLoader
 
         //we now have a non-null object that we can set properties and fields.
         // if(save.objectType == typeof(Player)){
-        //     ////GD.Print("starting to parse player with animation state: ", ((Player)returnobj).animationState); 
+        //     //////GD.Print("starting to parse player with animation state: ", ((Player)returnobj).animationState); 
         // }
         List<FieldInfo> fields = LoadFields(save,returnobj);   
         LoadProperties(save,returnobj,fields);
@@ -271,11 +271,11 @@ public static class SaveLoader
     private static object TryReadObjectFromJson(string json){
        object returnValue = null;
         try{
-            ////GD.Print("attempting to deserialize: ",json);
+            //////GD.Print("attempting to deserialize: ",json);
             returnValue = JsonConvert.DeserializeObject(json);
-            ////GD.Print("deserialized: ",json, " to: ",returnValue);
+            //////GD.Print("deserialized: ",json, " to: ",returnValue);
         }catch(Exception e){
-            ////GD.Print("EXCEPTION: ");
+            //////GD.Print("EXCEPTION: ");
         }
         return returnValue;
             
@@ -288,7 +288,7 @@ public static class SaveLoader
     /// <param name="value"></param>
     /// <returns></returns>
     public static object LoadSingleProperty(object fieldObject, object value){
-        //////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
+        ////////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
         object o = null;
         // if(fieldObject !=null){
         //     //this means we've loaded in a gameobject via _Ready()
@@ -305,7 +305,7 @@ public static class SaveLoader
         {
             
             parsedClasses.TryGetValue(((ObjectRef)value).storedReference, out o);
-            //GD.Print("found the class for field, "  ,fieldObject, ", let's see if it returns anything: ",o);
+            ////GD.Print("found the class for field, "  ,fieldObject, ", let's see if it returns anything: ",o);
         }
         else if(typeof(Enum).IsInstanceOfType(value))
         {           
@@ -313,9 +313,9 @@ public static class SaveLoader
         }
         else if(typeof(Vector2Save).IsInstanceOfType(value))
         {
-            ////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
+            //////GD.Print("Loading single property: ",value, " of type: ",value.GetType());
             o = ((Vector2Save)value).ToVector();
-            ////GD.Print("finsihed");
+            //////GD.Print("finsihed");
         }
         else if (value.GetType().IsPrimitive || value.GetType() == typeof(Decimal) || value.GetType() == typeof(String))
         {
@@ -328,8 +328,8 @@ public static class SaveLoader
                 o =  TryReadObjectFromJson((string)value);
             }
             catch (Exception e){
-                ////GD.Print(e);
-                ////GD.Print(fieldObject,"   ",value);
+                //////GD.Print(e);
+                //////GD.Print(fieldObject,"   ",value);
             }
         }
         return o;
@@ -352,14 +352,14 @@ public static class SaveLoader
         //     //if the field exists in our save instance object, but not already parsed by from our fields
         //     if(save.childBook.TryGetValue(p.Name, out value) && !fieldList.Any(item => item.Name == p.Name))
         //     {
-        //         //////GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
+        //         ////////GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
         //         if(p.Name.Contains("Scale") || p.Name.Contains("Rotation"))
-        //            // ////GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
-        //        // ////GD.Print("         ---> ",value);
+        //            // //////GD.Print("Properties loader: ",p.Name, "  ", saveInstanceObject, "  ", saveInstanceObject.GetType());
+        //        // //////GD.Print("         ---> ",value);
         //         //f.SetValue(saveInstanceObject, LoadProperty(f.Name, classField ,value, saveInstanceObject));
                 
         //         if(saveInstanceObject.GetType() == typeof(Player)){
-        //             //////GD.Print("assinging property ",p.Name,"    ",p.GetValue(saveInstanceObject));
+        //             ////////GD.Print("assinging property ",p.Name,"    ",p.GetValue(saveInstanceObject));
         //         }
         //         object o = null;
         //         if(value.GetType().IsGenericType)
@@ -368,22 +368,22 @@ public static class SaveLoader
         //         }        
         //         else {
         //             try{
-        //                 //////GD.Print("loading property");
+        //                 ////////GD.Print("loading property");
         //                 o = LoadSingleProperty(classField,value);
                         
-        //                 //////GD.Print("      finished loading property");
+        //                 ////////GD.Print("      finished loading property");
         //             }catch(Exception e){
-        //                 ////GD.Print("the exception");
+        //                 //////GD.Print("the exception");
         //             }
         //         }
         //         if(o !=null)
         //             try{
-        //                 ////GD.Print("setting property on ",saveInstanceObject,classField, p.Name);
+        //                 //////GD.Print("setting property on ",saveInstanceObject,classField, p.Name);
         //                 p.SetValue(saveInstanceObject,o);
-        //                 ////GD.Print("      finished setting property");
+        //                 //////GD.Print("      finished setting property");
         //             }catch(Exception e){
 
-        //                 ////GD.Print("the exception2");
+        //                 //////GD.Print("the exception2");
         //             }
         //     }
         // }
@@ -427,7 +427,7 @@ public static class SaveLoader
                     if(o !=null && value.GetType() == typeof(SaveInstance))  
                     {
                         parsedClasses.Add(value,o);
-                        ////GD.Print("Adding into parsed classes: ",value, " with object: ",o);
+                        //////GD.Print("Adding into parsed classes: ",value, " with object: ",o);
                     }   
                 }
 
@@ -447,13 +447,13 @@ public static class SaveLoader
         List<object> objList = new List<object>();
         Dictionary<object,object> objDict = new Dictionary<object, object>();
         Queue<object> objQueue = new Queue<object>();
-        //////GD.Print("Attempting to store: ", fieldName, " as ",o, " in parent: ",parent.GetType());
+        ////////GD.Print("Attempting to store: ", fieldName, " as ",o, " in parent: ",parent.GetType());
         if(parent.GetType() == typeof(Card))
         {
             if(fieldName == "testStringList")
             {
                 foreach(object thing in (List<string>)o){
-                    ////GD.Print("      parsing string object ",thing.ToString());
+                    //////GD.Print("      parsing string object ",thing.ToString());
                     objList.Add(ParseSaveObject(null,thing,null));
                 }
                 return objList;
@@ -589,7 +589,7 @@ public static class SaveLoader
                 {   
                     HexCell1 cell = (HexCell1)(LoadSingleProperty(null,thing.Key));
                     int i = (int)(LoadSingleProperty(null,thing.Value));
-                    ////GD.Print("Adding cell ", cell, " and int ",i);
+                    //////GD.Print("Adding cell ", cell, " and int ",i);
                     dict.Add(cell,i);
 
                 }

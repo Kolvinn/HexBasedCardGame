@@ -113,7 +113,7 @@ public class delete3 : Node2D
             if(hex !=null)
             {
                 storedHexes.Add(i,hex);
-                //GD.Print(hex + "   ",i);
+                ////GD.Print(hex + "   ",i);
             }
         }
         // storedHexes.Add(4,this.GetNode<HexHorizontalTest>("YSort/Hex4"));
@@ -168,12 +168,12 @@ public class delete3 : Node2D
         foreach(Node n in node.GetChildren()){
             RecursiveChildPrint(n);
             if(n.GetType() == typeof(TextureRect)){
-                //GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
+                ////GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
                
 
             }
             if(n.GetType() == typeof(CardListener)){
-                //GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
+                ////GD.Print("TextureRect ",n.Name," with RectPosition:",((TextureRect)n).RectPosition, " and global Position: ",((TextureRect)n).RectGlobalPosition);
                
 
             }
@@ -182,7 +182,7 @@ public class delete3 : Node2D
 
     
     private Vector2 GetVectorAnimationSpace(Vector2 target){
-        ////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
+        //////GD.Print("calc direction from player: "+ player.Position+ "     and target position "+ target);
         float x = 0f, y= 0f;
         if(target.x != player.Position.x)
             x = player.Position.x > target.x ? -1f:1f;
@@ -190,7 +190,7 @@ public class delete3 : Node2D
         if(target.y != player.Position.y)
             y = player.Position.y > target.y ? -1f:1f;
 
-        ////GD.Print("returning vector: ", new Vector2(x,y));
+        //////GD.Print("returning vector: ", new Vector2(x,y));
         return new Vector2(x,y);
     }
 
@@ -219,7 +219,7 @@ public class delete3 : Node2D
 
                 player.animationState.Travel("Walk");
                 player.Position = player.Position.MoveToward(currentMovement,delta*250/2);
-                ////GD.Print("current player position: "+player.Position);
+                //////GD.Print("current player position: "+player.Position);
                 //this.player.move(velocity);
                 //MoveToPoint(currentMovement, delta);
             }
@@ -233,7 +233,7 @@ public class delete3 : Node2D
         else if(this.player != null && Input.IsActionJustPressed("right_click") 
         && (this.movementQueue ==null || this.movementQueue.Count==0))
         {
-            ////GD.Print("right click found");
+            //////GD.Print("right click found");
             HexHorizontalTest found=null;
             int toindex =-1, fromidx = -1;
 
@@ -243,7 +243,7 @@ public class delete3 : Node2D
 
                 //get the last tile that the mouse was in
                 if(cell.Value.eventState == State.MouseEventState.Entered){
-                    //GD.Print("Entered cell: ", cell);
+                    ////GD.Print("Entered cell: ", cell);
 
                     found = cell.Value;
                     toindex = cell.Key;
@@ -265,10 +265,10 @@ public class delete3 : Node2D
             //tiles.TryGetValue(playerTile, out fromidx);
             if(toindex >=0 && fromidx >=0)
             {
-                //GD.Print("movementQueue populating");
+                ////GD.Print("movementQueue populating");
                 foreach(Vector2 vec in pathFinder.GetPointPath(fromidx, toindex))
                 {
-                    //GD.Print(vec);
+                    ////GD.Print(vec);
                     //path.AddPoint(vec);
                     movementQueue.Enqueue(vec);
 
