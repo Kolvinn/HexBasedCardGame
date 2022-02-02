@@ -30,13 +30,15 @@ public class HexGrid
 	public Dictionary<int,HexHorizontalTest> storedHexes = new Dictionary<int, HexHorizontalTest>();
 	public List<Vector2> storedVectors = new List<Vector2>();
  
-	public Vector2 lastY = new Vector2(1000,1000);
+	public static  Vector2 lastY = new Vector2(100000,100000);
 	public Vector2 biggestY = new Vector2(0,0);
 	private YSort parent;
-	public HexGrid(Vector2 mapSize, YSort parent, ReferenceRect envBounds)
+
+	private bool isBattle = false;  
+	public HexGrid(Vector2 mapSize, YSort parent, ReferenceRect envBounds, bool isBattle = false)
 	{
 		this.spawnArea = envBounds;
-
+		this.isBattle = isBattle;
 		this.parent = parent;
 		this.mapSpace =mapSize;
 		pathFinder = new AStar2D();
@@ -47,7 +49,8 @@ public class HexGrid
 		Vector2 screenSize = new Vector2(1920,1080);
 		index = 0;
 		
-
+		lastY = new Vector2(1000000,100000);
+		biggestY = new Vector2(-100000,-100000);
     	mapX = (screenSize.x/2) - (mapSpace.x/2);
 
         mapY = (screenSize.y/2) - (mapSpace.y/2);
@@ -129,11 +132,16 @@ public class HexGrid
 		
 				
 		HexHorizontalTest tile = GenTileType(vec);
-		if(vec.y<lastY.y)
+		if(vec.y<lastY.y){
 			lastY = vec;
+			GD.Print("Creating last y at pos: ",lastY);
+		}
+
 		
-		if(vec.y> biggestY.y)
+		if(vec.y> biggestY.y){
 			biggestY =vec;
+			GD.Print("Creating biggest y at pos: ", biggestY);
+		}
 
 		storedVectors.Add(vec);
 		int indexOfVec = IndexOfVec(vec);
@@ -193,10 +201,19 @@ public class HexGrid
 	public HexHorizontalTest GenTileType(Vector2 vec){
 		HexHorizontalTest hex =  Params.LoadScene<HexHorizontalTest>("res://Test/Delete/HexHorizontalTest.tscn");
 		
-			Random rand = new Random();
+		Random rand = new Random();
 
-			//is now a env hex
-			
+		//is now a env hex
+		if(isBattle)
+		{
+			if(rand.NextDouble()>=0.5 && PointInSpawn(vec))
+			{
+				hex.HexEnv = Params.LoadScene<YSort>("res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/grasspatch.tscn");
+			}
+		}
+		else{
+
+		
 			if(rand.NextDouble()>=0.5 && PointInSpawn(vec))
 			{
 				int nextInt = rand.Next(1,12);
@@ -218,6 +235,7 @@ public class HexGrid
 					hex.HexEnv = Params.LoadScene<BasicResource>("res://Assets/Environment/Wood2.tscn");					
 				}
 			}	
+		}
 		
 		return hex;
 	}

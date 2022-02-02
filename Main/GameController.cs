@@ -13,17 +13,25 @@ using System.Collections;
 public class GameController : Node, ControllerBase
 
 {   
-
+    [Signal]
+    public delegate void ChangeScene();
     public List<CharacterController> CharacterControllers;
     public BuildController buildController;
-    private CardController cardController;
-    private PlayerController playerController;
-    private NewUIController newUIController;
-    private SpellBookController spellBookController;
-    private SpellController spellController;
-    private ResourcePostController resourcePostController;
+    public CardController cardController;
+    public PlayerController playerController;
+    public NewUIController newUIController;
+    public SpellBookController spellBookController;
+    public SpellController spellController;
+    public ResourcePostController resourcePostController;
 
+    public FireController fireController;
 
+    public TextureRect HealthBar, ManaBar;
+
+    bool hasFire = false;
+    bool hasSleepingSpot = false;
+
+    bool isFireLit = false;
     public static Control WoodLabel, StoneLabel, EssenceLabel,GrassLabel;
     
     private CanvasLayer canvasLayer;
@@ -32,7 +40,7 @@ public class GameController : Node, ControllerBase
 
     private NewHexMapTests hexMap;
 
-   
+    private int currentTask = -1;
 
     public static State.GameState gameState = State.GameState.Default;
 
@@ -44,6 +52,8 @@ public class GameController : Node, ControllerBase
     private Button saveButton;
 
     private HexGrid grid;
+
+    public HexGrid BattleGrid;
 
     
 
@@ -68,7 +78,10 @@ public class GameController : Node, ControllerBase
     
     public override void _Ready()
     {   
+        
         buildingModels = CSVReader.LoadBuildingCSV();
+        fireController = new FireController();
+        
         CSVReader.LoadResourceCosts(buildingModels.Cast<AbstractObjectModel>().ToList());
         WarningMessage  = this.GetNode<TextureRect>("CanvasLayer/WarningMessage");
         hexMap = this.GetNode<NewHexMapTests>("NewHexMapTests");
@@ -81,25 +94,33 @@ public class GameController : Node, ControllerBase
         GrassLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/GrassLabel");
 
         this.GetNode<Timer>("CanvasLayer/Control3/VBoxContainer/TextureRect/TimerLabel/Timer").Start(500);
-
+        this.AddChild(fireController);
         LoadUI();
-        LoadSpellControllers();
-        
-        //cardController = this.GetNode<CardController>("UIController/Control/CardController");
-        //canvasLayer = this.GetNode<CanvasLayer>("UIController");
-        
-        
+        LoadSpellControllers(); 
         
         LoadHexGrid();
         LoadPlayerController();
-        this.LoadCard();
+        LoadCard();
+        HealthBar = newUIController.GetNode<TextureRect>("Control3/HealthBar");
         
+        ManaBar = newUIController.GetNode<TextureRect>("Control3/ManaBar");
         
         spellController.player = player;
         spellController.environmentLayer = this.env;
-          
-        //this.resourcePostController = new ResourcePostController();
-       // this.AddChild(resourcePostController);
+        FetchNextTask();
+    }
+
+
+    public void FetchNextTask()
+    {
+
+        if(Params.Quests.Count >= currentTask  +1)
+        {
+            currentTask ++;
+            string text ="Current Task\n";
+            text += Params.Quests[currentTask];
+            this.newUIController.GetNode<TextureRect>("Control3/TaskBar").GetNode<Label>("MarginContainer/Label").Text = text;
+        }
     }
 
 
@@ -132,8 +153,19 @@ public class GameController : Node, ControllerBase
         this.AddChild(spellController);
         this.AddChild(spellBookController);
         spellController.spells = spellBookController.spellSlots;
+        this.spellBookController.Connect("AddedSpell", this, "On_AddedSpell");
+        this.spellController.Connect("SpellCompleted", this, "On_SpellCompleted");
+        this.spellController.fire = this.fireController;
+    }
+    public void On_SpellCompleted()
+    {
+        isFireLit = true;
     }
 
+    public void On_AddedSpell()
+    {
+        FetchNextTask();
+    }
     private void LoadUI(){
         newUIController = GetNode<NewUIController>("CanvasLayer");
         newUIController.Connect("TriggerBuild", this, nameof(TriggerBuild));
@@ -193,25 +225,36 @@ public class GameController : Node, ControllerBase
     {
         ////GD.Print("On_TriggerInteractive", itv);
         currentInteractive = itv;
-        this.RemoveChild(this.GetNode<Area2D>("Node2D/EnvLayer/Light2D"));
+        this.env.RemoveChild(this.GetNode<Area2D>("Node2D/EnvLayer/Light2D"));
         this.newUIController.GetNode<Control>("Control3/FoundBook").Visible = true;
         this.newUIController.GetNode<Button>("Control3/FoundBook/TextureRect/Button").Connect("pressed", this, nameof(OnTriggerAccept));
     }
 
     public void OnTriggerAccept()
     {
+        this.FetchNextTask();
+        
+        this.newUIController.GetNode<BuildingIcon>("Control3/Control/SpellBookButton").Visible = true;
         this.newUIController.GetNode<Control>("Control3/FoundBook").Visible = false; 
-        this.newUIController.GetNode<BuildingIcon>("Control3/Control/BuildingIcon").button.Disabled =false;
+        this.newUIController.GetNode<BuildingIcon>("Control3/Control/SpellBookButton").button.Disabled =false;
     }
 
 
 #region BuildController
     public void On_TriggerBuildingAction(Building model)
     {
-        //GD.Print("On_TriggerBuildingAction");
-        gameState = State.GameState.BuildingAction;
+        
+        //gameState = State.GameState.BuildingAction;
+        GD.Print("kjasndfkjnaskdjfnkajsdnf");
+            //set input to wait for building action to complete
+            
+        gameState = State.GameState.Wait;
         this.playerController.state = ControllerInstance.ControllerState.Wait;
-        this.BuildingAction = model;
+        ParseBuildingAction(model.model);
+        // GD.Print("On_TriggerBuildingAction");
+        // gameState = State.GameState.BuildingAction;
+        // this.playerController.state = ControllerInstance.ControllerState.Wait;
+        // this.BuildingAction = model;
     }
     public void TriggerBuild(string buildingName)
     {
@@ -245,9 +288,13 @@ public class GameController : Node, ControllerBase
     
     public void BuildBuildingComplete(Building building)
     {
+
+        //this.buildController.buildState = State.BuildState.Default;
+        
         this.env.AddChild(building.buildingAsset);
         if(building.model.Name == "Leaf-Sleep-Roll")
         {
+            this.hasSleepingSpot = true;
             RestSpots.Add(building,null);
             if(IdleWorkers.Count >0){
                 CharacterController c = IdleWorkers[0];
@@ -255,11 +302,62 @@ public class GameController : Node, ControllerBase
                 IdleWorkers.RemoveAt(0);
             }
         }
+        else if(building.model.Name == "Fire")
+        {
+            this.hasFire =true;
+        }
+
+        else if(this.buildController.model.Name == "Gathering Post")
+        {
+            
+            OptionBox b = this.newUIController.CreateOption("Update worker amount at this Resource Post");
+            this.resourcePostController = new ResourcePostController(b,grid, buildController.ConstructedBuilding);
+            
+            this.resourcePostController.Connect("CloseDialog",this,nameof( On_ResourcePostCloseDialog));
+            this.resourcePostController.Connect("ResourceDrop", this, nameof(AddBulkResource));
+            this.resourcePostController.Connect("ResourceTaskAssignmentComplete", this, "On_ResourceTaskAssignmentComplete");
+            this.AddChild(resourcePostController);
+            
+            //Character c = SpawnRandomCharacter();
+            foreach(CharacterController c in this.CharacterControllers)
+            {
+                resourcePostController.AvailableWorkers.Add(c);
+            }
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+            // resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
+
+        }
+
         foreach(var item in building.model?.RequiredResources.GetResourceCosts()){
             this.playerController.ResourceUpdate[item.Key] -= item.Value;
         }
+
         buildController.buildState = State.BuildState.BuildFinish;
         gameState  = State.GameState.Continue;
+
+        if(hasFire && hasSleepingSpot && currentTask == 2)
+        {
+            FetchNextTask();
+        }
+
+        if(RestSpots.Count == 3 && currentTask == 4)
+        {
+            this.CharacterControllers.Add(SpawnRandomCharacter());
+            this.CharacterControllers.Add(SpawnRandomCharacter());
+            this.CharacterControllers.Add(SpawnRandomCharacter());
+            FetchNextTask();
+        }
+    }
+
+    public void On_ResourceTaskAssignmentComplete()
+    {
+        FetchNextTask();
     }
 
     
@@ -283,7 +381,7 @@ public class GameController : Node, ControllerBase
     public override void _PhysicsProcess(float delta)
     { 
         
-        int current = System.DateTime.Now.Millisecond;
+        
         UpdateResourceValues();
         
         //finished frame continue, reset input state
@@ -299,74 +397,40 @@ public class GameController : Node, ControllerBase
             this.playerController.state = ControllerInstance.ControllerState.AcceptPartialInput;
         }
 
-        if(this.buildController?.buildState == State.BuildState.BuildFinish){
-            ParseBuildingFinish();
-            this.buildController.buildState = State.BuildState.Default;
-            gameState = State.GameState.Continue;
-        }
-         if(gameState == State.GameState.Wait){
+        
+        if(gameState == State.GameState.Wait){
 
         }
         
-         if(gameState == State.GameState.BuildingAction)
+        if(gameState == State.GameState.BuildingAction)
         {
-            //set input to wait for building action to complete
-            ParseBuildingAction();
-            gameState = State.GameState.Wait;
-            this.playerController.state = ControllerInstance.ControllerState.Wait;
-        }
-
-        if(System.DateTime.Now.Millisecond - current >= 10)
-        {   
-            //HighestTime = System.DateTime.Now.Millisecond - current;
-            //GD.Print("Found GameController +10milli of: ", System.DateTime.Now.Millisecond - current);
+            
         }
  
         
     }
 
-    private void ParseBuildingFinish()
-    {
-        if(this.buildController.model.Name == "Gathering Post")
-        {
-            
-            OptionBox b = this.newUIController.CreateOption("Update worker amount at this Resource Post");
-            this.resourcePostController = new ResourcePostController(b,grid, buildController.ConstructedBuilding);
-            
-            this.resourcePostController.Connect("CloseDialog",this,nameof( On_ResourcePostCloseDialog));
-            this.resourcePostController.Connect("ResourceDrop", this, nameof(AddBulkResource));
-            this.AddChild(resourcePostController);
-            
-            //Character c = SpawnRandomCharacter();
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-            resourcePostController.AvailableWorkers.Add(SpawnRandomCharacter());
-
-        }
-    }
 
     public void On_ResourcePostCloseDialog(){
         SetContinueState();
     }
 
-    private void ParseBuildingAction()
+    private void ParseBuildingAction(BuildingModel model)
     {
-        if(BuildingAction.model.Name == "Leaf-Sleep-Roll")
+        if(model.Name == "Leaf-Sleep-Roll")
         {
             ////GD.Print("Creating option box and connecting");
             this.newUIController.CreateOption("Do you want to rest and recover?").Connect("OnResponse",this,nameof(BuildingOption));
             
         }
-        else if(BuildingAction.model.Name == "Gathering Post")
+        else if(model.Name == "Gathering Post")
         {
             
             this.resourcePostController.OnClick();
             //SetContinueState();
+        }
+        else{
+            gameState = State.GameState.Continue;
         }
     }
 
@@ -408,6 +472,7 @@ public class GameController : Node, ControllerBase
         {
             this.newUIController.Connect("AnimationCompleted", this, nameof(SetContinueState));
             this.newUIController.FadeToDark();
+            FetchNextTask();
         }
         else{
             SetContinueState();                      
@@ -418,7 +483,7 @@ public class GameController : Node, ControllerBase
             option.QueueFree();
         }
     }
-    
+    //Adding button: Fire and [TextureButton:1783]
     public void UpdateBuildingButtonStates()
     {
         foreach(var item in this.newUIController.buildingButtons)
@@ -430,14 +495,18 @@ public class GameController : Node, ControllerBase
     private void CheckCanBuild(KeyValuePair<string, TextureButton> button){
         //////GD.Print("Checking if can build");
         ResourceCost buildingCost = buildingModels.First(item => item.Name == button.Key).RequiredResources;
-
+        
+        
         //make sure that the resource cost of building is <= stored resources.
         if(buildingCost.GetResourceCosts().All(item => this.playerController.ResourceUpdate.ContainsKey(item.Key) 
             && this.playerController.ResourceUpdate[item.Key] >= item.Value))
-            {               
+            {    
+                  
                 button.Value.Disabled =  false;
+                //button.Value.Visible = false;
             }
-            else{
+            else
+            {
                 button.Value.Disabled =  true;
             }
     }
@@ -451,7 +520,7 @@ public class GameController : Node, ControllerBase
                
                 GrassLabel.GetNode<Label>("Label").Text = "Leaves: "+ pair.Value;
                 GrassLabel.Update();
-            }if(pair.Key == "Rock")
+            }if(pair.Key == "Stone")
                 StoneLabel.GetNode<Label>("Label").Text = "Stone: "+ pair.Value;
             
         //     woodp.GetNode<Label>("Label").Text = "+1 Leaves";
@@ -470,7 +539,7 @@ public class GameController : Node, ControllerBase
             GrassLabel.GetNode<Label>("Label").Text = "Leaves: "+ this.playerController.ResourceUpdate["Leaves"];
             
         }
-        if(res.ResourceType == "Rock"){
+        if(res.ResourceType == "Stone"){
             this.playerController.ResourceUpdate["Stone"] = this.playerController.ResourceUpdate["Stone"] + amount;
             StoneLabel.GetNode<Label>("Label").Text = "Stone: "+ this.playerController.ResourceUpdate["Stone"];
         
@@ -559,18 +628,38 @@ public class GameController : Node, ControllerBase
         System.Random rand = new System.Random();
 
         grid = new HexGrid(new Vector2(width,height), map, this.GetNode<ReferenceRect>("ResourceArea/ReferenceRect"));
-
-        HexHorizontalTest ExitTile = new HexHorizontalTest();
-        ExitTile.Position= new Vector2(grid.lastY.x+(HexMetrics.outerRadius * 1.5f), (grid.lastY.y-(HexMetrics.innerRadius * ExitTile.Scale.y)));
-        this.GetNode<Sprite>("Node2D/EnvLayer/TileMap2").Position = ExitTile.Position;
-        this.GetNode<Sprite>("Node2D/EnvLayer/LogInTheWay").Position = ExitTile.Position;
-        
-        
-            foreach(KeyValuePair<int,HexHorizontalTest> entry in this.grid.storedHexes)
+        foreach(KeyValuePair<int,HexHorizontalTest> entry in this.grid.storedHexes)
+        {
             {
                 map.AddChild(entry.Value);
                 entry.Value.Position = grid.storedVectors[entry.Key];
             }
+        }
+
+        if(this.Name == "GameController")
+        {
+            HexHorizontalTest ExitTile = new HexHorizontalTest();
+            //ExitTile.HexEnv
+            ExitTile.Position= HexGrid.lastY;//new Vector2(grid.lastY.x+(HexMetrics.outerRadius * 1.5f), (grid.lastY.y-(HexMetrics.innerRadius * ExitTile.Scale.y)));
+            this.GetNode<Sprite>("Node2D/EnvLayer/TileMap2").Position = ExitTile.Position;
+            this.GetNode<Sprite>("Node2D/EnvLayer/LogInTheWay").Position = ExitTile.Position;
+
+            if(grid.storedHexes[grid.IndexOfVec(ExitTile.Position)].HexEnv != null)
+            {
+                grid.storedHexes[grid.IndexOfVec(ExitTile.Position)].HexEnv.GetParent().RemoveChild(grid.storedHexes[grid.IndexOfVec(ExitTile.Position)].HexEnv);
+            }
+
+            grid.storedHexes[grid.IndexOfVec(ExitTile.Position)].HexEnv = this.GetNode<Sprite>("Node2D/EnvLayer/LogInTheWay");
+            
+            
+        }        
+        else{
+            foreach(var v in grid.storedHexes)
+            {
+                GD.Print(v);
+                v.Value.topBorder.Visible = true;
+            }
+        }
 
 
     }
@@ -607,19 +696,43 @@ public class GameController : Node, ControllerBase
         Camera2D cam = Params.LoadScene<Camera2D>("res://Main/Camera.tscn");
         player.AddChild(cam);
         player.Position = new Vector2(1000,1720);
+        player.Connect("ExitMainArea", this, nameof(On_ExitMainArea));
 
 
         if(this.Name == "GameController2")
         {
+            this.playerController.state = ControllerInstance.ControllerState.BattleInput;
+            int biggestYIndex = grid.IndexOfVec(grid.biggestY);
+            int smallestYIndex = grid.IndexOfVec(HexGrid.lastY);
+            GD.Print("index of biggestY (",grid.biggestY,") is ",grid.IndexOfVec(grid.biggestY));
             
-            player.currentTestTile = grid.storedHexes[grid.IndexOfVec(grid.biggestY)];
-            player.Position  = player.currentTestTile.Position;
+            GD.Print("index of lastY (",HexGrid.lastY,") is ",grid.IndexOfVec(HexGrid.lastY));
+            player.currentTestTile = grid.storedHexes[biggestYIndex];
+            player.Position  = grid.biggestY;//player.currentTestTile.Position;
 
-            Sprite skeleton = Params.LoadScene<Sprite>("res://Assets/Sprites/Skeleton/Node2D.tscn");
-            skeleton.Position = grid.storedHexes[grid.IndexOfVec(grid.lastY)].Position;
+            Skeleton skeleton = Params.LoadScene<Skeleton>("res://Assets/Sprites/Skeleton/Node2D.tscn");
+            skeleton.Position = HexGrid.lastY;
+            skeleton.currentHex = grid.storedHexes[smallestYIndex];
             this.env.AddChild(skeleton);
-            cam.LimitRight = (int)player.Position.x + 500 ;
-            cam.LimitBottom = (int)player.Position.x + 500 ;
+            cam.LimitRight = (int)player.Position.x + 400 ;
+            cam.LimitBottom = (int)player.Position.y + 400 ;
+
+            GD.Print("player: ",player.Position, " skeleton: ", skeleton.Position);
+
+
+            BattleController battle = new BattleController();
+            battle.TurnLabel = this.newUIController.GetNode<Label>("Control3/BattleControl/TurnLabel");
+            battle.skeleton = skeleton;
+            battle.grid = grid;
+            battle.player = this.playerController;
+            battle.turn = "skeleton";
+            gameState = State.GameState.Wait;
+            battle.battleState = BattleController.BattleState.TurnChange;
+            this.AddChild(battle);
+            
+            
+
+
         }
 
 
@@ -644,6 +757,112 @@ public class GameController : Node, ControllerBase
 
         
         // ////GD.Print(testObj, "  ",testObj.childBook);
+    }
+
+    public void On_ExitMainArea()
+    {
+        this.GetNode<Node2D>("Node2D").CallDeferred("remove_child",this.map);
+        this.GetNode<Node2D>("Node2D").CallDeferred("remove_child",this.env);
+        this.CallDeferred("PopulateBattleMap");
+       
+    }
+
+    public void PopulateBattleMap()
+    {
+        this.map = new YSort();
+        this.GetNode<Node2D>("Node2D").AddChild(this.map);
+
+
+        // foreach(Node node in this.map.GetChildren())
+        // {          
+        //     this.map.RemoveChild(node);
+        //     //node.QueueFree();
+        // }
+
+        //this.GetNode<Node2D>("Node2D").CallDeferred("remove_child",this.env);
+        this.env = new YSort();
+        this.GetNode<Node2D>("Node2D").AddChild(this.env);
+        // foreach(Node node in this.env.GetChildren())
+        // {            
+        //     this.env.RemoveChild(node);
+        //     //node.QueueFree();
+        // }
+
+        float width = 1200;
+        float height = 700;
+
+        System.Random rand = new System.Random();
+
+        BattleGrid = new HexGrid(new Vector2(width,height), map, this.GetNode<ReferenceRect>("ResourceArea/ReferenceRect"), true);
+        foreach(KeyValuePair<int,HexHorizontalTest> entry in this.BattleGrid.storedHexes)
+        {
+            {
+                map.AddChild(entry.Value);
+                entry.Value.Position = BattleGrid.storedVectors[entry.Key];
+            }
+        }
+       // this.RemoveChild(Fire)
+        FireController c = new FireController();
+        this.AddChild(c);
+        this.fireController = c;
+        this.spellController.fire = c;
+        foreach(var v in BattleGrid.storedHexes)
+        {
+            GD.Print(v);
+            v.Value.topBorder.Visible = true;
+        }
+        player.GetParent().RemoveChild(player);
+        this.env.AddChild(player);
+
+        this.playerController.state = ControllerInstance.ControllerState.BattleInput;
+        int biggestYIndex = BattleGrid.IndexOfVec(BattleGrid.biggestY);
+        int smallestYIndex = BattleGrid.IndexOfVec(HexGrid.lastY);
+        GD.Print("index of biggestY (",BattleGrid.biggestY,") is ",BattleGrid.IndexOfVec(BattleGrid.biggestY));
+        
+        GD.Print("index of lastY (",HexGrid.lastY,") is ",BattleGrid.IndexOfVec(HexGrid.lastY));
+        player.currentTestTile = BattleGrid.storedHexes[biggestYIndex];
+        player.Position  = BattleGrid.biggestY;//player.currentTestTile.Position;
+
+        Skeleton skeleton = Params.LoadScene<Skeleton>("res://Assets/Sprites/Skeleton/Node2D.tscn");
+        skeleton.Position = HexGrid.lastY;
+        skeleton.currentHex = BattleGrid.storedHexes[smallestYIndex];
+        this.env.AddChild(skeleton);
+        //cam.LimitRight = (int)player.Position.x + 400 ;
+        //cam.LimitBottom = (int)player.Position.y + 400 ;
+
+        GD.Print("player: ",player.Position, " skeleton: ", skeleton.Position);
+
+        foreach(KeyValuePair<Vector2, Node2D> pair in BattleGrid.resourcePositions)
+        {
+            pair.Value.Position = pair.Key;
+            this.env.AddChild(pair.Value);
+        }
+
+
+        playerController.ManaBar = this.ManaBar;
+        playerController.HealthBar = this.HealthBar;
+        spellController.environmentLayer = this.env;
+        spellController.spellState = SpellController.SpellState.Battle;
+        BattleController battle = new BattleController();
+        spellController.Connect("FireSpellCompleted", battle, "On_FireSpellCompleted");
+        battle.TurnLabel = this.newUIController.GetNode<Label>("Control3/BattleControl/TurnLabel");
+        battle.skeleton = skeleton;
+        battle.grid = BattleGrid;
+        battle.fireController = this.fireController;
+        battle.spellController = this.spellController;
+        battle.newUIController = this.newUIController;
+        battle.player = this.playerController;
+        battle.turn = "skeleton";
+        gameState = State.GameState.Wait;
+        battle.battleState = BattleController.BattleState.TurnChange;
+        this.AddChild(battle);
+        CardController cControl  = Params.LoadScene<CardController>("res://Object/Controller/CardController.tscn");
+        this.newUIController.GetNode<Control>("Control3/CardControllerContainer").AddChild(cControl);
+        cControl.Position = new Vector2(959,-57);
+        //this.newUIController.
+
+        //EmitSignal("ChangeScene");
+        //this.GetTree().ChangeSceneTo(packedScene);
     }
 }
     

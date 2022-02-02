@@ -2,12 +2,13 @@ using Godot;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 
 using System.Runtime;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Linq;
+
 using System.Collections;
 
 /// <summary>
@@ -26,7 +27,7 @@ public class CharacterController :ControllerInstance
     private Vector2 currentMovement = Vector2.Zero;
 
 
-    private static float maxSpeed = 2000, friction = 20000, acceleration = 20000;
+    private static float maxSpeed = 200, friction = 20000, acceleration = 20000;
     
     public Vector2 velocity = Vector2.Zero;
     
@@ -262,7 +263,7 @@ public class CharacterController :ControllerInstance
         
     }
 
-    private Vector2 GetVectorAnimationSpace(Vector2 target){
+    public virtual Vector2 GetVectorAnimationSpace(Vector2 target){
         //////GD.Print("calc direction from character: "+ character.Position+ "     and target position "+ target);
         float x = 0f, y= 0f;
         if(target.x != character.Position.x)
@@ -277,7 +278,7 @@ public class CharacterController :ControllerInstance
 
 
     
-    public void ParseHexMovementCommand(float delta)
+    public virtual void ParseHexMovementCommand(float delta)
     {
 
         
@@ -302,7 +303,6 @@ public class CharacterController :ControllerInstance
 
                 character.animationState.Travel("Walk");
                 character.Position = character.Position.MoveToward(currentMovement,delta*maxSpeed);
-                //////GD.Print("current character position: "+character.Position);
                 //this.character.move(velocity);
                 //MoveToPoint(currentMovement, delta);
             }
@@ -311,11 +311,9 @@ public class CharacterController :ControllerInstance
         if(currentMovement == Vector2.Zero && this.movementQueue != null && this.movementQueue.Count !=0){   
                           
             currentMovement = this.movementQueue.Dequeue();
-            //GD.Print("Dequing vector: ",currentMovement) ; 
         }
         else if(currentMovement == Vector2.Zero && !DestinationReached && character.TargetHex != null)
         {
-            //GD.Print("moving to targetHex");
             character.Position = character.Position.MoveToward(character.TargetHex.Position,delta*maxSpeed);
         }
         else{

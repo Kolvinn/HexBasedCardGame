@@ -26,6 +26,7 @@ public class ResourceCost{
         {   
             if(p.Name != "ObjectId" && (int)p.GetValue(this) > 0)
             {
+                
                 resources.Add(p.Name,(int)p.GetValue(this));
             }
         }

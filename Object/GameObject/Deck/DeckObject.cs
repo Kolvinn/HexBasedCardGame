@@ -10,7 +10,7 @@ public class DeckObject  : Node2D
 
     //List<Card> cards = new List<Card>();
 
-    public List<CardModel> modelDeck;
+    public List<CardModel> modelDeck = new List<CardModel>();
 
     DeckView view;
 
@@ -20,7 +20,7 @@ public class DeckObject  : Node2D
     public override void _Ready()
     {
         this.view = GetNode<DeckView>("DeckView");
-        this.modelDeck = new List<CardModel>();
+       // this.modelDeck = new List<CardModel>();
     }
 
     public void SetTopTex(Texture tex){

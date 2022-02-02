@@ -95,10 +95,8 @@ public class HandObject : Node2D
             return false;
 
         //create card holder and give refs
-        long milliseconds = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-        ////GD.Print(milliseconds);
+
         Card cardObj = Loader.LoadScene<Card>("res://Object/GameObject/Card/Card.tscn");
-        long milliseconds2 = DateTimeOffset.Now.ToUnixTimeMilliseconds() - milliseconds;
         ////GD.Print("milliseconds ", milliseconds, " and diff: ", milliseconds2);
 
         

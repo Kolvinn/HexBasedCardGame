@@ -45,10 +45,10 @@ texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 
 [node name="Button" type="Button" parent="."]
-margin_left = 928.0
-margin_top = 24.0
-margin_right = 1136.0
-margin_bottom = 120.0
+margin_left = 888.0
+margin_top = -128.0
+margin_right = 1096.0
+margin_bottom = -32.0
 mouse_filter = 1
 text = "Add Random Card From deck"
 __meta__ = {

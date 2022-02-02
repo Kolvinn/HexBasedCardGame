@@ -30,6 +30,9 @@ public class BasicResource : StaticBody2D, GameResource
     {   
        // ResourceType = this.Name;
         this.ResourceType = new String(this.Name.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
+
+        if(this.ResourceType.Contains("@"))
+            this.ResourceType = "Wood";
         //Regex.Replace(ResourceType, @"[\d-]", string.Empty);   
         if(ResourceType.Contains("Rock") || ResourceType.Contains("Stone")){
             //////GD.Print("Setting random rock atlas");

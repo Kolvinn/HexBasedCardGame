@@ -5,6 +5,7 @@
 [node name="Camera2D" type="Camera2D"]
 visible = false
 current = true
+process_mode = 0
 limit_left = -900
 limit_top = -1400
 script = ExtResource( 1 )

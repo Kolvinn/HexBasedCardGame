@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Sprites/Skeleton/animationAtlus.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/Skeleton/Skeleton.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack"
@@ -73,16 +74,23 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=5]
 resource_name = "Walk"
 
-[node name="Node2D" type="Sprite"]
+[node name="KinematicBody2D" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2.60333, 2.82669 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -20 )
 hframes = 8
 vframes = 5
+frame = 32
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 anims/Attack = SubResource( 1 )
 anims/Die = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/TakeDamage = SubResource( 4 )
 anims/Walk = SubResource( 5 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -21, -29, 41, -30, 40, 9, -22, 8 )

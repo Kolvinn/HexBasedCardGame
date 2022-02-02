@@ -43,7 +43,8 @@ public class ResourcePostController: Node2D, ControllerBase
 
     public Queue<Node> GarbageResources = new Queue<Node>();
 
-
+    [Signal]
+    public delegate void ResourceTaskAssignmentComplete();
    // private Dictionary<>
     public ResourcePostController()
     {
@@ -310,6 +311,10 @@ public class ResourcePostController: Node2D, ControllerBase
         
         }
         workerAmount += amount;
+        if(workerAmount == 3)
+        {
+            EmitSignal("ResourceTaskAssignmentComplete");
+        }
         this.optionBox.GetNode<Label>("TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/Label").Text = "Workers: "+workerAmount;
         //this.optionBox.GetNode<Label>("TextureRect/MarginContainer/VBoxContainer/HBoxContainer2/Label").Text = "Workers: "+workerAmount;
     }

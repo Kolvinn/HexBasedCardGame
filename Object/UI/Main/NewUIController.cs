@@ -38,7 +38,7 @@ public class NewUIController : CanvasLayer
     }
 
     public void FadeToDark(){
-        //GD.Print("Fading to night");
+        GD.Print("Fading to night");
 
         Tween t = new Tween();
         ColorRect c = this.GetNode<ColorRect>("Control3/DayLight");
@@ -209,6 +209,7 @@ public class NewUIController : CanvasLayer
             TextureButton b = Params.LoadScene<TextureButton>(model.TextureResource);
             //GD.Print("B ", b.Name);
             icon.button.Disabled =true;
+            GD.Print("Adding button: ", model.Name, " and ", icon.button);
             this.buildingButtons.Add(model.Name, icon.button);
             icon.UpdateIcon(model.Name,b);          
         }
@@ -251,7 +252,39 @@ public class NewUIController : CanvasLayer
         EmitSignal(nameof(TriggerBuild),button);
     }
 
-  
+
+    public void LoadPlayerTurnUI(){
+        
+        foreach(Node n in this.GetNode<Control>("Control3").GetChildren())
+        {
+            GD.Print("loading UI item ",n.Name);
+            if(n.Name== "DayLight" || n.Name== "TaskBar" || n.Name== "SpellBook" || n.Name== "FoundBook")
+            {
+                ((Control)n).Visible  = false;
+            }
+            else if(n.Name== "Control"){
+                ((Control)n).Visible = true;
+                GD.Print(n.Name, "   ", n.GetNode<Button>("Build"));
+                n.GetNode<Button>("Build").Visible = false;
+            }
+            else{
+                GD.Print("Setting ", n.Name ," to visible");
+                ((Control)n).Visible  = true;
+            }
+
+        }
+        this.GetNode<Control>("Control3").Visible = true;
+    }
+
+    public void LoadEnemyTurnUI(){
+        foreach(Node n in this.GetNode<Control>("Control3").GetChildren())
+        {
+            if(n.Name!= "BattleControl")
+                ((Control)n).Visible  = false;
+            else 
+                ((Control)n).Visible  = true;
+        }
+    }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)

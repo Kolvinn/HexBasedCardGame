@@ -14,7 +14,8 @@ public class Player : KinematicBody2D, GameObject
 
 	public static List<GameObject> encounters;
 
-
+	public int Mana =4;
+	public int Health = 100;
 	public string action;
 	
 	public string direction;
@@ -22,6 +23,7 @@ public class Player : KinematicBody2D, GameObject
 	public HexCell1 currentTile;
 
 	public HexHorizontalTest currentTestTile;
+	public HexHorizontalTest TargetHex;
 
 	private  bool mouseEntered =false;
 	public Sprite sprite;
@@ -33,8 +35,8 @@ public class Player : KinematicBody2D, GameObject
 	
 	private float animationDelay = 5;
 
-
-
+	[Signal]
+	public delegate void ExitMainArea();
 	
 	[Persist(IsPersist = false)]
 	public AnimationPlayer animationPlayer;
@@ -76,6 +78,10 @@ public class Player : KinematicBody2D, GameObject
 			//currentTile = (HexCell1)area;
 			currentTestTile = (HexHorizontalTest)area;
 			//////GD.Print("Setting current hex to ;",currentTestTile.Name);
+		}
+		else if(area?.Name == "ExitMainArea")
+		{
+			EmitSignal("ExitMainArea");
 		}
 	}
 

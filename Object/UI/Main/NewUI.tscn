@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=1]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=21]
 [ext_resource path="res://Object/UI/Main/SpellBook.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Object/UI/SpellSlot.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Medium.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -60,6 +61,10 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 18 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 32
+font_data = ExtResource( 24 )
+
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 9 )
 
@@ -72,7 +77,6 @@ __meta__ = {
 }
 
 [node name="DayLight" type="ColorRect" parent="Control3"]
-visible = false
 self_modulate = Color( 0, 0, 0, 0.501961 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -129,6 +133,9 @@ margin_top = 17.0
 margin_right = 220.0
 margin_bottom = -5.0
 
+[node name="Label" parent="Control3/VBoxContainer/TextureRect/StoneLabel" index="1"]
+text = "Stone: "
+
 [node name="GrassLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
 anchor_left = 0.183333
 anchor_top = 0.36
@@ -137,8 +144,11 @@ anchor_bottom = 0.36
 margin_top = -1.0
 margin_bottom = -1.0
 
+[node name="Label" parent="Control3/VBoxContainer/TextureRect/GrassLabel" index="1"]
+text = "Leaves: "
+
 [node name="TimerLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 7 )]
-text = "Humans Arrive in: 1 Day"
+text = "3 Humans Arrive in: 1 Day"
 
 [node name="MovementLabel" type="Label" parent="Control3/VBoxContainer/TextureRect"]
 visible = false
@@ -201,6 +211,7 @@ __meta__ = {
 }
 
 [node name="SpellBookButton" parent="Control3/Control" instance=ExtResource( 8 )]
+visible = false
 margin_left = 150.0
 margin_top = 71.0
 margin_right = 226.0
@@ -307,10 +318,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="Control3/HealthBar"]
-margin_left = -24.0
-margin_top = 3.0
-margin_right = 1.0
-margin_bottom = 29.0
+margin_left = -34.0
+margin_top = -5.0
+margin_right = 3.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 20, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -320,6 +331,13 @@ stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="Control3/HealthBar/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "4"
+align = 1
+valign = 1
 
 [node name="ManaBar" type="TextureRect" parent="Control3"]
 margin_left = 1148.0
@@ -358,10 +376,10 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="Control3/ManaBar"]
-margin_left = -24.0
-margin_top = 3.0
+margin_left = -36.0
+margin_top = -5.0
 margin_right = 1.0
-margin_bottom = 29.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 20, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -372,11 +390,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Control2" parent="Control3" instance=ExtResource( 16 )]
+[node name="Label" type="Label" parent="Control3/ManaBar/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "4"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TaskBar" parent="Control3" instance=ExtResource( 16 )]
 margin_left = 3.0
 margin_top = 56.0
-margin_right = 388.0
-margin_bottom = 121.0
+margin_right = 436.0
+margin_bottom = 205.0
 
 [node name="FoundBook" type="Control" parent="Control3"]
 visible = false
@@ -424,10 +452,10 @@ custom_fonts/normal_font = SubResource( 7 )
 bbcode_enabled = true
 bbcode_text = "[i]You feel an ominous power flow over you, almost as if calling... waiting. Do you dare use it? [/i]
 
-You have discovered a lost page of the Book of Fire. You can explore the map to find other points of interest and lost items. But be warned, some discoveries may hold unknown concequences"
+You have discovered a lost page of the Book of Fire. You can explore the map to find other lost pages of elemental books, points of  interest and lost items. But be warned, some discoveries may hold unknown concequences!"
 text = "You feel an ominous power flow over you, almost as if calling... waiting. Do you dare use it? 
 
-You have discovered a lost page of the Book of Fire. You can explore the map to find other points of interest and lost items. But be warned, some discoveries may hold unknown concequences"
+You have discovered a lost page of the Book of Fire. You can explore the map to find other lost pages of elemental books, points of  interest and lost items. But be warned, some discoveries may hold unknown concequences!"
 
 [node name="Button" type="Button" parent="Control3/FoundBook/TextureRect"]
 anchor_left = 0.5
@@ -476,8 +504,43 @@ margin_right = 154.0
 margin_bottom = 145.0
 text = "2"
 
+[node name="BattleControl" type="Control" parent="Control3"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnLabel" type="Label" parent="Control3/BattleControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -115.5
+margin_top = 84.0
+margin_right = 115.5
+margin_bottom = 142.0
+custom_fonts/font = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardControllerContainer" type="Control" parent="Control3"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -960.0
+margin_right = 960.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="Control3/Control/SpellBookButton/TextureButton" to="Control3/Control/SpellBookButton" method="_on_TextureButton_pressed"]
 
+[editable path="Control3/VBoxContainer/TextureRect/StoneLabel"]
+[editable path="Control3/VBoxContainer/TextureRect/GrassLabel"]
 [editable path="Control3/VBoxContainer/TextureRect/TimerLabel"]
 [editable path="Control3/Control/SpellBookButton"]
 [editable path="Control3/Housing Menu/Control"]

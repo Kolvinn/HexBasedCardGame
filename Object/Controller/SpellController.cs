@@ -9,7 +9,7 @@ public class SpellController : ControllerInstance
 {   
     public Dictionary<SpellSlot,Card> spells; 
     public Node2D spellSprite;
-
+    public FireController fire;
     public Player player;
 
     public bool isActivePressed = false;
@@ -20,6 +20,23 @@ public class SpellController : ControllerInstance
     public Card ActiveSpell;
 
     public HexHorizontalTest SpellHex;
+
+    
+
+
+    public enum SpellState
+    {
+        Battle,
+        Default,
+    }
+    
+    public SpellState spellState = SpellState.Default;
+
+    [Signal]
+    public delegate void SpellCompleted();
+
+    [Signal]
+    public delegate void FireSpellCompleted(Card card, HexHorizontalTest hex);
     public SpellController()
     {
 
@@ -95,6 +112,11 @@ public class SpellController : ControllerInstance
         
     }
 
+    public void ActivateSpellFromHand(Card card)
+    {
+
+    }
+
     public void CreateSpell()
     {
         if(ActiveSpell.model.Name == "Fireball")
@@ -120,6 +142,13 @@ public class SpellController : ControllerInstance
     {
         if(hovered != null)
         {
+            if(this.spellState == SpellState.Battle){
+                GD.Print("Emitting signal FireSpellCompleted");
+                EmitSignal(nameof(FireSpellCompleted), ActiveSpell, hovered);
+            }
+
+
+
             if(hovered.building != null)
             {
                 if(hovered.building.model.Name == "Fire")
@@ -145,10 +174,24 @@ public class SpellController : ControllerInstance
             }
             else if(!hovered.isBasicResource && hovered.HexEnv != null)
             {
-                FireController fire = new FireController();
+                
                 fire.environmentLayer = this.environmentLayer;
                 //fire.fireTile = hovered;
-                this.AddChild(fire);
+                //this.AddChild(fire);
+                if(this.spellState == SpellState.Default)
+                    fire.StartNewFire(hovered);
+                else{
+                    
+                    fire.StartNewFire(hovered, true);
+                }
+            }
+            else if(hovered.Position == HexGrid.lastY)
+            {
+                //FireController fire = new FireController();
+                fire.environmentLayer = this.environmentLayer;
+                fire.canSpread = false;
+                //fire.fireTile = hovered;
+                //this.AddChild(fire);
                 fire.StartNewFire(hovered);
             }
         }
@@ -165,6 +208,7 @@ public class SpellController : ControllerInstance
         this.environmentLayer.AddChild(newNode);
         spellSprite.QueueFree();
         this.PerformingSpell = false;
+        EmitSignal("SpellCompleted");
         baseNode.QueueFree();      
     }
     public void FetchSpell(string spell)

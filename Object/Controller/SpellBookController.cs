@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using System.Reflection;
 public class SpellBookController : Node2D, ControllerBase {
     
+
+    [Signal]
+    public delegate void AddedSpell();
     public List<Card> cardList = new List<Card>();
 
     public List<CardModel> cardModels = new List<CardModel>();
@@ -201,6 +204,7 @@ public class SpellBookController : Node2D, ControllerBase {
         spellSlot.card = card;
 
         ////GD.Print(spellSlot.GetChildren());
+        EmitSignal(nameof(AddedSpell));
         return true;
     }
 

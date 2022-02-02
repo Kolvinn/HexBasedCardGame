@@ -10,8 +10,8 @@ public class CardController : Node2D, ControllerBase {
 
     private List<CardModel> cardModels;
     //private List<CardModel> cardModels;
-
-    private DeckObject deck;
+     public List<CardModel> modelDeck = new List<CardModel>();
+    //private DeckObject deck;
 
     private Texture topTex;
 
@@ -31,7 +31,8 @@ public class CardController : Node2D, ControllerBase {
 
     private Dictionary<Card, Tween> cardAnimations;
 
-
+    int count  =5;
+    Timer timer = new Timer();
     private Card dragCard = null;
 
 
@@ -58,11 +59,11 @@ public class CardController : Node2D, ControllerBase {
 
         this.cardAnimations = new Dictionary<Card, Tween>();
 
-        spellSlots = new Dictionary<SpellSlot, Card>();
+        //spellSlots = new Dictionary<SpellSlot, Card>();
 
-        spellSlots.Add(GetNode<SpellSlot>("SpellSlot"),null);
+        //spellSlots.Add(GetNode<SpellSlot>("SpellSlot"),null);
         
-        spellSlots.Add(GetNode<SpellSlot>("SpellSlot2"),null);
+        //spellSlots.Add(GetNode<SpellSlot>("SpellSlot2"),null);
 
         
         //Input.SetCustomMouseCursor(mousePointer,Input.CursorShape.Forbidden);
@@ -72,8 +73,51 @@ public class CardController : Node2D, ControllerBase {
         this.topTex = GD.Load<Texture>("res://Assets/Sprites/Cards/0 - Back/Back-Elegant-With-Texture.png");
         //LoadCards();
         LoadHand();
+
+        timer = new Timer();
+        timer.Connect("timeout", this, "on_timeout");        
+        AddRandomCardToHand();
+        this.AddChild(timer);
+        timer.Start(1);
+        //this
+        //PopulateHand();
+
         
 
+    }
+
+    public void on_timeout(){
+        GD.Print("on timeout");
+        if(count ==4)
+        {
+            timer.Stop();
+            this.RemoveChild(timer);
+            timer.QueueFree();
+        }
+        else{
+            count++;
+            //AddRandomCardToHand();
+            //timer = new Timer();
+           // timer.Connect("timeout", this, "on_timeout");        
+            AddRandomCardToHand();
+            timer.Start(1);
+        }
+    }
+
+
+    public void PopulateHand()
+    {
+        this.CallDeferred("AddRandomCardToHand");
+        
+        this.CallDeferred("AddRandomCardToHand");
+        
+        this.CallDeferred("AddRandomCardToHand");
+        
+        this.CallDeferred("AddRandomCardToHand");
+        
+        this.CallDeferred("AddRandomCardToHand");
+        
+        this.CallDeferred("AddRandomCardToHand");
     }
 
     public override void _Process(float delta)
@@ -141,52 +185,52 @@ public class CardController : Node2D, ControllerBase {
     private void TriggerCardDrop(Card card){
 
   
-        this.dragCard = null;
-        busyThread = false;
-        card.Visible = true;
+        // this.dragCard = null;
+        // busyThread = false;
+        // card.Visible = true;
 
-        //if we are dropping back into hand, no need to trigger card removes
-        if(this.hand.view.eventState == State.MouseEventState.Entered){
-            //return card to hand
-            ////GD.Print("dragged card entered hand");
-            //card.Visible = true;
-            return;
-        }
-        //we need to remove the card and free up the child to put it somewhere else;
-        else{
-            this.hand.RemoveCard(card);
-        }
+        // //if we are dropping back into hand, no need to trigger card removes
+        // if(this.hand.view.eventState == State.MouseEventState.Entered){
+        //     //return card to hand
+        //     ////GD.Print("dragged card entered hand");
+        //     //card.Visible = true;
+        //     return;
+        // }
+        // //we need to remove the card and free up the child to put it somewhere else;
+        // else{
+        //     this.hand.RemoveCard(card);
+        // }
 
-        SpellSlot spellSlot = null;;
+        // SpellSlot spellSlot = null;;
 
-        foreach(SpellSlot ss in this.spellSlots.Keys){
-            if(ss.slotState == State.MouseEventState.Entered){
-                ////GD.Print("Found spell slot");
-                spellSlot = ss;
-                break;
-            }
-        }
-        if(spellSlot != null &&  spellSlot.card != null){
-            return;
-        }
-        card.ResetCardState();
+        // foreach(SpellSlot ss in this.spellSlots.Keys){
+        //     if(ss.slotState == State.MouseEventState.Entered){
+        //         ////GD.Print("Found spell slot");
+        //         spellSlot = ss;
+        //         break;
+        //     }
+        // }
+        // if(spellSlot != null &&  spellSlot.card != null){
+        //     return;
+        // }
+        // card.ResetCardState();
 
         
 
-        if(spellSlot != null){
-            TryAddToSpellSlot(spellSlot,card);
-        }
-        else if(this.hand.view.eventState == State.MouseEventState.Entered){
-            //return card to hand
+        // if(spellSlot != null){
+        //     TryAddToSpellSlot(spellSlot,card);
+        // }
+        // else if(this.hand.view.eventState == State.MouseEventState.Entered){
+        //     //return card to hand
             
-        }
-        else{
-            //this.hand.RemoveCard(card);
-        }
+        // }
+        // else{
+        //     //this.hand.RemoveCard(card);
+        // }
 
-        //would need to check for do
+        // //would need to check for do
         
-        //card.SetVisible(false);
+        // //card.SetVisible(false);
         
 
     }
@@ -310,6 +354,9 @@ public class CardController : Node2D, ControllerBase {
 
     private void LoadHand(){
         //this.hand = new HandObject();
+        foreach(Node n in this.GetChildren()){
+            GD.Print("nL ", n.Name);
+        }
         this.hand = GetNode<HandObject>("HandObject");
     }
     private List<CardModel> LoadCardModels(){
@@ -325,9 +372,9 @@ public class CardController : Node2D, ControllerBase {
     /// </summary>
     public void AddRandomCardToHand(){
 
-        int rand = new Random().Next(deck.modelDeck.Count);
+        int rand = new Random().Next(this.cardModels.Count);
         ////GD.Print("Card range: ", deck.modelDeck.Count);
-        CardModel card = deck.modelDeck[rand];
+        CardModel card = this.cardModels[rand];
         //eventHandler.BindCardListen(card.GetCardView());
         
         ////GD.Print("adding random card to hand from deck: ",card.FrontImagePath);
@@ -417,9 +464,9 @@ public class CardController : Node2D, ControllerBase {
 
     private void SetDeck(){
         //this.deck = new DeckObject();
-        this.deck = GetNode<DeckObject>("DeckObject");      
-        deck.modelDeck = this.cardModels;
-        deck.SetTopTex(this.topTex);
+        // this.deck = GetNode<DeckObject>("DeckObject");      
+        // deck.modelDeck = this.cardModels;
+        // deck.SetTopTex(this.topTex);
         
     }
     

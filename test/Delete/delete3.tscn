@@ -87,12 +87,12 @@
 4/z_index = 0
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
+flags = 9
 atlas = ExtResource( 5 )
 region = Rect2( 798, -2, 162, 222 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
+flags = 9
 atlas = ExtResource( 5 )
 region = Rect2( 1478, 18, 186, 172 )
 
@@ -177,7 +177,7 @@ texture = SubResource( 3 )
 [node name="BigTreeAnim" parent="Environment" instance=ExtResource( 8 )]
 position = Vector2( 312, -30 )
 scale = Vector2( 1.05114, 1.03079 )
-frame = 4
+frame = 5
 
 [node name="Node2D2" parent="Environment" instance=ExtResource( 11 )]
 position = Vector2( 88, 143 )
@@ -358,6 +358,7 @@ texture = SubResource( 2 )
 [node name="BigTreeAnim" parent="TREES" instance=ExtResource( 8 )]
 position = Vector2( 553, 133 )
 scale = Vector2( 1.24716, 1.19179 )
+frame = 3
 
 [node name="Tree_Green10" parent="TREES" instance=ExtResource( 13 )]
 position = Vector2( 439, 128 )

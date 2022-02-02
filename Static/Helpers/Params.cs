@@ -36,9 +36,13 @@ public static class Params{
     public static float CardHoverScale = 0.48f;
 
     public static List<string> Quests = new List<string>(){
-        "Gather enough resources to craft a Fire and sleeping spot and rest the night (to heal and regain mana)",
         "Investigate the glowing light",
-        "Prepare for the hu"
+        "Click on your spellbook and drag and fire spell into a spellslot",
+        "Gather enough resources to craft a Fire and sleeping spot.",
+        "Light the fire with a fire spell and click on your sleeping spot to rest (to heal and regain mana).",       
+        "Prepare for the arrival of the refugees by crafting resting/sleeping spots for all of them.",
+        "Now your workers have arrived - create a resource post and assign your refugess to it to collect basic resources. Ignore the bugs pls.",
+        "Now you have basic resource set up and you're rested, you can explore.\nUse the fire spell to clear a path out of the zone."
     };
 
     public static void Print(string str, params object[] o){

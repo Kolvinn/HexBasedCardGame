@@ -15,6 +15,7 @@ using System.Collections;
 /// </summary>
 public class PlayerController : CharacterController
 {
+    HexHorizontalTest characterTile;
 
     [Signal]
     public delegate void TriggerInteractive(Interactable itv);
@@ -25,10 +26,13 @@ public class PlayerController : CharacterController
 
     //public int WoodAmount, StoneAmount, EssenceAmount,LeaveAmount;
 
+    public TextureRect HealthBar;
+    public TextureRect ManaBar;
+
     public Dictionary<string, int> ResourceUpdate = new Dictionary<string, int>(){
-        {"Wood", 50},
-        {"Leaves", 50},
-        {"Stone", 50}
+        {"Wood", 100},
+        {"Leaves", 100},
+        {"Stone",100}
     };
     public Vector2 mousePressPosition;
 
@@ -40,7 +44,7 @@ public class PlayerController : CharacterController
 
     public bool ResourcesGathered = false;
 
-    private static float maxSpeed = 100, friction = 20000, acceleration = 20000;
+    private static float maxSpeed = 60, friction = 20000, acceleration = 20000;
     
 
     
@@ -104,8 +108,12 @@ public class PlayerController : CharacterController
             if(this.velocity != Vector2.Zero){
 
                 player.MoveAndCollide(this.velocity/10);
-
+ 
             }
+        }
+        else if(this.state == ControllerState.BattleInput)
+        {
+            ParseHexMovementCommand(delta);
         }
             
     }
@@ -116,6 +124,11 @@ public class PlayerController : CharacterController
     }
 
     public override void _UnhandledInput(InputEvent @event)
+    {
+ 
+    }
+
+    public void TakeDamage()
     {
 
     }
@@ -216,10 +229,12 @@ public class PlayerController : CharacterController
 
         if(typeof(BasicResource) == gameObject.GetType())
         {   
+            GD.Print("looking for resource ", gameObject.ResourceType);
             //int amount = -1;
             if(ResourceUpdate.ContainsKey(gameObject.ResourceType))
             {
                 //int count = 0;
+                GD.Print("Adding resource type ",gameObject.ResourceType);
                 //ResourceUpdate.TryGetValue(gameObject.ResourceType, out count);
                 ++ResourceUpdate[gameObject.ResourceType];//== ++count;
             }
@@ -259,6 +274,52 @@ public class PlayerController : CharacterController
             player?.animationState.Travel("Idle");
             velocity = velocity.MoveToward(Vector2.Zero, friction * (delta/2));
             //velocity = Vector2.Zero;
+        }
+    }
+    
+    public override void ParseHexMovementCommand(float delta)
+    {
+
+        
+
+        //if we are moving, continue moving
+        if(currentMovement !=  Vector2.Zero){
+            this.characterTile = (HexHorizontalTest)player.currentTestTile;
+
+            
+            if(player.Position==currentMovement){
+                
+                player.animationState.Travel("Idle");              
+                currentMovement =Vector2.Zero;
+            }
+            else{
+                
+                
+                var direction = this.GetVectorAnimationSpace(currentMovement);
+                
+                player.SetAnimation("parameters/Walk/blend_position", direction);
+                player.SetAnimation("parameters/Idle/blend_position", direction);
+
+                player.animationState.Travel("Walk");
+                player.Position = player.Position.MoveToward(currentMovement,delta*maxSpeed);
+                //////GD.Print("current player position: "+player.Position);
+                //this.player.move(velocity);
+                //MoveToPoint(currentMovement, delta);
+            }
+        }
+        //if we still have movement left to do
+        if(currentMovement == Vector2.Zero && this.movementQueue != null && this.movementQueue.Count !=0){   
+                          
+            currentMovement = this.movementQueue.Dequeue();
+            //GD.Print("Dequing vector: ",currentMovement) ; 
+        }
+        else if(currentMovement == Vector2.Zero && !DestinationReached && player.TargetHex != null)
+        {
+            //GD.Print("moving to targetHex");
+            player.Position = player.Position.MoveToward(player.TargetHex.Position,delta*maxSpeed);
+        }
+        else{
+            player.animationState.Travel("Idle");    
         }
     }
 
