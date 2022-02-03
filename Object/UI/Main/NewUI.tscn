@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=1]
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Object/UI/ResourceLabel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp, sorted 3.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp.png" type="Texture" id=6]
-[ext_resource path="res://Static/Helpers/Timer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Object/UI/BuildingIcon.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Object/UI/Main/NewUIController.cs" type="Script" id=9]
 [ext_resource path="res://Object/UI/BuildMenu.tscn" type="PackedScene" id=10]
@@ -147,9 +146,6 @@ margin_bottom = -1.0
 [node name="Label" parent="Control3/VBoxContainer/TextureRect/GrassLabel" index="1"]
 text = "Leaves: "
 
-[node name="TimerLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 7 )]
-text = "3 Humans Arrive in: 1 Day"
-
 [node name="MovementLabel" type="Label" parent="Control3/VBoxContainer/TextureRect"]
 visible = false
 margin_left = 1419.0
@@ -159,6 +155,17 @@ margin_bottom = 46.0
 text = "Movement left: 3"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control3/VBoxContainer/TextureRect"]
+margin_left = 582.0
+margin_top = 17.0
+margin_right = 749.0
+margin_bottom = 48.0
+text = "3 Humans Arrive in: 1 Day
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -541,6 +548,5 @@ __meta__ = {
 
 [editable path="Control3/VBoxContainer/TextureRect/StoneLabel"]
 [editable path="Control3/VBoxContainer/TextureRect/GrassLabel"]
-[editable path="Control3/VBoxContainer/TextureRect/TimerLabel"]
 [editable path="Control3/Control/SpellBookButton"]
 [editable path="Control3/Housing Menu/Control"]

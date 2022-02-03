@@ -93,7 +93,7 @@ public class GameController : Node, ControllerBase
         EssenceLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/EssenceLabel");
         GrassLabel = GetNode<Control>("CanvasLayer/Control3/VBoxContainer/TextureRect/GrassLabel");
 
-        this.GetNode<Timer>("CanvasLayer/Control3/VBoxContainer/TextureRect/TimerLabel/Timer").Start(500);
+        //this.GetNode<Timer>("CanvasLayer/Control3/VBoxContainer/TextureRect/TimerLabel/Timer").Start(500);
         this.AddChild(fireController);
         LoadUI();
         LoadSpellControllers(); 
