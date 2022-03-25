@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Object/Controller/CardController.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Object/Controller/CardController.cs" type="Script" id=2]
+
+[node name="UIController" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 8.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CardController" type="Node2D" parent="Control" groups=[
+"Persist",
+] instance=ExtResource( 1 )]
+position = Vector2( 960, 936 )
+script = ExtResource( 2 )
+
+[node name="Button" type="Button" parent="Control"]
+visible = false
+margin_left = 45.0
+margin_top = 15.0
+margin_right = 299.0
+margin_bottom = 114.0
+text = "Random Gen Map SIZE and POPULATE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="Control"]
+visible = false
+margin_left = 314.0
+margin_top = 15.0
+margin_right = 568.0
+margin_bottom = 111.0
+text = "Add player to Random Tile"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="Control"]
+margin_left = 632.0
+margin_top = 14.0
+margin_right = 690.0
+margin_bottom = 35.0
+text = "FPS:"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

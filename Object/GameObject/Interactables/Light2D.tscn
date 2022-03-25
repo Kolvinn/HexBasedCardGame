@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Particles/kenney-particle-pack-7e801dc538996622a91327bb1dd5879cf977aa09/addons/kenney_particle_pack/light_02.png" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Interactables/Interactable.cs" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hover"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -50 ), Vector2( 0, 0 ) ]
+}
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -534, -648, 58, -600, 524, -560, 732, 184, 414, 530, 96, 762, -364, 684, -540, 480, -608, 19 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -5 )
+texture = ExtResource( 1 )
+energy = 5.63
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Light2D"]
+anims/Hover = SubResource( 1 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Area2D_mouse_exited"]

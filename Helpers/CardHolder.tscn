@@ -1,4 +1,0 @@
-[gd_scene format=2]
-
-[node name="CardHolder" type="Node2D"]
-position = Vector2( 0, 700 )

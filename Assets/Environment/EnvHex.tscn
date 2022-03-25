@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Sprites/Environment/GRASS+.png" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Environment/GRASS+.tscn" type="PackedScene" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 258, 193, 12, 15 )
+
+[node name="YSort" type="YSort"]
+scale = Vector2( 1, 0.8 )
+
+[node name="TopPoly" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( 1, 0 )
+z_index = -1
+antialiased = true
+texture_offset = Vector2( 150, 110 )
+texture_rotation_degrees = 90.0
+polygon = PoolVector2Array( -140, 0, -70, -121.24, 70, -121.24, 140, 0, 70, 121.24, -70, 121.24, -140, 0 )
+
+[node name="GRASS+3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 59, -131.25 )
+texture = SubResource( 1 )
+
+[node name="GRASS+4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 7, -130 )
+scale = Vector2( 4.33333, 6 )
+texture = SubResource( 1 )
+
+[node name="GRASS+5" parent="." instance=ExtResource( 2 )]
+position = Vector2( -38, -140 )
+texture = SubResource( 1 )
+
+[node name="GRASS+2" parent="." instance=ExtResource( 2 )]
+position = Vector2( -84, -90 )
+texture = SubResource( 1 )
+
+[node name="GRASS+" parent="." instance=ExtResource( 2 )]
+position = Vector2( -36, -63.75 )
+texture = SubResource( 1 )
+
+[node name="GRASS+6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 48, -67.5 )
+texture = SubResource( 1 )
+
+[node name="GRASS+7" parent="." instance=ExtResource( 2 )]
+position = Vector2( -2, -62.5 )
+texture = SubResource( 1 )
+
+[node name="GRASS+8" parent="." instance=ExtResource( 2 )]
+position = Vector2( -81, -51.25 )
+texture = SubResource( 1 )
+
+[node name="GRASS+9" parent="." instance=ExtResource( 2 )]
+position = Vector2( -119, -36.25 )
+texture = SubResource( 1 )
+
+[node name="GRASS+10" parent="." instance=ExtResource( 2 )]
+position = Vector2( -74, 26.25 )
+texture = SubResource( 1 )
+
+[node name="GRASS+11" parent="." instance=ExtResource( 2 )]
+position = Vector2( 64, 65 )
+texture = SubResource( 1 )
+
+[node name="GRASS+12" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2, 43.75 )
+texture = SubResource( 1 )
+
+[node name="GRASS+13" parent="." instance=ExtResource( 2 )]
+position = Vector2( -27, 2.5 )
+texture = SubResource( 1 )
+
+[node name="GRASS+14" parent="." instance=ExtResource( 2 )]
+position = Vector2( -99, -8.75 )
+texture = SubResource( 1 )
+
+[node name="GRASS+15" parent="." instance=ExtResource( 2 )]
+position = Vector2( -49, 70 )
+texture = SubResource( 1 )
+
+[node name="GRASS+16" parent="." instance=ExtResource( 2 )]
+position = Vector2( 96, -53.75 )
+texture = SubResource( 1 )
+
+[node name="GRASS+17" parent="." instance=ExtResource( 2 )]
+position = Vector2( 100, 5 )
+texture = SubResource( 1 )
+
+[node name="GRASS+18" parent="." instance=ExtResource( 2 )]
+position = Vector2( 17, -6.25 )
+texture = SubResource( 1 )
+
+[node name="GRASS+19" parent="." instance=ExtResource( 2 )]
+position = Vector2( 9, 77.5 )
+texture = SubResource( 1 )
+
+[node name="GRASS+20" parent="." instance=ExtResource( 2 )]
+position = Vector2( 50, 7.5 )
+texture = SubResource( 1 )

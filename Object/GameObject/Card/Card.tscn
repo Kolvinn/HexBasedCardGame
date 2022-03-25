@@ -1,0 +1,216 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Assets/Sprites/Cards/CardBanner.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/Cards/0 - Front/Front - Default.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Cards/Fonts/CharisSILBI.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Sprites/Cards/pngfind.com-yasuo-png-690354.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/Sprites/Cards/0 - Icons/Mana.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=7]
+[ext_resource path="res://Object/GameObject/Card/Card.cs" type="Script" id=8]
+[ext_resource path="res://Object/GameObject/Card/CardListener.cs" type="Script" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 20, 13, 560, 820 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "DrawCard"
+
+[sub_resource type="Animation" id=3]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+outline_color = Color( 0.298039, 0.152941, 0.152941, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 120
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = -1
+extra_spacing_bottom = -18
+extra_spacing_char = -2
+font_data = ExtResource( 5 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 223, 160, 160 )
+
+[node name="CardTest" type="Sprite"]
+scale = Vector2( 0.4, 0.4 )
+texture = SubResource( 1 )
+script = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DrawCard = SubResource( 2 )
+anims/flip = SubResource( 3 )
+
+[node name="CardListener" type="TextureRect" parent="."]
+margin_left = -280.0
+margin_top = -410.0
+margin_right = 280.0
+margin_bottom = 410.0
+mouse_filter = 0
+expand = true
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardListener"]
+show_behind_parent = true
+margin_right = 560.0
+margin_bottom = 820.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CardListener/VBoxContainer"]
+margin_right = 560.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 120 )
+mouse_filter = 2
+custom_constants/margin_right = 30
+custom_constants/margin_left = 30
+
+[node name="TopBanner" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer"]
+margin_left = 30.0
+margin_right = 530.0
+margin_bottom = 120.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+
+[node name="Title" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.560784, 0.0392157, 0.0392157, 1 )
+text = "Aidan's Weakness"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mana" type="Sprite" parent="CardListener/VBoxContainer/MarginContainer/TopBanner"]
+position = Vector2( 10, 15.5469 )
+scale = Vector2( 0.429713, 0.42156 )
+texture = ExtResource( 6 )
+
+[node name="Cost" type="Label" parent="CardListener/VBoxContainer/MarginContainer/TopBanner/Mana"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -155.143
+margin_top = -150.236
+margin_right = -155.143
+margin_bottom = -150.236
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 5 )
+text = "4"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="CardListener/VBoxContainer"]
+show_behind_parent = true
+margin_top = 124.0
+margin_right = 560.0
+margin_bottom = 470.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 65
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 60
+
+[node name="MidBanner" type="TextureRect" parent="CardListener/VBoxContainer/MarginContainer2"]
+margin_left = 60.0
+margin_right = 495.0
+margin_bottom = 286.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="MarginContainer3" type="MarginContainer" parent="CardListener/VBoxContainer"]
+margin_top = 474.0
+margin_right = 560.0
+margin_bottom = 820.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 70
+custom_constants/margin_top = 15
+custom_constants/margin_left = 70
+custom_constants/margin_bottom = 60
+
+[node name="BottomText" type="RichTextLabel" parent="CardListener/VBoxContainer/MarginContainer3"]
+margin_left = 70.0
+margin_top = 15.0
+margin_right = 490.0
+margin_bottom = 286.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 6 )
+custom_colors/default_color = Color( 0.227451, 0.137255, 0.0705882, 1 )
+custom_colors/font_color_selected = Color( 0.231373, 0.360784, 0.45098, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Summon a
+ random Yasuo with [color=#3b5c73]10 deaths[/color]. Immediately take [color=#b31f1f]depression[/color] damage upon use. [/center] 
+"
+text = "Summon a
+ random Yasuo with 10 deaths. Immediately take depression damage upon use.  
+"
+fit_content_height = true
+scroll_active = false
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+show_behind_parent = true
+margin_left = -264.0
+margin_top = -392.0
+margin_right = 264.0
+margin_bottom = 392.0
+mouse_filter = 2
+texture = SubResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="mouse_entered" from="CardListener" to="." method="_on_CardListener_mouse_entered"]
+[connection signal="mouse_exited" from="CardListener" to="." method="_on_CardListener_mouse_exited"]

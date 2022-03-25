@@ -1,0 +1,5 @@
+ObjectId,Description,Name,TextureResource,Type
+b1,A rudimentary sleeping roll constructed out of big leaves,Leaf-Sleep-Roll,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BedRoll.tscn,Housing
+b2,A small tent fashioned out of leaves and wood.,Basic Tent,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/Tent.tscn,Housing
+b3,A basic camp for rest and recouperation,Fire,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BasicCamp.tscn,Housing
+r1,Gathering post,Gathering Post,res://Assets/Sprites/Icons/SignPostIcon.tscn,Resource

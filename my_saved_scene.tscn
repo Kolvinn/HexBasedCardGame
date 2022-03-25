@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Sprites/Environment/HexCell1.cs" type="Script" id=1]
+[ext_resource path="res://Object/GameObject/Player/Player.cs" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/Environment/tree1.png" type="Texture" id=3]
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=4]
+[ext_resource path="res://Assets/Sprites/Environment/NewHexMapTests.cs" type="Script" id=5]
+[ext_resource path="res://Assets/Sprites/Environment/HexCell.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Object/GameObject/Player/Player.tscn" type="PackedScene" id=7]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="TileLayer1" type="YSort" parent="."]
+
+[node name="Area2D0" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 637, 205 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D1" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 428, 290 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D2" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 846, 291 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D3" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 428, 462 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D4" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 846, 464 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D5" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 637, 551 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D6" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 846, 634 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D7" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 1052, 717 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D8" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 846, 806 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D9" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 428, 635 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D10" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 637, 893 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="Area2D11" type="Area2D" parent="TileLayer1" instance=ExtResource( 6 )]
+position = Vector2( 428, 809 )
+scale = Vector2( 1, 0.8 )
+script = ExtResource( 1 )
+
+[node name="EvnLayer" type="YSort" parent="."]
+
+[node name="tree1" type="Sprite" parent="EvnLayer"]
+position = Vector2( 929, 434 )
+scale = Vector2( 1.30357, 1.23571 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -60 )
+
+[node name="tree2" type="Sprite" parent="EvnLayer"]
+position = Vector2( 672, 88 )
+scale = Vector2( 1.47321, 1.41429 )
+texture = ExtResource( 3 )
+offset = Vector2( 3.05453, -21.9192 )
+
+[node name="tree3" type="Sprite" parent="EvnLayer"]
+position = Vector2( 772, 745 )
+scale = Vector2( 1.47321, 1.41429 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -60 )
+
+[node name="tree5" type="Sprite" parent="EvnLayer"]
+position = Vector2( 373, 473 )
+scale = Vector2( 1.35714, 1.23571 )
+texture = ExtResource( 3 )
+offset = Vector2( 0, -60 )
+
+[node name="Player" type="KinematicBody2D" parent="EvnLayer" instance=ExtResource( 7 )]
+position = Vector2( 428, 635 )
+scale = Vector2( 2, 2 )
+input_pickable = true
+collision/safe_margin = 1.0
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 4 )
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 428, 462, 428, 635 )
+
+[connection signal="mouse_entered" from="TileLayer1/Area2D0" to="TileLayer1/Area2D0" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D0" to="TileLayer1/Area2D0" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D1" to="TileLayer1/Area2D1" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D1" to="TileLayer1/Area2D1" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D2" to="TileLayer1/Area2D2" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D2" to="TileLayer1/Area2D2" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D3" to="TileLayer1/Area2D3" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D3" to="TileLayer1/Area2D3" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D4" to="TileLayer1/Area2D4" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D4" to="TileLayer1/Area2D4" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D5" to="TileLayer1/Area2D5" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D5" to="TileLayer1/Area2D5" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D6" to="TileLayer1/Area2D6" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D6" to="TileLayer1/Area2D6" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D7" to="TileLayer1/Area2D7" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D7" to="TileLayer1/Area2D7" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D8" to="TileLayer1/Area2D8" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D8" to="TileLayer1/Area2D8" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D9" to="TileLayer1/Area2D9" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D9" to="TileLayer1/Area2D9" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D10" to="TileLayer1/Area2D10" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D10" to="TileLayer1/Area2D10" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="TileLayer1/Area2D11" to="TileLayer1/Area2D11" method="_on_Area2D_mouse_entered"]
+[connection signal="mouse_exited" from="TileLayer1/Area2D11" to="TileLayer1/Area2D11" method="_on_Area2D_mouse_exited"]
+[connection signal="mouse_entered" from="EvnLayer/Player" to="EvnLayer/Player" method="_on_Player_mouse_entered"]
+[connection signal="mouse_exited" from="EvnLayer/Player" to="EvnLayer/Player" method="_on_Player_mouse_exited"]

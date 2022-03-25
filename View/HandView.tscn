@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://View/HandView.cs" type="Script" id=3]
-
-[node name="HandView" type="Node2D"]
-position = Vector2( -0.324738, 0 )
-script = ExtResource( 3 )

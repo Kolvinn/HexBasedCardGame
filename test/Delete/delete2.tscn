@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Test/Delete/testdelete.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Sprites/Environment/HexCell.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="YSort"]
+position = Vector2( 168, 132 )
+
+[node name="Hex" parent="." instance=ExtResource( 1 )]
+position = Vector2( 930, 235 )
+
+[node name="Hex2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1334, 393 )
+
+[node name="Hex3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1134, 474 )
+
+[node name="Hex4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1129, 154 )
+
+[node name="Hex5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 933, 395 )
+
+[node name="Hex6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1131, 314 )
+
+[node name="HexCell2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 611, 401 )
+
+[node name="HexCell3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 401, 487 )
+
+[node name="HexCell4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 401, 314 )
+
+[node name="HexCell5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 191, 400 )
+
+[node name="HexCell6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 402, 141 )
+
+[node name="HexCell7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 612, 228 )
+
+[node name="Hex7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1331, 233 )
+
+[node name="HexCell8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 192, 227 )

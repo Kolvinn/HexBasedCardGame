@@ -1,0 +1,862 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Test/Delete/testdelete.tscn" type="PackedScene" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Hex" parent="." instance=ExtResource( 1 )]
+z_index = 10
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 45, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( 0, -10 )
+cell_size = Vector2( 30, 30 )
+format = 1
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Polygon2D2" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 45, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D2"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D3" type="Polygon2D" parent="YSort"]
+position = Vector2( 135, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D3"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D4" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 135, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D4"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D5" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 135, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D5"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D6" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 105, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D6"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D7" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.380392, 0.113725, 0.113725, 1 )
+position = Vector2( 75, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D7"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D8" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 105, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D8"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D9" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 105, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D9"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D10" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 75, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D10"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D11" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 45, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D11"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D12" type="Polygon2D" parent="YSort"]
+position = Vector2( 135, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D12"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D13" type="Polygon2D" parent="YSort"]
+position = Vector2( 105, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D13"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D14" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 75, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D14"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D15" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D15"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D16" type="Polygon2D" parent="YSort"]
+position = Vector2( 135, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D16"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D17" type="Polygon2D" parent="YSort"]
+position = Vector2( 105, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D17"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D18" type="Polygon2D" parent="YSort"]
+position = Vector2( 75, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D18"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D20" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D20"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D21" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D21"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D22" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D22"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D23" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D23"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D24" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D24"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D25" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D25"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D26" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D26"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D29" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D29"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D30" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D30"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D31" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D31"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D32" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D32"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D33" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D33"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D36" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D36"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D37" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D37"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D38" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -45, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D38"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D40" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D40"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D41" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D41"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D42" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D42"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D44" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -75, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D44"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D45" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 15, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D45"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D49" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -15, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D49"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D50" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -45, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D50"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D51" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -75, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D51"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D52" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D52"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D53" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D53"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D54" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D54"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D55" type="Polygon2D" parent="YSort"]
+position = Vector2( -75, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D55"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D56" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D56"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D57" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D57"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D58" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D58"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D60" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 45, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D60"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D61" type="Polygon2D" parent="YSort"]
+position = Vector2( 135, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D61"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D65" type="Polygon2D" parent="YSort"]
+position = Vector2( 105, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D65"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D66" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 75, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D66"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D67" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D67"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D68" type="Polygon2D" parent="YSort"]
+position = Vector2( 135, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D68"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D69" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 105, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D69"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D70" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 75, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D70"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D71" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D71"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D72" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 135, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D72"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D73" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 105, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D73"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D74" type="Polygon2D" parent="YSort"]
+position = Vector2( 75, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D74"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D76" type="Polygon2D" parent="YSort"]
+position = Vector2( 75, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D76"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D77" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D77"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D79" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -105, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D79"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D80" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -135, -25 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D80"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D84" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D84"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D85" type="Polygon2D" parent="YSort"]
+position = Vector2( -105, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D85"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D95" type="Polygon2D" parent="YSort"]
+position = Vector2( -105, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D95"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D96" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, -85 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D96"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D99" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -105, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D99"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D100" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, -55 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D100"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D103" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D103"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D104" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D104"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D105" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D105"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D107" type="Polygon2D" parent="YSort"]
+position = Vector2( 45, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D107"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D108" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D108"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D109" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D109"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D112" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D112"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D113" type="Polygon2D" parent="YSort"]
+position = Vector2( 15, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D113"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D114" type="Polygon2D" parent="YSort"]
+position = Vector2( -45, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D114"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D115" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D115"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D116" type="Polygon2D" parent="YSort"]
+position = Vector2( -15, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D116"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D119" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D119"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D120" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -15, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D120"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D123" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( 15, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D123"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D124" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -15, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D124"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D125" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -45, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D125"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D19" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -75, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D19"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D27" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -75, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D27"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D28" type="Polygon2D" parent="YSort"]
+position = Vector2( -75, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D28"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D87" type="Polygon2D" parent="YSort"]
+position = Vector2( -75, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D87"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D106" type="Polygon2D" parent="YSort"]
+position = Vector2( -105, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D106"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D110" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, 125 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D110"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D111" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -75, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D111"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D117" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.396078, 0.105882, 0.105882, 1 )
+position = Vector2( -105, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D117"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D118" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.396078, 0.105882, 0.105882, 1 )
+position = Vector2( -105, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D118"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D122" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.396078, 0.105882, 0.105882, 1 )
+position = Vector2( -135, 5 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D122"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D126" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.396078, 0.105882, 0.105882, 1 )
+position = Vector2( -135, 35 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D126"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D127" type="Polygon2D" parent="YSort"]
+modulate = Color( 0.384314, 0.12549, 0.12549, 1 )
+position = Vector2( -105, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D127"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D128" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, 65 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D128"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D129" type="Polygon2D" parent="YSort"]
+position = Vector2( -105, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D129"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Polygon2D130" type="Polygon2D" parent="YSort"]
+position = Vector2( -135, 95 )
+polygon = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15 )
+
+[node name="Line2D" type="Line2D" parent="YSort/Polygon2D130"]
+points = PoolVector2Array( -15, -15, 15, -15, 15, 15, -15, 15, -15, -15 )
+width = 1.0
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 60, 80, 150, -10, 150, 50, 60, 140, 60, 80, -60, 80, -150, -10, -150, 50, -60, 140, 60, 140, 150, 50, 150, -10, 60, -100, -60, -100, -150, -10 )
+width = 5.0

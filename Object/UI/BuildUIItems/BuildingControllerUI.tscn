@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Object/UI/BuildingIcon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Object/UI/BuildMenu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp, sorted 3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/20.09 - Traveler's Camp 1.1/traveler's camp.png" type="Texture" id=4]
+[ext_resource path="res://Object/UI/BuildUIItems/BuildingControllerUI.cs" type="Script" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 65, 3, 30, 60 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( -2, 0, 67, 66 )
+
+[node name="BuildingControllerUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main Building Menu" parent="." instance=ExtResource( 2 )]
+visible = false
+
+[node name="Housing Menu" type="GridContainer" parent="."]
+visible = false
+margin_left = 421.0
+margin_top = 1104.0
+margin_right = 877.0
+margin_bottom = 1136.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_constants/vseparation = 11
+custom_constants/hseparation = 26
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BedRoll" type="TextureButton" parent="Housing Menu"]
+margin_right = 94.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Tent" type="TextureButton" parent="Housing Menu"]
+margin_left = 120.0
+margin_right = 214.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Control" parent="Housing Menu" instance=ExtResource( 1 )]
+margin_left = 240.0
+margin_right = 334.0
+margin_bottom = 32.0
+
+[node name="Control2" parent="Housing Menu" instance=ExtResource( 1 )]
+margin_left = 360.0
+margin_right = 454.0
+margin_bottom = 32.0
+
+[node name="BuildingUILayer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

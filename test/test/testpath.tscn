@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://GameObject/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://test/testpath.cs" type="Script" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 440, 72, 0, 0, 0, 0, 448, 240, 0, 0, 0, 0, 712, 312, 0, 0, 0, 0, 680, 528, 0, 0, 0, 0, 488, 720, 0, 0, 0, 0, 224, 632, 0, 0, 0, 0, 160, 432, 0, 0, 0, 0, 240, 272, 0, 0, 0, 0, 240, 184, 0, 0, 0, 0, 120, 208 )
+}
+
+[node name="Node2D" type="Path2D"]
+curve = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2( 440, 72 )
+rotate = false
+
+[node name="Player" parent="PathFollow2D" instance=ExtResource( 1 )]

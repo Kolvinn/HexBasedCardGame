@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main/Camera2D.cs" type="Script" id=1]
+
+[node name="Camera2D" type="Camera2D"]
+visible = false
+current = true
+process_mode = 0
+limit_left = -900
+limit_top = -1400
+script = ExtResource( 1 )
