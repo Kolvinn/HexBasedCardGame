@@ -1,28 +1,37 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Sprites/linesprite.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Sprites/Environment/grass00.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Environment/Tiles/grass_tile.png" type="Texture" id=2]
 [ext_resource path="res://Test/Delete/HexHorizontalTest.cs" type="Script" id=3]
 [ext_resource path="res://Assets/Environment/unknown (1).png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/colour base.jpg" type="Texture" id=5]
+[ext_resource path="res://Assets/Environment/suelo_sin_linea.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/CLIFF.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Environment/Tiles/water_tile.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Environment/Tiles/mud_tile.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Bold.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 29
+font_data = ExtResource( 10 )
 
 [node name="Hex" type="Area2D"]
-scale = Vector2( 1, 0.7 )
 script = ExtResource( 3 )
 
 [node name="HitBox" type="CollisionPolygon2D" parent="."]
-visible = false
 
 [node name="TopPoly" type="Polygon2D" parent="."]
+visible = false
 position = Vector2( 1, 0 )
 antialiased = true
-texture = ExtResource( 2 )
 texture_offset = Vector2( 150, 110 )
 texture_rotation_degrees = 90.0
-polygon = PoolVector2Array( -140, 0, -70, -121.24, 70, -121.24, 140, 0, 70, 121.24, -70, 121.24, -140, 0 )
+polygon = PoolVector2Array( -140, 0, -70, -72.744, 70, -72.744, 140, 0, 70, 72.744, -70, 72.744, -140, 0 )
 
 [node name="BotPoly" type="Polygon2D" parent="TopPoly"]
 visible = false
 antialiased = true
+texture = ExtResource( 5 )
 polygon = PoolVector2Array( -140, 0, -70, 121.244, 70, 121.244, 140, 0, 140, 40, 70, 161.244, -70, 161.244, -140, 40, -140, 0 )
 
 [node name="BottomBorder" type="Line2D" parent="."]
@@ -34,6 +43,7 @@ texture = ExtResource( 1 )
 texture_mode = 2
 
 [node name="TopBorder" type="Line2D" parent="."]
+visible = false
 light_mask = 16517
 points = PoolVector2Array( -24, -61.4286 )
 width = 3.0
@@ -42,16 +52,108 @@ texture = ExtResource( 1 )
 texture_mode = 2
 end_cap_mode = 2
 
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 494, -69 )
+texture = ExtResource( 4 )
+
+[node name="grass_tile" type="Sprite" parent="."]
+visible = false
+show_behind_parent = true
+scale = Vector2( 0.35, 0.35 )
+texture = ExtResource( 2 )
+
+[node name="suelo_sin_linea" type="Sprite" parent="."]
+position = Vector2( -3.20411, 3.34408 )
+scale = Vector2( 0.358188, 0.419521 )
+texture = ExtResource( 6 )
+
+[node name="CLIFF" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 1, 58 )
+scale = Vector2( 1, 0.836586 )
+texture = ExtResource( 7 )
+
+[node name="water_tile" type="Sprite" parent="."]
+visible = false
+position = Vector2( 9, -2 )
+scale = Vector2( 0.352, 0.407 )
+texture = ExtResource( 8 )
+
+[node name="mud_tile" type="Sprite" parent="."]
+visible = false
+position = Vector2( 1, -2 )
+scale = Vector2( 0.352, 0.407 )
+texture = ExtResource( 9 )
+
+[node name="SW_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SW_Border"]
+polygon = PoolVector2Array( -138, 1, -134, -2, -67, 75, -71, 79 )
+
+[node name="Polygon2D" type="Polygon2D" parent="SW_Border/CollisionPolygon2D"]
+
+[node name="S_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="S_Border"]
+position = Vector2( 63, 74 )
+polygon = PoolVector2Array( -136, 6, -134, 2, 9, 3, 9, 7 )
+
+[node name="Polygon2D" type="Polygon2D" parent="S_Border/CollisionPolygon2D"]
+
+[node name="SE_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SE_Border"]
+position = Vector2( 145, 6 )
+polygon = PoolVector2Array( -4, -9, -2, -6, -73, 77, -74, 71 )
+
+[node name="Polygon2D" type="Polygon2D" parent="SE_Border/CollisionPolygon2D"]
+
+[node name="NE_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NE_Border"]
+position = Vector2( 215, -75 )
+polygon = PoolVector2Array( -136, -6, -132, -7, -70, 72, -73, 75 )
+
+[node name="Polygon2D" type="Polygon2D" parent="NE_Border/CollisionPolygon2D"]
+
+[node name="N_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="N_Border"]
+position = Vector2( 131, -139 )
+polygon = PoolVector2Array( -198, 58, -197, 54, -49, 55, -49, 58 )
+
+[node name="Polygon2D" type="Polygon2D" parent="N_Border/CollisionPolygon2D"]
+
+[node name="NW_Border" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NW_Border"]
+position = Vector2( 45, -60 )
+polygon = PoolVector2Array( -113, -25, -110, -24, -181, 63, -183, 60 )
+
+[node name="Polygon2D" type="Polygon2D" parent="NW_Border/CollisionPolygon2D"]
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-visible = false
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 2, 5.58035 )
-scale = Vector2( 1.13048, 2.51285 )
-texture = ExtResource( 4 )
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -49.0
+margin_top = -29.0
+margin_right = 55.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="mouse_entered" from="." to="." method="_on_Hex_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Hex_mouse_exited"]

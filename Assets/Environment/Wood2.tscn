@@ -25,12 +25,12 @@ polygon = PoolVector2Array( -2.7826, -5.42094, -32.8347, -9.85625, -21.1478, -28
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="Sprite" type="Sprite" parent="YSort"]
+[node name="Wood1" type="Sprite" parent="YSort"]
 position = Vector2( -41, -19 )
 scale = Vector2( 1.79844, 1.81458 )
 texture = SubResource( 1 )
 
-[node name="Sprite2" type="Sprite" parent="YSort"]
+[node name="Wood2" type="Sprite" parent="YSort"]
 position = Vector2( 33, 23 )
 texture = SubResource( 2 )
 offset = Vector2( 0, -30 )

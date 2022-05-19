@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Sprites/Buildings/blacksmith.svg" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Buildings/Building.cs" type="Script" id=2]
+
+[node name="TechHut" type="StaticBody2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -59, -3, -63, -50, -39, -69, 11, -89, 60, -41, 62, -11, -8, 30 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -30 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 1, -0.333333 )
+polygon = PoolVector2Array( -62, -4.66667, 9, -53.6667, 62, -10.6667, -8, 29.3333 )

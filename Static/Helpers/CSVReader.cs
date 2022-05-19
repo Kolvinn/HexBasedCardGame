@@ -43,6 +43,7 @@ public static class CSVReader
                 modelList.Add(card);
             
             }
+
         }
         catch(System.Exception e)
         {
@@ -69,9 +70,9 @@ public static class CSVReader
     public static List<BuildingModel> LoadBuildingCSV(){
 
         //var o = new ResourceCost();
-        string path = "./Documents/BuiasdfasdfldingsCSV.csv";
+        string path = "./Documents/BuildingsCSVv2.csv";
        // List<BuildingModel> models = new List<BuildingModel>();
-        
+        GD.Print("loading buildings csv");
 
         List<BuildingModel> modelList = new List<BuildingModel> ();
 
@@ -91,7 +92,8 @@ public static class CSVReader
         }
         catch(System.Exception e)
         {
-            GD.Print("Found exception, getting stored data instead");
+            GD.Print("Found exception, getting stored data instead for BUIldingsCSV");
+            GD.Print(e);
             modelList = JsonConvert.DeserializeObject<List<BuildingModel>>(BuildingsCSVJSON);
         }
 
@@ -103,14 +105,9 @@ public static class CSVReader
     public static void LoadResourceCosts(List<AbstractObjectModel> models)
     {
        // var o = new ResourceCost();
-        string path = "./Documents/ResasdfasdfourceCosts.csv";
+        string path = "./Documents/ResourceCostsv2csv.csv";
         //List<BuildingModel> models = new List<BuildingModel>();
-        var csvConfig = new CsvConfiguration(CultureInfo.CurrentCulture)
-        {
-            HasHeaderRecord = true,
-            HeaderValidated = null
-
-        };
+        GD.Print("loading resources");
 
         List<ResourceCost> costList = new List<ResourceCost>();
         try {
@@ -131,7 +128,7 @@ public static class CSVReader
         }
         catch(System.Exception e)
         {
-            GD.Print("Found exception, getting stored data instead");
+            GD.Print("Found exception, getting stored data instead for Resource Costs");
             costList = JsonConvert.DeserializeObject<List<ResourceCost>>(ResourceCostsCSVJSON);
         }
         
@@ -141,8 +138,11 @@ public static class CSVReader
 
             if(item!=null)
             {
-                ////GD.Print("Found the right res cost for object id ", model.ObjectId);
+                GD.Print("Found the right res cost for object id ", model.ObjectId);
+                
                 model.RequiredResources = item;
+                model.RequiredResources.ResourceCostList =  model.RequiredResources.GetResourceCosts();
+
             }
         }
 

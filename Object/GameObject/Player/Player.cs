@@ -49,6 +49,13 @@ public class Player : KinematicBody2D, GameObject
 	[Persist(IsPersist = false)]
 	public AnimationNodeStateMachinePlayback animationState;
 
+	[Signal]
+	public delegate void PlayerSwordHit(Node objectHit);
+
+	[Signal]
+	public delegate void PowerTileInteraction(bool type);
+	
+
 	public override void _Ready(){
 		//base._Ready();
 		encounters = new List<GameObject>();
@@ -72,6 +79,41 @@ public class Player : KinematicBody2D, GameObject
 		
 		
 	}
+	public void _on_SwordHitbox_body_entered(Node body)
+	{
+		
+		GD.Print("Sword body entered hitbox for ", body.Name);
+		EmitSignal(nameof(PlayerSwordHit), body);
+	}
+
+	public void _on_SwordHitbox_area_entered(Area2D area)
+	{
+		
+	}
+	public void _on_PlayerHitbox_body_entered(Node body)
+	{
+		//////GD.Print("Area entered: ", area.Name + "    with pos: "+area.GlobalPosition);
+		if(body?.GetType() == typeof(HexHorizontalTest))
+		{
+			//currentTile = (HexCell1)area;
+			currentTestTile = (HexHorizontalTest)body;
+			GD.Print("Setting current hex to ;",currentTestTile.Name);
+		}
+		else if(body?.Name == "ExitMainArea")
+		{
+			EmitSignal("ExitMainArea");
+		}
+		else if(body.Name == "Enemy_SwordHitbox" )
+		{
+			GD.Print("skndjfkjsndkfjnskjdf");
+		}
+	}
+
+	public void _on_PlayerHitbox_body_exited(Node body)
+	{
+
+	}
+
 
 	public bool IsAvailable()
 	{
@@ -79,13 +121,52 @@ public class Player : KinematicBody2D, GameObject
 		return string.IsNullOrEmpty(this.animationPlayer.CurrentAnimation);
 	}
 
+	public void _on_PlayerHitbox_area_entered(Area2D area)
+	{
+		if(area is HexHorizontalTest)
+		{
+			currentTestTile = (HexHorizontalTest)area;
+			
+			if(!string.IsNullOrEmpty(currentTestTile.powertilestring))
+			{
+				((HexHorizontalTest)area).Name = "superduper hex";
+				GD.Print("Power Hex ",area.Name, " entered");
+				EmitSignal(nameof(PowerTileInteraction), true);
+			}
+			// else 
+			// {
+			// 	EmitSignal(nameof(PowerTileInteraction), false);
+			// }
+		}
+	}
+
+	public void _on_PlayerHitbox_area_exited(Area2D area)
+	{
+		if(area is HexHorizontalTest)
+		{
+			//currentTestTile = (HexHorizontalTest)area;
+			
+			
+			if(!string.IsNullOrEmpty(((HexHorizontalTest)area).powertilestring))
+			{
+				GD.Print("Power Hex ",((HexHorizontalTest)area).Name, " exited");
+				EmitSignal(nameof(PowerTileInteraction), false);
+			}
+			// else 
+			// {
+			// 	EmitSignal(nameof(PowerTileInteraction), false);
+			// }
+		}
+	}
+
 	public void _on_Area2D_area_entered(Area2D area){
 		//////GD.Print("Area entered: ", area.Name + "    with pos: "+area.GlobalPosition);
 		if(area?.GetType() == typeof(HexHorizontalTest))
 		{
+			
 			//currentTile = (HexCell1)area;
 			currentTestTile = (HexHorizontalTest)area;
-			//////GD.Print("Setting current hex to ;",currentTestTile.Name);
+			//GD.Print("Setting current hex to ;",currentTestTile.Name);
 		}
 		else if(area?.Name == "ExitMainArea")
 		{
@@ -95,8 +176,9 @@ public class Player : KinematicBody2D, GameObject
 
 	public void _on_EncounterArea_area_entered(Area2D area)
 	{
+		
 		if(area is IInteractable){
-			////GD.Print("Adding interactable");
+			GD.Print("Adding interactable: ", area.Name);
 			encounters.Add((Interactable)area);
 		}
 	}
@@ -108,6 +190,7 @@ public class Player : KinematicBody2D, GameObject
 	}
 
 	public void _on_EncounterArea_body_entered(Node body){
+		//GD.Print("jskndkfjnsjkdf ", body.Name);
 		if(typeof(GameObject).IsInstanceOfType(body) && body != this)
 		{
 			GD.Print("Adding body: ", body.Name);

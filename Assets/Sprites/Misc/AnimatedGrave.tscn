@@ -1,0 +1,172 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/Sprites/cursed_grave.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Sprites/Misc/AnimatedGrave.cs" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 896, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1024, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1152, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1280, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1408, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1536, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1664, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1792, 896, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 1920, 896, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ), SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 30.0
+} ]
+
+[sub_resource type="Animation" id=11]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 183, 184, 185, 186, 187, 188, 189, 190, 191 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "Hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "Spooky"
+length = 7.0
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183 ]
+}
+
+[sub_resource type="Shader" id=16]
+code = "shader_type canvas_item;
+
+//uniform sampler2D mask_texture;
+
+void fragment() {
+	
+    vec4 colour = texture(TEXTURE, UV);
+	if(colour.a >0.5f)
+	{
+		
+	}
+	else{
+		COLOR = colour;
+	}
+    ///colour.a *= texture(mask_texture, UV).a;
+
+    
+}"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 16 )
+
+[node name="AnimatedGrave" type="StaticBody2D"]
+scale = Vector2( 1.5, 1.5 )
+collision_layer = 0
+script = ExtResource( 2 )
+
+[node name="Grave" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -1.26135, -0.420441 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 10 )
+frame = 29
+speed_scale = 0.4
+playing = true
+offset = Vector2( 0, -30 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Spooky"
+anims/Death = SubResource( 11 )
+anims/Hurt = SubResource( 13 )
+anims/Spooky = SubResource( 12 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -30 )
+hframes = 24
+vframes = 8
+frame = 183
+
+[node name="Sprite2" type="Sprite" parent="."]
+visible = false
+material = SubResource( 15 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -30 )
+hframes = 24
+vframes = 8
+frame = 183
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0.970863, -31.9081 )
+polygon = PoolVector2Array( -22.9935, 33.1326, 2.96304, 42.8073, 20.8967, 27.7053, 5.32272, 21.3342, 6.9745, 6.46816, 4.85079, 1.27686, -6.00377, -5.0943, -11.431, 0.568951, -5.29586, 7.41204, -6.94764, 18.2666, -9.77927, 21.5702 )
+
+[node name="Area2D" type="Area2D" parent="."]

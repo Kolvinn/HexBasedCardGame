@@ -7,10 +7,14 @@ public static class Params{
 
     public static string CardDirectory2 = "res://Assets/Sprites/Cards/";
 
-     public static T LoadScene<T> (string scenePath){
+     public static T LoadScene<T> (string scenePath, string name =null){         
         var packedScene = ResourceLoader.Load(scenePath) as PackedScene;
         var instance = packedScene.Instance();
-        return (T)Convert.ChangeType(instance, typeof(T));
+        if(!string.IsNullOrEmpty(name))
+            instance.Name =name;
+        var jk = (T)Convert.ChangeType(instance, typeof(T));
+        
+        return jk;
     }
     public static Node LoadScene (string scenePath){
         var packedScene = ResourceLoader.Load(scenePath) as PackedScene;

@@ -6,7 +6,7 @@ public class InteractionStartState :BaseState
         this.Interactable = Interactable;
     }
 
-    public override BaseState HandleState(PlayerController player, float delta)
+    public override BaseState HandleState(PlayerController player, float delta, BaseState parentState = null)
     {
         BaseState st = ParseInteraction(player);
         

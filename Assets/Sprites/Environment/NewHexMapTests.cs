@@ -62,7 +62,7 @@ public class NewHexMapTests : Node2D, GameObject
            
         }
 
-        ConnectPoints();
+        //ConnectPoints();
 
         
     }

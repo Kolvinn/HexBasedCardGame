@@ -1,0 +1,230 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/PNG/Button02.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/PNG/Cell01.png" type="Texture" id=3]
+[ext_resource path="res://pngaaa.com-2326334.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/JPG/MiniPanel06.jpg" type="Texture" id=6]
+[ext_resource path="res://Object/UI/Main/InventoryUI.cs" type="Script" id=7]
+
+[sub_resource type="StyleBoxTexture" id=1]
+content_margin_left = 50.0
+content_margin_bottom = 50.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 208, 29 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 781, 251 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 27
+use_mipmaps = true
+extra_spacing_top = 8
+font_data = ExtResource( 1 )
+
+[sub_resource type="AtlasTexture" id=4]
+resource_local_to_scene = true
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 66, 160, 31, 32 )
+
+[node name="InventoryUI" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -2.0
+margin_right = 2.0
+margin_bottom = -2.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -484.5
+margin_top = -279.5
+margin_right = 484.5
+margin_bottom = 279.5
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TabContainer" type="TabContainer" parent="TextureRect/HBoxContainer"]
+margin_right = 482.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/tab_fg = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
+
+[node name="All" type="VBoxContainer" parent="TextureRect/HBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 64.0
+alignment = 1
+
+[node name="Label" type="Label" parent="TextureRect/HBoxContainer/TabContainer/All"]
+margin_right = 482.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 3 )
+text = "All"
+align = 1
+valign = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/HBoxContainer/TabContainer/All"]
+margin_top = 47.0
+margin_right = 482.0
+margin_bottom = 495.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="GridContainer" type="GridContainer" parent="TextureRect/HBoxContainer/TabContainer/All/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 462.0
+margin_bottom = 428.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 6
+
+[node name="Resources" type="GridContainer" parent="TextureRect/HBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 64.0
+
+[node name="Weapons" type="GridContainer" parent="TextureRect/HBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 64.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer"]
+margin_left = 486.0
+margin_right = 969.0
+margin_bottom = 559.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
+margin_right = 483.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 70 )
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
+margin_top = 74.0
+margin_right = 483.0
+margin_bottom = 485.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 433.0
+margin_bottom = 361.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_right = 65.0
+margin_bottom = 311.0
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 65.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 65, 65 )
+texture = ExtResource( 3 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/TextureRect2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.5
+margin_top = -39.5
+margin_right = 40.5
+margin_bottom = 40.5
+rect_min_size = Vector2( 80, 80 )
+texture = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 69.0
+margin_right = 65.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 65, 65 )
+texture = ExtResource( 3 )
+expand = true
+
+[node name="TextureRect4" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 138.0
+margin_right = 65.0
+margin_bottom = 203.0
+rect_min_size = Vector2( 65, 65 )
+texture = ExtResource( 3 )
+expand = true
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 69.0
+margin_right = 314.0
+margin_bottom = 311.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 4 )
+expand = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 318.0
+margin_right = 383.0
+margin_bottom = 311.0
+
+[node name="TextureRect2" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 65.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 65, 65 )
+texture = ExtResource( 3 )
+expand = true
+
+[node name="TextureRect3" type="TextureRect" parent="TextureRect/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_top = 69.0
+margin_right = 65.0
+margin_bottom = 134.0
+rect_min_size = Vector2( 65, 65 )
+texture = ExtResource( 3 )
+expand = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="TextureRect/HBoxContainer/VBoxContainer"]
+margin_top = 489.0
+margin_right = 483.0
+margin_bottom = 559.0
+rect_min_size = Vector2( 0, 70 )

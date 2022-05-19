@@ -1,0 +1,167 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Environment/RPGW_AncientForest_v1.0/_PNG/Decorative.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Environment/Tiles/mud_tile.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Environment/Tiles/water_tile.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Environment/Tiles/fire_tile.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Environment/Tiles/arbol_rojo.png" type="Texture" id=5]
+[ext_resource path="res://Sprite11.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Environment/Rocks/Rock.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Object/GameObject/Player/Player2.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Sprites/tent.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Environment/Tiles/grass_tile.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 9
+atlas = ExtResource( 1 )
+region = Rect2( 710, 485, 50, 50 )
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 484, 334 )
+
+[node name="YSort" type="YSort" parent="."]
+scale = Vector2( 0.55, 0.55 )
+
+[node name="Sprite" type="Sprite" parent="YSort"]
+position = Vector2( 1328.55, 321 )
+scale = Vector2( 0.681364, 0.720858 )
+texture = ExtResource( 2 )
+
+[node name="Sprite16" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 1888.77, 472.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite17" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 2338.77, 332.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite18" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 2115.77, 248.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite19" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 2111.78, 400.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite20" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 1891.77, 321.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite21" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 1664.77, 400.688 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="water_tile6" type="Sprite" parent="YSort"]
+position = Vector2( 932.363, 493.818 )
+scale = Vector2( 0.676665, 0.706181 )
+texture = ExtResource( 3 )
+
+[node name="Sprite22" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 550, 566 )
+scale = Vector2( 1.12548, 1.49169 )
+
+[node name="Sprite23" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 2557.77, 401.688 )
+scale = Vector2( 1.12548, 1.61571 )
+
+[node name="Sprite24" parent="YSort" instance=ExtResource( 6 )]
+position = Vector2( 2781.77, 479.688 )
+scale = Vector2( 1.12548, 1.66577 )
+
+[node name="fire_tile" type="Sprite" parent="YSort"]
+position = Vector2( 1337, 49 )
+scale = Vector2( 0.641361, 0.682785 )
+texture = ExtResource( 4 )
+
+[node name="grass_tile" type="Sprite" parent="YSort"]
+position = Vector2( 923.838, 188.5 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile2" type="Sprite" parent="YSort"]
+position = Vector2( 529, 595 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile3" type="Sprite" parent="YSort"]
+position = Vector2( 934, 727 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile4" type="Sprite" parent="YSort"]
+position = Vector2( 1339, 595 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile5" type="Sprite" parent="YSort"]
+position = Vector2( 520, 61 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile6" type="Sprite" parent="YSort"]
+position = Vector2( 520, 319 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="fire_tile3" type="Sprite" parent="YSort"]
+position = Vector2( 553, 861 )
+scale = Vector2( 0.641361, 0.682785 )
+texture = ExtResource( 4 )
+
+[node name="grass_tile7" type="Sprite" parent="YSort"]
+position = Vector2( 120, 187.273 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="grass_tile8" type="Sprite" parent="YSort"]
+position = Vector2( 132.727, -80 )
+scale = Vector2( 0.675978, 0.725914 )
+texture = ExtResource( 10 )
+
+[node name="Env" type="YSort" parent="."]
+
+[node name="arbol_rojo" type="Sprite" parent="Env"]
+position = Vector2( 167, -204 )
+scale = Vector2( 0.570884, 0.515997 )
+texture = ExtResource( 5 )
+
+[node name="StaticBody2D" parent="Env" instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 775, 382 )
+
+[node name="StaticBody2D3" parent="Env" instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 1449, 280 )
+
+[node name="Grass1_4" type="Sprite" parent="Env"]
+visible = false
+position = Vector2( 921, 210 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="Grass1_5" type="Sprite" parent="Env"]
+visible = false
+position = Vector2( 877, 300 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="Grass1_7" type="Sprite" parent="Env"]
+visible = false
+position = Vector2( 1253, 224 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="Player" parent="Env" instance=ExtResource( 8 )]
+position = Vector2( 269, 53 )
+scale = Vector2( 4, 4 )
+
+[node name="tent" type="Sprite" parent="Env"]
+visible = false
+position = Vector2( 1142, 317 )
+scale = Vector2( 0.459179, 0.371373 )
+texture = ExtResource( 9 )
+
+[node name="tent2" type="Sprite" parent="Env"]
+position = Vector2( 737, 283 )
+scale = Vector2( 0.438547, 0.402007 )
+texture = ExtResource( 9 )

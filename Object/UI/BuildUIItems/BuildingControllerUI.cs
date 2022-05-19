@@ -47,47 +47,47 @@ public class BuildingControllerUI : Control
 
     }
 
-    public BuildMenu LoadMainBuildMenu()
-    {
-        BuildMenu menu = Params.LoadScene<BuildMenu>("res://Object/UI/BuildMenu.tscn");
-        originPos = menu.RectPosition;
-        menu.Columns = 4;
+    // public BuildMenu LoadMainBuildMenu()
+    // {
+    //     BuildMenu menu = Params.LoadScene<BuildMenu>("res://Object/UI/BuildMenu.tscn");
+    //     originPos = menu.RectPosition;
+    //     menu.Columns = 4;
         
 
-        Button btn = new Button(){
-            Text ="Housing",
-            SizeFlagsHorizontal = 3,
-            SizeFlagsVertical = 3
-        };
-        btn.Connect("pressed", this, nameof(_on_BuildHousing_pressed));
-        menu.AddChild(btn);
-        //btn.SizeFlagsHorizontal = SizeFlagsHorizontal.Fill;
-        btn = new Button(){
-            Text = "Resource",
-            SizeFlagsHorizontal = 3,
-            SizeFlagsVertical = 3
+    //     Button btn = new Button(){
+    //         Text ="Housing",
+    //         SizeFlagsHorizontal = 3,
+    //         SizeFlagsVertical = 3
+    //     };
+    //     btn.Connect("pressed", this, nameof(_on_BuildHousing_pressed));
+    //     menu.AddChild(btn);
+    //     //btn.SizeFlagsHorizontal = SizeFlagsHorizontal.Fill;
+    //     btn = new Button(){
+    //         Text = "Resource",
+    //         SizeFlagsHorizontal = 3,
+    //         SizeFlagsVertical = 3
             
-        };
-        btn.Connect("pressed", this, nameof(_on_BuildResource_pressed));
-        menu.AddChild(btn);
-        //Godot.Control.SizeFlags.Fill;
+    //     };
+    //     btn.Connect("pressed", this, nameof(_on_BuildResource_pressed));
+    //     menu.AddChild(btn);
+    //     //Godot.Control.SizeFlags.Fill;
         
-        menu.AddChild(new Button(){
-            Text = "Something",
-            SizeFlagsHorizontal = 3,
-            SizeFlagsVertical = 3
-        });
+    //     menu.AddChild(new Button(){
+    //         Text = "Something",
+    //         SizeFlagsHorizontal = 3,
+    //         SizeFlagsVertical = 3
+    //     });
 
         
        
-        //exitButton.RectMinSize = new Vector2(100,100);
-        mainMenu = menu;
-        this.AddChild(mainMenu);
-        //mainMenu.Visible = false;
-        return mainMenu;
+    //     //exitButton.RectMinSize = new Vector2(100,100);
+    //     mainMenu = menu;
+    //     this.AddChild(mainMenu);
+    //     //mainMenu.Visible = false;
+    //     return mainMenu;
 
 
-    }
+    // }
     public void _on_BuildResource_pressed()
     {
         ChangeMenu(this.resourceMenu);
@@ -123,7 +123,14 @@ public class BuildingControllerUI : Control
         icon.button.HintTooltip = resourceString;
 
         // //p.Value.Connect("ButtonPress", this,nameof(ButtonPressed));
-        TextureButton b = Params.LoadScene<TextureButton>(textureResource);
+        TextureButton b = null;
+        try{
+            b = Params.LoadScene<TextureButton>(textureResource);
+        }catch(Exception e)
+        {
+            b = Params.LoadScene<TextureButton>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/ImageNotFound.tscn");
+            GD.Print("found this: ",b);
+        }
         //GD.Print("B ", b.Name);
         icon.button.Disabled =true;
 

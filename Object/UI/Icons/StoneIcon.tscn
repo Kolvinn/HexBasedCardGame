@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 33, 544, 30, 31 )
+
+[node name="StoneIcon" type="TextureRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = SubResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

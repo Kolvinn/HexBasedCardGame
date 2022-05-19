@@ -3,30 +3,40 @@ using System;
 using System.Collections.Generic;
 public class Building : StaticInteractable, GameObject
 {   
-    public BuildingModel model;
+    //public BuildingModel model;
 
-    public Node2D buildingAsset;
-
-    public List<string> JobIds;
+    public Sprite buildingAsset;
 
     public BuildingUI UI;
 
     public TextureButton ExitButton;
 
-    public List<string> AvailableWorkers;
+    //public List<string> AvailableWorkers;
 
     public List<string> AssignedWorkers;
 
     private bool hasUpdated = false;
 
+    private bool WorkerAdd = false;
+    
+    private bool WorkerRemove =false;
+
+    private int WorkerChange = 0;
+
+    private int MaxWorkers = 5;
+
+    private int TotalWorkers = 0;
+
 
     public override void _Ready()
     {
         base._Ready();
-        AvailableWorkers = new List<string>();
+       // AvailableWorkers = new List<string>();
         AssignedWorkers = new List<string>();
+        buildingAsset = this.GetNode<Sprite>("Sprite");
         UI = Params.LoadScene<BuildingUI>("res://Object/UI/Main/BuildingUI.tscn");
         UI.Visible = false;
+        //UI.Connect("WorkerAmountChange", this, nameof(On_WorkerAmountChange));
         GD.Print("loaded building UI: ",UI);
         
     }
@@ -40,8 +50,8 @@ public class Building : StaticInteractable, GameObject
     
     public void AddAvaialbleWorker(string worker)
     {
-        AvailableWorkers.Add(worker);
-        UI.WorkerList.AddItem(worker);
+        //AvailableWorkers.Add(worker);
+        //UI.WorkerList.AddItem(worker);
     }
 
     public void ConnectExitButton()
@@ -60,6 +70,23 @@ public class Building : StaticInteractable, GameObject
     }
 
 
+    public void On_WorkerAmountChange(int amount)
+    {
+        if(TotalWorkers + amount < 0 || TotalWorkers +amount > MaxWorkers)
+            return;
+        this.WorkerChange = amount;
+        
+        GD.Print("Updating worker change amount to: ",WorkerChange);
+        this.UI.UpdateAssignedTotal(TotalWorkers+amount, MaxWorkers);
+        this.UI.UpdateWorkerTotal(TotalWorkers+amount);
+    }
+
+    public int GetWorkerChangeAmount()
+    {
+        
+        return this.WorkerChange;
+    }
+
     public bool IsUIOpen()
     {
         return this.UI.Visible;
@@ -70,15 +97,7 @@ public class Building : StaticInteractable, GameObject
 
     }
 
-    public bool HasChanges()
-    {
-        if(hasUpdated)
-        {
-            hasUpdated = false;
-            return true;
-        }
-        return false;
-    }
+    
 
     public void _on_ExitButton_pressed()
     {

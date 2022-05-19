@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System;
 public class FireController: ControllerInstance
 {
@@ -156,7 +157,7 @@ public class FireController: ControllerInstance
 
     public void SpreadFire(HexHorizontalTest hex, bool isManual = false)
     {
-        foreach(HexHorizontalTest neighbour in hex.connections)
+        foreach(HexHorizontalTest neighbour in hex.connections.Select(item=> item.hex))
         {   
             GD.Print("checking neighbour: ", neighbour, " with hex: ", hex);
             //is grasssssssss

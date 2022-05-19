@@ -7,15 +7,18 @@ public class ResourceCost{
     public string ObjectId {get;set;}
     public int Wood {get;set;}
     public int Stone {get;set;}
-    public int Essence {get;set;}
-    public int Leaves {get;set;}
+    public int Dark_Essence {get;set;}
+    public int Grass_Fiber {get;set;}
 
     public int Leaf_Bed_Roll {get;set;}
 
     public int Basic_Tent {get;set;}
 
+    public Dictionary<string, int> ResourceCostList;
+
     public ResourceCost(){
-        
+        ResourceCostList = GetResourceCosts();
+       
     }
     public Dictionary<string,int> GetResourceCosts()
     {
@@ -27,7 +30,7 @@ public class ResourceCost{
             if(p.Name != "ObjectId" && (int)p.GetValue(this) > 0)
             {
                 
-                resources.Add(p.Name,(int)p.GetValue(this));
+                resources.Add(p.Name.Replace("_"," "),(int)p.GetValue(this));
             }
         }
         return resources;
@@ -42,8 +45,10 @@ public class ResourceCost{
         foreach(PropertyInfo p in properties)
         {   
             if(p.Name != "ObjectId" && (int)p.GetValue(this) > 0)
-            {
-                s = s+ p.Name +": " + p.GetValue(this) +"\n";
+            {   
+                if(s != "")
+                    s += ", ";
+                s = s+ p.Name.Replace("_"," ") +": " + p.GetValue(this);
                 //resources.Add(p.Name,(int)p.GetValue(this));
             }
         }

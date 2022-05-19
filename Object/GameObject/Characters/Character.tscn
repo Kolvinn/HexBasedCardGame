@@ -36,7 +36,7 @@ shader_param/line_color = Color( 0, 0, 0, 1 )
 shader_param/line_thickness = 0.0
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 1
+flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 468, 288, 156, 288 )
 filter_clip = true
@@ -256,6 +256,7 @@ offset = Vector2( 0, -20 )
 hframes = 3
 vframes = 4
 frame = 4
+region_filter_clip = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.392959, 3.51443 )

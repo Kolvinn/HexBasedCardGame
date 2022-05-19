@@ -15,7 +15,7 @@ public class StaticInteractable : StaticBody2D, IInteractable
         
     }
     public void InteractionAreaEntered(){
-        GD.Print("Pushing building to object queue");
+        //GD.Print("Pushing building to object queue");
         InteractionQueue.AddObject(this);
     }
 

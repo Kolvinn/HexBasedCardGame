@@ -1,7 +1,7 @@
 using Godot;
 public class WorkerJob
 {
-    public bool isPersistant;
+    protected bool isPersistant;
 
     public string JobId;
 
@@ -9,28 +9,38 @@ public class WorkerJob
 
     //public Node2D TargetObject;
 
-    public HexHorizontalTest TargetHex;
+    protected HexHorizontalTest TargetHex;
 
-    public HexHorizontalTest OriginHex;
+    protected HexHorizontalTest OriginHex;
 
-    public StorageBuilding StorageBuilding;
+    protected StorageBuilding StorageBuilding;
 
-    public Building AssignedBuilding;
-
-    public HexGrid grid;
+    protected Building AssignedBuilding;
 
 
     public virtual bool IsJobStillValid(CharacterController character)
     {
-
+        GD.Print("please tell me this isn't broken");
         return false;
     }
 
-    public virtual void PerformJobAction(CharacterController character)
+    public virtual bool IsJobStillValid(CharacterController character, HexGrid grid)
     {
-
+        return false;
     }
 
+    public virtual CharacterBaseState GetNextJobAction(CharacterController character)
+    {
+        return null;
+    }
+    public virtual CharacterBaseState HandleCharacterState(CharacterController character, CharacterBaseState state)
+    {
+        return null;
+    }
+    public virtual HexHorizontalTest FetchTargetHex()
+    {
+        return null;
+    }
     public virtual Vector2 FetchTargetVector()
     {   
         return Vector2.Zero;

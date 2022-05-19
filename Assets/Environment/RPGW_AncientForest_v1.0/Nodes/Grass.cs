@@ -1,8 +1,21 @@
 using Godot;
 using System;
 
-public class Grass : KinematicBody2D
- {
+public class Grass : BasicResource
+{
+    public AnimationPlayer player;
+    
+    public override void _Ready()
+    {
+        player = this.GetNode<AnimationPlayer>("AnimationPlayer");
+    }
+
+    public void _on_GrassArea_area_entered(Area2D area)
+    {
+        GD.Print(area);
+        if(area.Name != "GrassArea")
+            this.player.Play("Shake");
+    }
 //     public State.MouseEventState mouseEventState;
 //     public int Capacity{
 //         get;set;

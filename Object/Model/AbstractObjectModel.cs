@@ -11,6 +11,8 @@ public class AbstractObjectModel {
 
     public ResourceCost RequiredResources {get;set;}
 
+    public bool Disabled {get;set;}
+
 
 
 

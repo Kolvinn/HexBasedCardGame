@@ -1,0 +1,30 @@
+released under CC-BY-SA 3.0
+
+used blend files downloaded from blendswap:
+
+building 1:
+bason on https://www.blendswap.com/blends/view/77511
+by angelus_da, originally released under CC-BY 3.0
+which is a modified version of https://www.blendswap.com/blends/view/4500 (by dono, also CC-BY 3.0)
+includes grass patches taken from "the grass field" (see bottom)
+
+building 2:
+based on https://www.blendswap.com/blends/view/54598
+by yazjack, originally released under CC-BY 3.0
+includes grass patches taken from "the grass field" (see bottom)
+
+building 3:
+based on https://www.blendswap.com/blends/view/83351
+by OliverMH, originally released under CC-BY-SA 3.0
+includes parts from building 1 (see attribution from building1 !!!)
+includes grass patches taken from "the grass field" (see bottom)
+
+the grass field:
+https://www.blendswap.com/blends/view/74098
+by Spelle, originally released under CC-BY 3.0
+
+source blend file includes CC0 HRDI from blender cloud (https://cloud.blender.org/p/hdri/585ab78f1f47427f2541f8ed)
+
+
+
+

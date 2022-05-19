@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Sprites/Buildings/house1.png" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Buildings/Building.cs" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( -6, -5, 148, 238 )
+
+[node name="Rune Hut" type="StaticBody2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -55, -47.3333, 0, -90.3333, 49.3333, -47.3333, 46.3333, 43, -1, 49.6667, -50.6667, 43.6667 )
+
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.752941, 0.341176, 0.811765, 1 )
+position = Vector2( -1.66667, -19.6667 )
+scale = Vector2( 0.720721, 0.598039 )
+texture = SubResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 1, -0.333333 )
+polygon = PoolVector2Array( -50.6667, -43.6667, -1.33333, -54.3333, 45.3333, -41.3333, 44.3333, 44.3333, 10, 48.6667, 10, 38, -12.6667, 37.3333, -13, 49.3333, -51.6667, 44.3333 )

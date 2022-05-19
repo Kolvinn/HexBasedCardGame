@@ -1,0 +1,151 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Object/UI/BuildMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Object/UI/BuildingIcon.tscn" type="PackedScene" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -957.0
+margin_top = -349.0
+margin_right = 961.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer"]
+margin_bottom = 349.0
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -960.0
+margin_top = -269.0
+margin_right = 960.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Living" type="MarginContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 100
+custom_constants/margin_left = 100
+
+[node name="BuildMenu" parent="TabContainer/Living" instance=ExtResource( 1 )]
+margin_left = 100.0
+margin_top = 0.0
+margin_right = 1812.0
+margin_bottom = 233.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_constants/hseparation = 22
+columns = 3
+
+[node name="Control" type="Control" parent="TabContainer/Living/BuildMenu"]
+margin_right = 150.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BuildingIcon" parent="TabContainer/Living/BuildMenu/Control" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 150, 150 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Control2" type="Control" parent="TabContainer/Living/BuildMenu"]
+margin_left = 172.0
+margin_right = 322.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BuildingIcon" parent="TabContainer/Living/BuildMenu/Control2" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 150, 150 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Control3" type="Control" parent="TabContainer/Living/BuildMenu"]
+margin_left = 344.0
+margin_right = 494.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="BuildingIcon" parent="TabContainer/Living/BuildMenu/Control3" instance=ExtResource( 2 )]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 150, 150 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Resources" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Technology" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Magic" type="GridContainer" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0

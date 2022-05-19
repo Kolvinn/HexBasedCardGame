@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Sprites/Buildings/house1.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( -4, 0, 146, 233 )
+filter_clip = true
+
+[node name="Hut" type="TextureButton"]
+margin_right = 84.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 1 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}

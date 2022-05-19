@@ -151,26 +151,26 @@ public class SpellController : ControllerInstance
 
             if(hovered.building != null)
             {
-                if(hovered.building.model.Name == "Fire")
-                {
-                    GD.Print("making fire go brrrr with spellSprite: ", spellSprite.Position);
-                    spellSprite.Position = player.Position;
-                    this.environmentLayer.AddChild(spellSprite);
+                // if(hovered.building.model.Name == "Fire")
+                // {
+                //     GD.Print("making fire go brrrr with spellSprite: ", spellSprite.Position);
+                //     spellSprite.Position = player.Position;
+                //     this.environmentLayer.AddChild(spellSprite);
                     
-                    Tween t = new Tween();
-                    t.Connect("tween_all_completed", this, nameof(CompletedAnimation));
-                    t.InterpolateProperty(spellSprite, "position", spellSprite.Position, hovered.Position,1f,Tween.TransitionType.Quart);
-                    this.PerformingSpell = true;
-                    this.environmentLayer.AddChild(t);
-                    t.Start();
-                    // Node2D newNode = Params.LoadScene<AnimatedSprite>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/AnimatedFire.tscn");
-                    // Params.CloneWorldParams(baseNode,newNode);
-                    // hovered.building.buildingAsset.GetParent().RemoveChild(baseNode);
-                    // hovered.building.buildingAsset = newNode;
-                    // this.environmentLayer.AddChild(newNode);
-                    // baseNode.QueueFree();
+                //     Tween t = new Tween();
+                //     t.Connect("tween_all_completed", this, nameof(CompletedAnimation));
+                //     t.InterpolateProperty(spellSprite, "position", spellSprite.Position, hovered.Position,1f,Tween.TransitionType.Quart);
+                //     this.PerformingSpell = true;
+                //     this.environmentLayer.AddChild(t);
+                //     t.Start();
+                //     Node2D newNode = Params.LoadScene<AnimatedSprite>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/AnimatedFire.tscn");
+                //     Params.CloneWorldParams(baseNode,newNode);
+                //     hovered.building.buildingAsset.GetParent().RemoveChild(baseNode);
+                //     hovered.building.buildingAsset = newNode;
+                //     this.environmentLayer.AddChild(newNode);
+                //     baseNode.QueueFree();
                     
-                }
+                // }
             }
             else if(!hovered.isBasicResource && hovered.HexEnv != null)
             {
@@ -201,11 +201,11 @@ public class SpellController : ControllerInstance
     public void CompletedAnimation()
     {
         Node2D baseNode = SpellHex.building.buildingAsset;
-        Node2D newNode = Params.LoadScene<AnimatedSprite>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/AnimatedFire.tscn");
-        Params.CloneWorldParams(baseNode,newNode);
+        //Node2D newNode = Params.LoadScene<AnimatedSprite>("res://Assets/Sprites/20.09 - Traveler's Camp 1.1/AnimatedFire.tscn");
+        //Params.CloneWorldParams(baseNode,newNode);
         SpellHex.building.buildingAsset.GetParent().RemoveChild(baseNode);
-        SpellHex.building.buildingAsset = newNode;
-        this.environmentLayer.AddChild(newNode);
+       // SpellHex.building.buildingAsset = newNode;
+       // this.environmentLayer.AddChild(newNode);
         spellSprite.QueueFree();
         this.PerformingSpell = false;
         EmitSignal("SpellCompleted");

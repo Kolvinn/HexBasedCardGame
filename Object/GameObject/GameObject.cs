@@ -1,4 +1,5 @@
-public interface GameObject{
+public interface GameObject
+{
 
     /// <summary>
     /// Saves object to stringified JSON, must be coordinated with LoadObject

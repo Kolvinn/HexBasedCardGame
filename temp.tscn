@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://guh.jpg" type="Texture" id=1]
+
+[node name="guh" type="Sprite"]
+self_modulate = Color( 1, 1, 1, 0.415686 )
+position = Vector2( 882, 524 )
+texture = ExtResource( 1 )

@@ -1,0 +1,133 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Test/Delete/HexHorizontalTest.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Environment/Tree(misingtop).png" type="Texture" id=2]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( 1007, 844 )
+
+[node name="Node2D" type="Polygon2D" parent="."]
+position = Vector2( 22, -276 )
+rotation = 0.872665
+polygon = PoolVector2Array( 541.532, 396.962, 1036.6, -1059.58, -294.829, -351.824, -663.218, 749.407, -759.583, 1037.47 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Hex" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 916, 56 )
+
+[node name="Hex2" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -319, -563 )
+
+[node name="Hex3" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 287, 299 )
+
+[node name="Hex4" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -754, -253 )
+
+[node name="Hex5" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -112, -644 )
+
+[node name="Hex6" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -757, 60 )
+
+[node name="Hex7" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 308, -641 )
+
+[node name="Hex8" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -550, 135 )
+
+[node name="Hex9" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 97, -575 )
+
+[node name="Hex10" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -740, -404 )
+
+[node name="Hex11" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -152, 307 )
+
+[node name="Hex12" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 685, -470 )
+
+[node name="Hex13" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 493, -549 )
+
+[node name="Hex14" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 699, 136 )
+
+[node name="Hex15" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 500, 222 )
+
+[node name="Hex16" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 1656, 155 )
+
+[node name="Hex17" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -103, -489 )
+
+[node name="Hex18" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 291, -479 )
+
+[node name="Hex19" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 63, 239 )
+
+[node name="Hex20" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -346, 213 )
+
+[node name="Hex21" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 104, -415 )
+
+[node name="Hex22" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -694, 368 )
+
+[node name="Hex23" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -756, -96 )
+
+[node name="Hex24" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 894, -399 )
+
+[node name="Hex25" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 900, -243 )
+
+[node name="Hex26" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 910, -107 )
+
+[node name="Hex27" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -532, -483 )
+
+[node name="Hex28" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 916, 56 )
+
+[node name="Hex29" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -749, -699 )
+
+[node name="Hex30" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -965, -786 )
+
+[node name="Hex31" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( -537, -632 )
+
+[node name="YSort2" type="YSort" parent="."]
+
+[node name="Tree(misingtop)" type="Sprite" parent="YSort2"]
+position = Vector2( -994, -777 )
+texture = ExtResource( 2 )
+
+[node name="Tree(misingtop)2" type="Sprite" parent="YSort2"]
+position = Vector2( -918, -970 )
+texture = ExtResource( 2 )
+
+[node name="Tree(misingtop)3" type="Sprite" parent="YSort2"]
+position = Vector2( -609, -927 )
+texture = ExtResource( 2 )
+
+[node name="Tree(misingtop)4" type="Sprite" parent="YSort2"]
+position = Vector2( -1089, -853 )
+texture = ExtResource( 2 )
+
+[node name="Tree(misingtop)5" type="Sprite" parent="YSort2"]
+position = Vector2( -361, -855 )
+texture = ExtResource( 2 )
+
+[node name="Tree(misingtop)6" type="Sprite" parent="YSort2"]
+position = Vector2( -800, -997 )
+texture = ExtResource( 2 )

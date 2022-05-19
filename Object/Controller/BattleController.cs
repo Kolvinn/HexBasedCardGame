@@ -35,7 +35,7 @@ public class BattleController : ControllerInstance
     {   
         GD.Print("On firespell completed with card ", card.model.Name,  " and hex ", hex.Name);
         GD.Print(skeleton.currentHex);
-        if(grid.IndexOfVec(skeleton.targetVec) == grid.IndexOfVec(hex.Position))
+        if(HexGrid.IndexOfVec(skeleton.targetVec) == HexGrid.IndexOfVec(hex.Position))
             skeleton.TakeDamage(20);
         //if(hex == skeleton.currentHex)
             
@@ -117,33 +117,33 @@ public class BattleController : ControllerInstance
 
     public void SkeletonMovement()
     {
-        //this assumes a one range ability
-        var vecList = grid.pathFinder.GetPointPath(grid.IndexOfVec(skeleton.currentHex.Position), grid.IndexOfVec(player.player.currentTestTile.Position));
-        GD.Print("Vector list length  = ", vecList.Length);
-        //if the tile distance between player and skeleton can be crossed in movement
-        //then move to the nearest point (without start and end tiles)
-        canReach = false;
+    //     //this assumes a one range ability
+    //    // var vecList = grid.pathFinder.GetPointPath(HexGrid.IndexOfVec(skeleton.currentHex.Position), HexGrid.IndexOfVec(player.player.currentTestTile.Position));
+    //     GD.Print("Vector list length  = ", vecList.Length);
+    //     //if the tile distance between player and skeleton can be crossed in movement
+    //     //then move to the nearest point (without start and end tiles)
+    //     canReach = false;
 
-        if(vecList.Length == 2)
-        {
-            canReach = true;
-        }
-        else {
-            if(Movement >= (vecList.Length -2)) 
-                canReach = true;
+    //     if(vecList.Length == 2)
+    //     {
+    //         canReach = true;
+    //     }
+    //     else {
+    //         if(Movement >= (vecList.Length -2)) 
+    //             canReach = true;
             
-            for(int i =1 ;i <vecList.Length-2;i++)
-            {   
-                skeleton.movementQueue.Enqueue(vecList[i]);
+    //         for(int i =1 ;i <vecList.Length-2;i++)
+    //         {   
+    //             skeleton.movementQueue.Enqueue(vecList[i]);
 
-                if(Movement == i)
-                {
-                    skeleton.targetVec = vecList[i];
-                    break;
-                }
-            }
-        }
-         battleState = BattleState.EnemyMove;
+    //             if(Movement == i)
+    //             {
+    //                 skeleton.targetVec = vecList[i];
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //      battleState = BattleState.EnemyMove;
 
         // if(Movement >= (vecList.Length -2) )
         //     canReach = true;

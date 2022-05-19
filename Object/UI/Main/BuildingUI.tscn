@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Close.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/JPG/MiniPanel01.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/UI_Wood_B_NoBorder.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/JPG/MiniPanel06.jpg" type="Texture" id=4]
 [ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/PNG/Cell01.png" type="Texture" id=5]
 [ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/PNG/Button01.png" type="Texture" id=6]
@@ -9,12 +10,24 @@
 [ext_resource path="res://Object/UI/Main/BuildingUI.cs" type="Script" id=9]
 
 [sub_resource type="DynamicFont" id=1]
-size = 20
+size = 26
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 8 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 128, 161, 32, 30 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 64, 161, 32, 30 )
+filter_clip = true
+
+[sub_resource type="DynamicFont" id=4]
 size = 42
 use_mipmaps = true
 use_filter = true
@@ -76,7 +89,7 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer"]
 margin_right = 241.0
-margin_bottom = 18.0
+margin_bottom = 23.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
 text = "Options"
@@ -88,7 +101,7 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer"]
-margin_top = 22.0
+margin_top = 27.0
 margin_right = 241.0
 margin_bottom = 176.0
 size_flags_horizontal = 3
@@ -96,13 +109,13 @@ size_flags_vertical = 3
 
 [node name="MarginContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer"]
 margin_right = 241.0
-margin_bottom = 154.0
+margin_bottom = 149.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer"]
 margin_right = 241.0
-margin_bottom = 35.0
+margin_bottom = 34.0
 rect_pivot_offset = Vector2( -332.5, -143 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -128,9 +141,9 @@ __meta__ = {
 }
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer"]
-margin_top = 39.0
+margin_top = 38.0
 margin_right = 241.0
-margin_bottom = 75.0
+margin_bottom = 72.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -156,9 +169,9 @@ __meta__ = {
 }
 
 [node name="NinePatchRect3" type="NinePatchRect" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer"]
-margin_top = 79.0
+margin_top = 76.0
 margin_right = 241.0
-margin_bottom = 114.0
+margin_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -183,9 +196,9 @@ __meta__ = {
 }
 
 [node name="NinePatchRect4" type="NinePatchRect" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer"]
-margin_top = 118.0
+margin_top = 114.0
 margin_right = 241.0
-margin_bottom = 154.0
+margin_bottom = 149.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
@@ -207,7 +220,7 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer/NinePatchRect4/HBoxContainer"]
 margin_right = 125.0
-margin_bottom = 40.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -222,7 +235,7 @@ __meta__ = {
 [node name="CheckButton" type="CheckButton" parent="MarginContainer/GridContainer/NinePatchRect/VBoxContainer/GridContainer/MarginContainer/NinePatchRect4/HBoxContainer"]
 margin_left = 129.0
 margin_right = 205.0
-margin_bottom = 40.0
+margin_bottom = 49.0
 pressed = true
 clip_text = true
 align = 2
@@ -277,10 +290,10 @@ __meta__ = {
 
 [node name="Label2" type="Label" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer"]
 margin_right = 241.0
-margin_bottom = 18.0
+margin_bottom = 23.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
-text = "Workers"
+text = "Workers (0/5)"
 align = 1
 valign = 1
 autowrap = true
@@ -289,6 +302,7 @@ __meta__ = {
 }
 
 [node name="OptionButton" type="OptionButton" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer"]
+visible = false
 margin_top = 22.0
 margin_right = 241.0
 margin_bottom = 42.0
@@ -298,8 +312,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GridContainer2" type="GridContainer" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer"]
+margin_top = 27.0
+margin_right = 241.0
+margin_bottom = 47.0
+size_flags_horizontal = 3
+columns = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2"]
+margin_right = 96.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2/VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Workers (0)"
+align = 1
+valign = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2"]
+margin_left = 100.0
+margin_right = 144.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+columns = 2
+
+[node name="Add" type="TextureButton" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2/GridContainer"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+texture_normal = SubResource( 2 )
+expand = true
+
+[node name="Remove" type="TextureButton" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2/GridContainer"]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+texture_normal = SubResource( 3 )
+expand = true
+
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer"]
-margin_top = 46.0
+margin_top = 51.0
 margin_right = 241.0
 margin_bottom = 176.0
 size_flags_horizontal = 3
@@ -315,7 +374,7 @@ anchor_right = 0.5
 margin_left = -152.5
 margin_right = 152.5
 margin_bottom = 50.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 4 )
 text = "Building Menu"
 align = 1
 valign = 1
@@ -365,3 +424,5 @@ texture = ExtResource( 1 )
 expand = true
 
 [connection signal="item_selected" from="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="pressed" from="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2/GridContainer/Add" to="." method="_on_Add_pressed"]
+[connection signal="pressed" from="MarginContainer/GridContainer/NinePatchRect3/VBoxContainer/GridContainer2/GridContainer/Remove" to="." method="_on_Remove_pressed"]

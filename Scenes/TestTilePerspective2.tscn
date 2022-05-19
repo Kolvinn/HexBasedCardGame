@@ -1,0 +1,262 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Assets/Environment/unknown (1).png" type="Texture" id=1]
+[ext_resource path="res://Assets/Environment/Tiles/pino.png" type="Texture" id=2]
+[ext_resource path="res://Object/GameObject/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Environment/RPGW_AncientForest_v1.0/Nodes/grasspatch.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Environment/Rocks/Rock.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Environment/Tiles/arbol_rojo.png" type="Texture" id=6]
+[ext_resource path="res://Sprite11.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Environment/RPGW_AncientForest_v1.0/_PNG/Decorative.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Particles/firespritesFX_PIPO/Fire.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Sprites/Skeleton/Node2D.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Test/Delete/HexHorizontalTest.tscn" type="PackedScene" id=11]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 9
+atlas = ExtResource( 8 )
+region = Rect2( 1060, 493, 65, 50 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 9
+atlas = ExtResource( 8 )
+region = Rect2( 550, 488, 55, 55 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Layer1" type="Node2D" parent="."]
+
+[node name="HexLayer" type="YSort" parent="Layer1"]
+
+[node name="Sprite5" type="Sprite" parent="Layer1/HexLayer"]
+visible = false
+position = Vector2( 503, 501 )
+scale = Vector2( 1.12548, 1.39157 )
+texture = ExtResource( 1 )
+
+[node name="Sprite6" type="Sprite" parent="Layer1/HexLayer"]
+position = Vector2( 947, 639 )
+scale = Vector2( 1.12548, 1.39157 )
+texture = ExtResource( 1 )
+
+[node name="Sprite7" type="Sprite" parent="Layer1/HexLayer"]
+position = Vector2( 1170, 848 )
+scale = Vector2( 1.12548, 1.39157 )
+texture = ExtResource( 1 )
+
+[node name="Sprite9" type="Sprite" parent="Layer1/HexLayer"]
+visible = false
+position = Vector2( 507, 778 )
+scale = Vector2( 1.12548, 1.39157 )
+texture = ExtResource( 1 )
+
+[node name="Sprite11" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+visible = true
+position = Vector2( 729, 846 )
+
+[node name="Sprite12" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 948, 781 )
+
+[node name="Sprite13" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 944, 914 )
+
+[node name="Sprite14" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 725, 978 )
+
+[node name="Sprite15" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 727, 711 )
+
+[node name="Sprite16" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 505, 915 )
+
+[node name="Sprite17" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 726, 434 )
+
+[node name="Sprite18" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 717, 594 )
+
+[node name="Sprite19" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 506, 639 )
+
+[node name="Sprite20" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 727, 711 )
+
+[node name="Sprite21" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 727, 711 )
+
+[node name="Sprite22" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 938, 511 )
+
+[node name="Sprite23" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 1169, 574 )
+
+[node name="Sprite24" parent="Layer1/HexLayer" instance=ExtResource( 7 )]
+position = Vector2( 1174, 707 )
+
+[node name="EnvLayer" type="YSort" parent="Layer1"]
+
+[node name="YSort4" parent="Layer1/EnvLayer" instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 944, 475 )
+
+[node name="StaticBody2D" parent="Layer1/EnvLayer" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 632, 828 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="StaticBody2D2" parent="Layer1/EnvLayer" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 863, 614 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="StaticBody2D3" parent="Layer1/EnvLayer" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 1043, 895 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="StaticBody2D4" parent="Layer1/EnvLayer" instance=ExtResource( 5 )]
+visible = false
+position = Vector2( 860, 748 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="Grass2_" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 439, 763 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="Grass2_2" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 688, 557 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="Grass2_3" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 1180, 844 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 1 )
+
+[node name="pino2" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 1151, 823 )
+scale = Vector2( 0.527216, 0.52311 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -450 )
+
+[node name="arbol_rojo" type="Sprite" parent="Layer1/EnvLayer"]
+position = Vector2( 1255, 345 )
+scale = Vector2( 0.527216, 0.52311 )
+texture = ExtResource( 6 )
+
+[node name="Grass3_2" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 691, 677 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 2 )
+
+[node name="Grass3_3" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 888, 845 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 2 )
+
+[node name="Grass3_4" type="Sprite" parent="Layer1/EnvLayer"]
+visible = false
+position = Vector2( 931, 893 )
+scale = Vector2( 2, 2 )
+texture = SubResource( 2 )
+
+[node name="Player" parent="Layer1/EnvLayer" instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 684, 986 )
+scale = Vector2( 2, 2 )
+
+[node name="arbol_rojo2" type="Sprite" parent="Layer1/EnvLayer"]
+position = Vector2( 673, 217 )
+scale = Vector2( 0.527216, 0.52311 )
+texture = ExtResource( 6 )
+
+[node name="Node2D" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 631, 686 )
+scale = Vector2( 1.6, 1.74 )
+frame = 11
+
+[node name="Node2D2" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 650, 742 )
+scale = Vector2( 1.6, 1.74 )
+frame = 57
+
+[node name="Node2D3" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 790, 721 )
+scale = Vector2( 1.6, 1.74 )
+frame = 15
+
+[node name="Node2D4" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 765, 668 )
+scale = Vector2( 1.6, 1.74 )
+frame = 47
+
+[node name="Node2D5" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 819, 684 )
+scale = Vector2( 1.6, 1.74 )
+frame = 13
+
+[node name="Node2D6" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 726, 731 )
+scale = Vector2( 1.6, 1.74 )
+frame = 13
+
+[node name="Node2D7" parent="Layer1/EnvLayer" instance=ExtResource( 9 )]
+position = Vector2( 688, 671 )
+scale = Vector2( 1.6, 1.74 )
+frame = 13
+
+[node name="Layer2" type="Node2D" parent="."]
+
+[node name="YSort2" type="YSort" parent="Layer2"]
+
+[node name="Sprite9" type="Sprite" parent="Layer2/YSort2"]
+visible = false
+position = Vector2( 289, 685 )
+scale = Vector2( 1.12548, 1.39157 )
+texture = ExtResource( 1 )
+
+[node name="Sprite17" parent="Layer2/YSort2" instance=ExtResource( 7 )]
+position = Vector2( 275, 551 )
+
+[node name="Sprite18" parent="Layer2/YSort2" instance=ExtResource( 7 )]
+position = Vector2( 282, 961 )
+
+[node name="Sprite19" parent="Layer2/YSort2" instance=ExtResource( 7 )]
+position = Vector2( 284, 822 )
+
+[node name="pino" type="Sprite" parent="Layer2/YSort2"]
+visible = false
+position = Vector2( 468, 616 )
+scale = Vector2( 0.527216, 0.52311 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -450 )
+
+[node name="arbol_rojo3" type="Sprite" parent="Layer2/YSort2"]
+position = Vector2( 343, 846 )
+scale = Vector2( 0.527216, 0.52311 )
+texture = ExtResource( 6 )
+offset = Vector2( 0, -450 )
+
+[node name="unknown (1)" type="Sprite" parent="."]
+position = Vector2( 1174, 843 )
+scale = Vector2( 1.03042, 1.47107 )
+texture = ExtResource( 1 )
+
+[node name="KinematicBody2D" parent="unknown (1)" instance=ExtResource( 10 )]
+position = Vector2( -239.708, -33.989 )
+scale = Vector2( 1, 0.5 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 722, 963 )
+scale = Vector2( 2, 2 )
+
+[node name="Hex" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1243, 642 )

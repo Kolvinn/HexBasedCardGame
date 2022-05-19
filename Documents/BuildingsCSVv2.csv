@@ -1,0 +1,11 @@
+ObjectId,Description,Name,TextureResource,Type,Disabled,BuildingResource
+b1,A rudimentary sleeping roll constructed out of big leaves,Leaf-Sleep-Roll,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BedRoll.tscn,Housing,TRUE,
+b2,A small shelter fashioned out of leaves and wood.,Small Shelter,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/Tent.tscn,Housing,FALSE,res://Object/GameObject/Buildings/Basic Tent.tscn
+b3,A small camp fire infused with essence. Protects from the darkness in a 1 tile radius,Infused Camp Fire,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/BasicCamp.tscn,Housing,FALSE,res://Object/GameObject/Buildings/Infused Camp Fire.tscn
+t1,"A technology hut allows research into resource, magic, and runic upgrades",Technology Hut,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/TechnologyHut.tscn,Technology,FALSE,res://Object/GameObject/Buildings/Technology Hut.tscn
+m1,"Harnessing the power of essence, clears an area of evil infection",Outpost,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/Outpost.tscn,Magic,FALSE,res://Object/GameObject/Buildings/Outpost.tscn
+m2,Can create Runes,Rune Makers Hut,res://Object/GameObject/Buildings/Rune Makers Hut.tscn,Magic,FALSE,res://Object/GameObject/Buildings/Technology Hut.tscn
+m3,Can enchant runes with different enchantments,Enchantment Hut,res://Assets/Sprites/20.09 - Traveler's Camp 1.1/Hut.tscn,Magic,FALSE,res://Object/GameObject/Buildings/EnchantmentHut.tscn
+r1,Gathering post,Gathering Post,res://Assets/Sprites/Icons/SignPostIcon.tscn,Resource,TRUE,
+r2,Extracts resources within a 1-hex range,Resource Extractor,,Resource,FALSE,
+r3,Provides a way for Resource extractors to store resources. Upgrade the Resource Post to be able to store more than one resource,Resource Post,,Resource,FALSE,

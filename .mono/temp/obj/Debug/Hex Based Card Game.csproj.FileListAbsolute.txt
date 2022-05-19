@@ -1,19 +1,19 @@
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Hex Based Card Game.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Hex Based Card Game.pdb
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.AssemblyReference.cache
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.GeneratedMSBuildEditorConfig.editorconfig
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfoInputs.cache
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfo.cs
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CoreCompileInputs.cache
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.dll
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.pdb
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
-D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CopyComplete
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\CsvHelper.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Microsoft.Bcl.HashCode.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\System.Buffers.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\System.Memory.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\System.Numerics.Vectors.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.AssemblyReference.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.GeneratedMSBuildEditorConfig.editorconfig
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfoInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.AssemblyInfo.cs
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CoreCompileInputs.cache
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.csproj.CopyComplete
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.dll
+D:\Games\GoDot Games\HexBasedCardGame\.mono\temp\obj\Debug\Hex Based Card Game.pdb

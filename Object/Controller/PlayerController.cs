@@ -23,17 +23,24 @@ public class PlayerController : Node2D, ControllerBase
     public delegate void TriggerBuildingAction(Building model);
     HexHorizontalTest playerTile;
 
+    public UpdateQueue UpdateUIQueue;
+
 
     //public int WoodAmount, StoneAmount, EssenceAmount,LeaveAmount;
 
     public TextureRect HealthBar;
     public TextureRect ManaBar;
 
+    public Area2D SwordHitbox;
+
     public Dictionary<string, int> ResourceUpdate = new Dictionary<string, int>(){
-        {"Wood", 100},
-        {"Leaves", 100},
-        {"Stone",100}
+
     };
+
+    public bool IsEmpowered
+    {
+        get;set;
+    }
 
     public enum PlayerState 
     {
@@ -44,14 +51,12 @@ public class PlayerController : Node2D, ControllerBase
         AcceptBattleInput
     }
 
-    //public PlayerState playerState = PlayerState.Default;
+    public Queue<GameObject> combatHits = new Queue<GameObject>();
 
-    //public Building buildingAction;
-    
+    public AttackObjectQueue attackObjectQueue;
 
-    //private Vector2 currentMovement = Vector2.Zero;
+    public InventoryController inventory;
 
-    //public bool ResourcesGathered = false;
 
     private static float maxSpeed = 600, friction = 20000, acceleration = 20000;
     
@@ -60,27 +65,133 @@ public class PlayerController : Node2D, ControllerBase
 
    // public bool isMovement = false;
 
+    public Power currentPower = null;
+
     public Player player;
+
+    public HealthBar healthBar;
 
     public State.ToolLevel ToolLevel = State.ToolLevel.Basic;
 
     //public bool isBusy = false;
+
+    public static Vector2 lastMove = Vector2.Zero;
+
+    private int health = 50;
     
     PlayerStateHandler stateHandler;
+
+    public TextureRect PowerAbility;
+    public TextureRect PowerEffect;
+
+    public BuildingUIMenu buildingUI;
+
+    public PlayerIcon playerIcon;
+
+
+    public static Queue<BuildingIcon> buildingIconQueue = new Queue<BuildingIcon>();
+
 
     public PlayerController(){
         interactionQueue = new InteractionQueue();
         stateHandler = new PlayerStateHandler();
+        attackObjectQueue = new AttackObjectQueue();
     }
 
     public override void _Ready()
     {
+        this.SwordHitbox = this.GetNode<Area2D>("SwordHitbox");
         //this.state = ControllerState.AcceptAllInput;
+    }
+
+    public void PowerUp(Power power)
+    {
+        ReferenceTimer powerTimer = new ReferenceTimer(){
+            Name = "Finish"            
+        };
+        powerTimer.Connect(nameof(ReferenceTimer.ReferenceTimerTimeout), this, nameof(On_PowerUpTimeout));
+        
+        ReferenceTimer flashTimer = new ReferenceTimer(){
+            Name = "BeginFinish"
+        };        
+        flashTimer.Connect(nameof(ReferenceTimer.ReferenceTimerTimeout), this, nameof(On_PowerUpTimeout));
+        this.AddChild(powerTimer);
+        this.AddChild(flashTimer);
+        powerTimer.Start(10);
+        flashTimer.Start(5);
+        Color c = PowerAbility.SelfModulate;
+        c = new Color(0,82,255,255);
+        PowerAbility.SelfModulate = c;
+
+        if(power is WaterPower)
+        {
+            player.animationPlayer.Play("PowerUp");
+            currentPower = new WaterPower();          
+            PowerEffect.Visible = true;
+        }
+    }
+
+    public void On_PowerUpTimeout(ReferenceTimer timer)
+    {
+        if(timer.Name == "BeginFinish")
+        {  
+            //
+            PowerEffect.GetNode<AnimationPlayer>("AnimationPlayer").Play("Flash");
+        }
+        else if(timer.Name == "Finish")
+        {
+            currentPower = null;
+            PowerEffect.Visible = false;
+            Color c = PowerAbility.SelfModulate;
+            c.a =0.5f;
+            PowerAbility.SelfModulate = new Color(1,1,1,0.5f);
+            PowerEffect.GetNode<AnimationPlayer>("AnimationPlayer").Stop();
+        }
+        
+        this.RemoveChild(timer);
+        timer.QueueFree();
+    }
+
+    public void RemovefromInventory(ResourceCost cost){
+        foreach(var entry in cost.ResourceCostList)
+        {
+            //GD.Print("removing ", entry.Key, " ", this.ResourceUpdate.ContainsKey(entry.Key));
+            this.ResourceUpdate[entry.Key] -= entry.Value;
+            inventory.Remove(entry.Key, entry.Value);
+        }
+    }
+    public void On_PowerTileInteraction(bool type)
+    {
+        Color c = PowerAbility.SelfModulate;
+        if(type)
+            c.a =1;
+        else
+            c.a = 0.5f;
+
+        GD.Print("Setting colour a to: ", c.a);
+        PowerAbility.SelfModulate = c;
+    }
+
+    public bool CanPowerup()
+    {
+        return this.PowerAbility.SelfModulate.a == 1f;
     }
 
     public void DoAction(string action)
     {
         player.SetAnimation(action, Vector2.Zero);
+    }
+
+    public void SetHealth(HealthBar health)
+    {
+        this.healthBar = health;
+        this.healthBar.SetData(50, 1,50);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        this.health -=amount;
+        this.healthBar.UpdateHealth(-amount);
     }
 
     private Vector2 GetVectorAnimationSpace(Vector2 target){
@@ -97,12 +208,6 @@ public class PlayerController : Node2D, ControllerBase
     }
 
 
-    public override void _Process(float delta)
-    {
-        
-        
-    }
-
     public bool CanInteractWithObject(GameObject obj)
     {
         return CanInteract() && (player.encounters.Contains(obj) || obj is Building);
@@ -111,6 +216,55 @@ public class PlayerController : Node2D, ControllerBase
     public bool CanInteract()
     {
         return this.player.IsAvailable();
+    }
+
+
+    public void TryAddToInventory(GameObject obj, int amount)
+    {
+        if(inventory.CanStoreObject(obj)) 
+        {
+            if(obj is BasicResource)
+            {
+                var newObj = ((BasicResource)obj);
+                TextureRect g = new TextureRect();
+                if(newObj.ResourceType == "Grass Fiber")
+                    g  = Params.LoadScene<TextureRect>("res://Object/UI/Icons/Grass Fiber Icon.tscn");
+                else if (newObj.ResourceType == "Dark Essence")
+                    g  = Params.LoadScene<TextureRect>("res://Object/UI/Icons/Dark Essence Icon.tscn");
+                else if (newObj.ResourceType == "Mystic Seed")
+                    g  = Params.LoadScene<TextureRect>("res://Object/UI/Icons/MysticSeedIcon.tscn");
+                else if(newObj.ResourceType.ToLower().Contains("rock") || newObj.ResourceType.ToLower().Contains("stone"))
+                    g  = Params.LoadScene<TextureRect>("res://Object/UI/Icons/StoneIcon.tscn");
+                else if(newObj.ResourceType.ToLower().Contains("wood"))
+                    g  = Params.LoadScene<TextureRect>("res://Object/UI/Icons/WoodIcon.tscn");
+                    
+                Texture tex = g.Texture;
+                
+                string resName = newObj.ResourceType;
+                
+                GD.Print("storing ", resName, " with texture: ", tex, "from ", newObj.ResourceType);
+                UpdateUIQueue?.PushUpdate(g,amount, resName);
+
+                if (ResourceUpdate.ContainsKey(resName))
+                    ResourceUpdate[resName] +=amount;
+                else
+                    ResourceUpdate.Add(resName, amount);
+
+                inventory.AddItem(tex,amount,resName);
+                //player.inventory
+                               
+            }  
+        }
+    }
+
+    public void On_Player_SwordHit(Node body)
+    {
+        
+        if(body is GameObject && body!= this)
+        {
+            //GD.Print("ksljdnfksndkfaskdfj j sdfbgka kf;g akfds gb;kafej bka dfbkja jdfkb ");
+            combatHits.Enqueue((GameObject)body);
+        }
     }
 
     public bool CanAddToInventory()
@@ -328,13 +482,15 @@ public class PlayerController : Node2D, ControllerBase
         speedCheck.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
         speedCheck.y = Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
         speedCheck = speedCheck.Normalized();
+        lastMove = speedCheck;
         
        
             
         
         if (speedCheck != Vector2.Zero){
             player.SetAnimation("parameters/Walk/blend_position", speedCheck);
-            player.SetAnimation("parameters/Idle/blend_position", speedCheck);
+            player.SetAnimation("parameters/Idle/blend_position", speedCheck);            
+            
             player.animationState.Travel("Walk");
             //velocity += speedCheck * delta * acceleration;
             //velocity = velocity.Clamped(maxSpeed * delta);

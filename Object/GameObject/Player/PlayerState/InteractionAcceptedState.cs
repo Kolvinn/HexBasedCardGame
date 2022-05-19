@@ -9,10 +9,11 @@ public class InteractionAcceptedState : BaseState
            // this.action = action;
         }
 
-        public override BaseState HandleState(PlayerController player, float delta)
+        public override BaseState HandleState(PlayerController player, float delta, BaseState parentState = null)
         {
             if(!interaction.IsValid())
             {
+                GD.Print("INVALID");
                 if(interaction.ValidateInteraction(player))
                 {
                     //doactions
@@ -29,9 +30,11 @@ public class InteractionAcceptedState : BaseState
             //importantly --  we dont do if/else because the action the player takes may take no time, so we don't want to wait for next loop to pick it up.
             if(interaction.IsValid())
             {
+                GD.Print("VALID");
                 //we've finished whatever the interaction action is, so we can push our update
                 if(player.CanInteract())
                 {
+                    GD.Print("PUSHY: ", interaction.GetType());
                     GameUpdateQueue.TryPushUpdate(interaction);
                     return new BaseState();
                 }

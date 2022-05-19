@@ -8,7 +8,7 @@ flags = 9
 atlas = ExtResource( 1 )
 region = Rect2( 0, 533, 120, 110 )
 
-[node name="StaticBody2D" type="StaticBody2D"]
+[node name="Rock" type="StaticBody2D"]
 input_pickable = true
 script = ExtResource( 2 )
 

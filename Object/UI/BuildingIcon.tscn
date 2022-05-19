@@ -1,28 +1,38 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Object/UI/BuildingIcon.cs" type="Script" id=1]
-[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Icon34.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/UIDifferentFree03Wenrexa/PNG/Button02.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 2 )
-region = Rect2( 10, 2, 71, 64 )
+region = Rect2( 0, 0, 208, 28 )
+filter_clip = true
 
 [node name="BuildingIcon" type="VBoxContainer"]
-margin_right = 76.0
-margin_bottom = 61.0
-hint_tooltip = "sdfasdfasdfasdfasdf"
-size_flags_horizontal = 3
-size_flags_vertical = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -75.0
+margin_right = 75.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 150, 150 )
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TextureButton" type="TextureButton" parent="."]
-margin_right = 76.0
-margin_bottom = 43.0
-hint_tooltip = "bbbb"
+self_modulate = Color( 1, 1, 1, 0.78 )
+margin_right = 150.0
+margin_bottom = 132.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture_normal = SubResource( 1 )
@@ -30,11 +40,14 @@ expand = true
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="."]
-margin_left = 5.0
-margin_top = 47.0
-margin_right = 71.0
-margin_bottom = 61.0
+margin_left = 42.0
+margin_top = 136.0
+margin_right = 108.0
+margin_bottom = 150.0
 size_flags_horizontal = 4
 text = "Basic Tent"
 align = 1
 valign = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_BuildingIcon_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_BuildingIcon_mouse_exited"]

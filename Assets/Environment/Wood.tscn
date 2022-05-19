@@ -1,7 +1,94 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Environment/RPGW_AncientForest_v1.0/_PNG/Decorative.png" type="Texture" id=1]
-[ext_resource path="res://Object/GameObject/Resources/BasicResource.cs" type="Script" id=2]
+
+[sub_resource type="CSharpScript" id=2]
+script/source = "using Godot;
+using System;
+using System.Text.RegularExpressions;
+using System.Linq;
+public class BasicResource : StaticInteractable, GameResource
+{
+    public State.MouseEventState mouseEventState;
+
+    public int TotalResource{
+        get;set;
+    }
+
+    public string ResourceType {
+        get;set;
+    }
+
+    public string RequiredAction
+    {
+        get;set;
+    }
+
+    public State.ToolLevel ToolLevel 
+    {
+        get;set;
+    }
+    public GameResource.ResourceState resourceState
+    {
+        get;set;
+    }
+
+
+    public BasicResource()
+    {
+        this.TotalResource = 15;
+        resourceState = GameResource.ResourceState.Available;
+        RequiredAction = \"Gather\";
+    }
+
+    public override void _Ready()   
+    {
+        base._Ready();   
+       // ResourceType = this.Name;
+        this.ResourceType = new String(this.Name.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
+
+        if(this.ResourceType.ToLower().Contains(\"wood\"))
+            this.ResourceType = \"Wood\";
+        //Regex.Replace(ResourceType, @\"[\\d-]\", string.Empty);   
+        if(ResourceType.ToLower().Contains(\"rock\") || ResourceType.ToLower().Contains(\"stone\")){
+            //////GD.Print(\"Setting random rock atlas\");
+            //////GD.Print(this.Scale);
+            this.ResourceType = \"Stone\";
+            this.GetNode<Sprite>(\"Sprite\").Texture = this.GenRandomRockSprite();
+        }
+
+        ////GD.Print(this.ResourceType);
+    }
+
+    public AtlasTexture GenRandomRockSprite(){
+        AtlasTexture atlas = new AtlasTexture();
+        atlas.Atlas = ResourceLoader.Load<Texture>(\"res://Assets/Environment/Rocks/512x1024.png\");
+        Random r = new Random();
+        float randW = (float)r.Next(0,3), randH = (float)r.Next(0,7);
+        Vector2 pos = new Vector2(128 * randW,128 * randH);
+        Vector2 size = new Vector2(128, 128);
+        atlas.Region = new Rect2(pos, size);
+        atlas.Flags = 1;
+        return atlas;
+    }
+
+    public override void ValidateInteraction(string action)
+    {
+        
+    }
+    // public void _on_mouse_entered()
+    // {
+    //     //////GD.Print(\"Mouse entered for the wooooooood\");
+    //     this.mouseEventState =  State.MouseEventState.Entered;
+    //     PlayerController.TryAddObjectToQueue(this);
+    // }
+
+    // public void _on_mouse_exited()
+    // {
+    //     this.mouseEventState =  State.MouseEventState.Exited;
+    //     PlayerController.TryremoveObjectFromQueue(this);
+    // }
+}"
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 9
@@ -10,12 +97,18 @@ region = Rect2( 960, 33, 160, 120 )
 
 [node name="Wood" type="StaticBody2D"]
 input_pickable = true
-script = ExtResource( 2 )
+script = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.79688, 2.02917 )
 texture = SubResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 1.79688, 2.02917 )
+polygon = PoolVector2Array( -36, 27, 2, -18, 68, -45, 64, -55, 4, -31, -3, -41, -15, -58, -29, -59, -23, -24, -66, 25, -66, 39, -45, 38 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 scale = Vector2( 1.79688, 2.02917 )
 polygon = PoolVector2Array( -36, 27, 2, -18, 68, -45, 64, -55, 4, -31, -3, -41, -15, -58, -29, -59, -23, -24, -66, 25, -66, 39, -45, 38 )

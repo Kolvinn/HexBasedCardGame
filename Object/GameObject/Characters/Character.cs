@@ -13,6 +13,7 @@ public class Character : KinematicInteractable, GameObject
     public Vector2 SpriteFrameSize = new Vector2(52,72);
     public Vector2 SpriteFrameOffset = new Vector2(0,10);
 
+	public Timer gatherTimer = new Timer();
 	private Resource arrow;
 
 	public static List<GameObject> encounters;
@@ -48,18 +49,29 @@ public class Character : KinematicInteractable, GameObject
 
 
 	
-    public HexHorizontalTest TargetHex;
+    private HexHorizontalTest TargetHex;
 
 	[Signal]
 	public delegate void TargetHexReached();
 
 	public int InventoryCapacity = 5;
 
+	public float delta;
+
+	public Character()
+	{
+		GD.Print("GUH");
+	}
+
 	public override void _Ready(){
-        
+		
+		base._Ready();
+        this.AddChild(gatherTimer);
+		gatherTimer.OneShot = true;
+		gatherTimer.Connect("timeout", this, nameof(On_GatherTimerTimeout));
 		//base._Ready();
 		encounters = new List<GameObject>();
-		arrow = ResourceLoader.Load("res://arrow.png");
+		//arrow = ResourceLoader.Load("res://arrow.png");
 		sprite = GetNode<Sprite>("Sprite");
         this.sprite.Texture = GetRandomAtlasTexture();
 		//GetRandomAtlasTexture();
@@ -81,11 +93,34 @@ public class Character : KinematicInteractable, GameObject
 		
 		
 	}
+	public override void _PhysicsProcess(float delta)
+	{
+		this.delta= delta;
+	}
 
-    public AtlasTexture GetRandomAtlasTexture(){
-        AtlasTexture tex = new AtlasTexture(){
-			Atlas = ResourceLoader.Load<Texture>("res://Assets/Sprites/Characters/motw.png")
-		};
+	public bool IsAvailable()
+	{
+		//GD.Print(this.animationPlayer.CurrentAnimation, "   ",gatherTimer.TimeLeft);
+		return string.IsNullOrEmpty(this.animationPlayer.CurrentAnimation) && gatherTimer.TimeLeft==0;
+	}
+
+	public void On_GatherTimerTimeout()
+	{
+		this.animationPlayer.CurrentAnimation = "";
+	}
+
+	public void SetTargetHex(HexHorizontalTest hex)
+	{
+		this.TargetHex = hex;
+	}
+
+    public AtlasTexture GetRandomAtlasTexture(){ 
+		Texture tex = ResourceLoader.Load<Texture>("res://Assets/Sprites/Characters/motw.png");
+        AtlasTexture at = new AtlasTexture();
+		
+		tex.ResourceLocalToScene = true;
+		at.Atlas = tex;
+		at.ResourceLocalToScene = true;
 		
 		
         Random r = new Random();
@@ -95,11 +130,11 @@ public class Character : KinematicInteractable, GameObject
 		randH = randH * sectionH;
         Vector2 pos = new Vector2(randW, randH +2);
         Vector2 size = new Vector2(sectionW, sectionH);
-        tex.Region = new Rect2(pos, size);
+        at.Region = new Rect2(pos, size);
 		//GD.Print("Spawning random aatlas pos at :", tex.Region);
-        tex.Flags = 1;
-		tex.FilterClip  =true;
-        return tex;
+        at.Flags = 1;
+		at.FilterClip  =true;
+        return at;
     }
 
 	public void _on_Area2D_area_entered(Area2D area){
@@ -144,9 +179,19 @@ public class Character : KinematicInteractable, GameObject
 			encounters.Remove((GameObject)body);
 		}
 	}
-	public virtual void SetAnimation(String param, Vector2 vector){
+	public virtual void SetAnimation(String param, Vector2 vector, ActionWrapper delegatedMethod = null){
 		//this.animationPlayer.Play(animation);
-		this.animationTree.Set(param,vector);
+		if(param.Contains("ther"))
+		{
+			gatherTimer.Start(0.2f);
+		}
+		else {
+			this.animationTree.Set(param,vector);
+		}
+		if(delegatedMethod != null)
+		{
+			delegatedMethod.Call();
+		}
 	}
 	public void _on_Player_mouse_entered(){
 		this.mouseEntered = true;

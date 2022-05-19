@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Sprites/Buildings/cartoon/tower.png" type="Texture" id=1]
+[ext_resource path="res://Object/GameObject/Buildings/Building.cs" type="Script" id=2]
+
+[node name="Outpost" type="StaticBody2D"]
+scale = Vector2( 3.2, 3.2 )
+script = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PoolVector2Array( -29, 12, -26, -73, -12, -85, 11, -89, 28, -76, 31, -40, 33, 15, 18, 24, -5, 27, -19, 20 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -30 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 1, -0.333333 )
+polygon = PoolVector2Array( -26, -1.66667, -18, -7.66667, 4, -16.6667, 23, -4.66667, 32, 14.3333, 15, 24.3333, -2, 26.3333, -24, 18.3333 )

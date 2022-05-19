@@ -1,59 +1,175 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=37 format=2]
 
-[ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=1]
-[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=2]
+[ext_resource path="res://Object/UI/Main/PlayerIcon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Sprites/Icons/white.png" type="Texture" id=3]
 [ext_resource path="res://Object/UI/ResourceLabel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Object/UI/BuildUIItems/BuildingControllerUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Object/UI/BuildingIcon.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Object/UI/Main/UpdateQueue.cs" type="Script" id=6]
+[ext_resource path="res://Object/UI/HealthBar.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Object/UI/Main/NewUIController.cs" type="Script" id=9]
+[ext_resource path="res://Object/UI/PlayerUpdateEntry.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Mana.png" type="Texture" id=11]
 [ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Health Bar Asset Pack 2 by Adwit Rahman/rpg (1).png" type="Texture" id=12]
-[ext_resource path="res://Documents/Health Bar Asset Pack 2 by Adwit Rahman/Health.png" type="Texture" id=13]
+[ext_resource path="res://Object/UI/Main/Inventory.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Sprites/Cards/0 - Icons/Mana.png" type="Texture" id=14]
-[ext_resource path="res://Assets/Sprites/Cards/0 - Icons/Health.png" type="Texture" id=15]
+[ext_resource path="res://Object/UI/StaminaBar.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Object/UI/TaskBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/UI/UI_Wood_Flat.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Regular.ttf" type="DynamicFontData" id=18]
 [ext_resource path="res://Assets/Fonts/MenuFont.tres" type="DynamicFont" id=19]
-[ext_resource path="res://Documents/DisabledTex.png" type="Texture" id=20]
-[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" type="Texture" id=21]
 [ext_resource path="res://Object/UI/Main/SpellBook.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Object/UI/SpellSlot.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Medium.ttf" type="DynamicFontData" id=24]
+[ext_resource path="res://BloodOverlay.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Sprites/Cards/0 - Back/Back-Magic-Blue.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Fonts/Kreon Font/Kreon-Bold.ttf" type="DynamicFontData" id=27]
+[ext_resource path="res://pngaaa.com-2326334.png" type="Texture" id=28]
+[ext_resource path="res://Assets/Sprites/Cards/CardBanner.png" type="Texture" id=29]
+[ext_resource path="res://Object/UI/BuildUIItems/BuildingUIMenu.tscn" type="PackedScene" id=30]
 
-[sub_resource type="AtlasTexture" id=1]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 62, 10, 30, 36 )
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+uniform vec3 color = vec3(0.83, 0.83, 0.83);
+uniform int OCTAVES = 4;
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 21 )
-region = Rect2( 130, 418, 31, 29 )
+float rand(vec2 coord){
+	return fract(sin(dot(coord, vec2(56, 78)) * 1000.0) * 1000.0);
+}
 
-[sub_resource type="AtlasTexture" id=3]
+float noise(vec2 coord){
+	vec2 i = floor(coord);
+	vec2 f = fract(coord);
+
+	// 4 corners of a rectangle surrounding our point
+	float a = rand(i);
+	float b = rand(i + vec2(1.0, 0.0));
+	float c = rand(i + vec2(0.0, 1.0));
+	float d = rand(i + vec2(1.0, 1.0));
+
+	vec2 cubic = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, cubic.x) + (c - a) * cubic.y * (1.0 - cubic.x) + (d - b) * cubic.x * cubic.y;
+}
+
+float fbm(vec2 coord){
+	float value = 0.0;
+	float scale = 0.5;
+
+	for(int i = 0; i < OCTAVES; i++){
+		value += noise(coord) * scale;
+		coord *= 2.0;
+		scale *= 0.5;
+	}
+	return value;
+}
+
+void fragment() {
+	vec2 coord = UV * 20.0;
+
+	vec2 motion = vec2( fbm(coord + vec2(TIME * -0.5, TIME * 0.5)) );
+
+	float final = fbm(coord + motion);
+
+	COLOR = vec4(color, final * 0.5);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/color = Vector3( 0.83, 0.83, 0.83 )
+shader_param/OCTAVES = 4
+
+[sub_resource type="Animation" id=3]
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.313726 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=4]
 flags = 4
 atlas = ExtResource( 12 )
 region = Rect2( 34, 50, 79, 11 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 17 )
 region = Rect2( 1, 225, 159, 159 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 18
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 18 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 size = 32
 font_data = ExtResource( 24 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 22
+use_mipmaps = true
+extra_spacing_top = 2
+extra_spacing_char = 2
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=9]
+resource_local_to_scene = true
+size = 34
+use_mipmaps = true
+extra_spacing_char = 1
+font_data = ExtResource( 27 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "Show"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 661, -140 ), Vector2( 661, 0 ), Vector2( 661, 0 ), Vector2( 661, -140 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 9 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 28 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Control3" type="Control" parent="."]
 anchor_right = 1.0
@@ -63,9 +179,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DayLight" type="ColorRect" parent="Control3"]
+[node name="PowerEffect" type="TextureRect" parent="Control3"]
 visible = false
-self_modulate = Color( 0, 0, 0, 0.501961 )
+modulate = Color( 1, 1, 1, 0.45098 )
+self_modulate = Color( 1, 1, 1, 0.828431 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control3/PowerEffect"]
+anims/Flash = SubResource( 3 )
+
+[node name="DayLight" type="ColorRect" parent="Control3"]
+self_modulate = Color( 0, 0, 0, 0.0941176 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -97,6 +227,7 @@ __meta__ = {
 }
 
 [node name="WoodLabel" parent="Control3/VBoxContainer/TextureRect" instance=ExtResource( 4 )]
+visible = false
 anchor_left = 0.009375
 anchor_top = 0.36
 anchor_right = 0.009375
@@ -177,115 +308,52 @@ rect_pivot_offset = Vector2( -670, -386 )
 mouse_filter = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="Control3"]
-anchor_top = 1.0
+[node name="UpdateQueue" type="Control" parent="Control3"]
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -177.0
-margin_right = 253.0
 mouse_filter = 2
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Circle01" type="Sprite" parent="Control3/Control"]
-position = Vector2( 81, 112 )
-scale = Vector2( 0.907692, 0.878846 )
-texture = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Control3/Control/Circle01"]
-position = Vector2( 0.670104, -2.73684 )
-scale = Vector2( 2.45704, 2.43275 )
-texture = SubResource( 1 )
-
-[node name="Build" type="Button" parent="Control3/Control"]
-margin_left = 78.0
-margin_top = 2.0
-margin_right = 178.0
-margin_bottom = 52.0
-text = "Build"
+[node name="ScrollContainer" type="ScrollContainer" parent="Control3/UpdateQueue"]
+margin_left = 15.0
+margin_top = 641.0
+margin_right = 204.0
+margin_bottom = 873.0
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpellBookButton" parent="Control3/Control" instance=ExtResource( 8 )]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control3/UpdateQueue/ScrollContainer"]
+
+[node name="PlayerUpdateEntry" parent="Control3/UpdateQueue/ScrollContainer/VBoxContainer" instance=ExtResource( 10 )]
 visible = false
-margin_left = 150.0
-margin_top = 71.0
-margin_right = 226.0
+margin_right = 111.0
+
+[node name="PlayerUpdateEntry2" parent="Control3/UpdateQueue/ScrollContainer/VBoxContainer" instance=ExtResource( 10 )]
+visible = false
+margin_top = 34.0
+margin_right = 111.0
+margin_bottom = 64.0
+
+[node name="PlayerUpdateEntry3" parent="Control3/UpdateQueue/ScrollContainer/VBoxContainer" instance=ExtResource( 10 )]
+visible = false
+margin_top = 68.0
+margin_right = 111.0
+margin_bottom = 98.0
+
+[node name="PlayerUpdateEntry4" parent="Control3/UpdateQueue/ScrollContainer/VBoxContainer" instance=ExtResource( 10 )]
+visible = false
+margin_top = 102.0
+margin_right = 111.0
 margin_bottom = 132.0
 
-[node name="TextureButton" parent="Control3/Control/SpellBookButton" index="0"]
-texture_normal = SubResource( 2 )
-texture_disabled = ExtResource( 20 )
-
-[node name="Label" parent="Control3/Control/SpellBookButton" index="1"]
-margin_left = 4.0
-text = "Spell Book"
-
 [node name="BuildingControllerUI" parent="Control3" instance=ExtResource( 5 )]
-
-[node name="HealthBar" type="TextureRect" parent="Control3"]
 visible = false
-margin_left = 867.0
-margin_top = 10.0
-margin_right = 1081.0
-margin_bottom = 41.0
-mouse_filter = 2
-texture = SubResource( 3 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="Control3/HealthBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-custom_constants/margin_right = 20
-custom_constants/margin_top = 10
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ProgressBar" type="TextureProgress" parent="Control3/HealthBar/MarginContainer"]
-margin_left = 20.0
-margin_top = 10.0
-margin_right = 194.0
-margin_bottom = 21.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-value = 10.0
-texture_progress = ExtResource( 13 )
-nine_patch_stretch = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Control3/HealthBar"]
-margin_left = -34.0
-margin_top = -5.0
-margin_right = 3.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 20, 20 )
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 15 )
-expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control3/HealthBar/TextureRect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "4"
-align = 1
-valign = 1
 
 [node name="ManaBar" type="TextureRect" parent="Control3"]
 visible = false
@@ -294,7 +362,7 @@ margin_top = 10.0
 margin_right = 1362.0
 margin_bottom = 41.0
 mouse_filter = 2
-texture = SubResource( 3 )
+texture = SubResource( 4 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -378,7 +446,7 @@ margin_left = -169.0
 margin_top = -167.5
 margin_right = 169.0
 margin_bottom = 167.5
-texture = SubResource( 4 )
+texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 __meta__ = {
@@ -402,7 +470,7 @@ margin_top = 10.0
 margin_right = 328.0
 margin_bottom = 325.0
 custom_fonts/italics_font = ExtResource( 19 )
-custom_fonts/normal_font = SubResource( 5 )
+custom_fonts/normal_font = SubResource( 6 )
 bbcode_enabled = true
 bbcode_text = "[i]You feel an ominous power flow over you, almost as if calling... waiting. Do you dare use it? [/i]
 
@@ -475,7 +543,7 @@ margin_left = -115.5
 margin_top = 84.0
 margin_right = 115.5
 margin_bottom = 142.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -494,6 +562,7 @@ __meta__ = {
 }
 
 [node name="BuildingUILayer" type="Control" parent="Control3"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_filter = 2
@@ -501,8 +570,91 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Control3/Control/SpellBookButton/TextureButton" to="Control3/Control/SpellBookButton" method="_on_TextureButton_pressed"]
+[node name="HealthBar" parent="Control3" instance=ExtResource( 7 )]
+
+[node name="StaminaBar" parent="Control3" instance=ExtResource( 15 )]
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 2.99988
+margin_bottom = 5.0
+
+[node name="InventoryUI" parent="Control3" instance=ExtResource( 13 )]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Control3"]
+self_modulate = Color( 1, 1, 1, 0.498039 )
+margin_left = 183.0
+margin_top = 963.0
+margin_right = 255.0
+margin_bottom = 1061.0
+texture = ExtResource( 26 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control3/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 8 )
+text = "E "
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control2" type="Control" parent="Control3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Control3/Control2"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -299.0
+margin_top = -140.0
+margin_right = 299.0
+margin_bottom = -5.0
+texture = ExtResource( 29 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Control3/Control2/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control3/Control2/TextureRect/MarginContainer"]
+margin_top = 40.0
+margin_right = 598.0
+margin_bottom = 135.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.282353, 0.309804, 0.27451, 1 )
+text = "Area cleared
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control3/Control2/TextureRect"]
+anims/Show = SubResource( 10 )
+
+[node name="BuildingUIMenu" parent="Control3" instance=ExtResource( 30 )]
+visible = false
+
+[node name="PlayerIcon" parent="Control3" instance=ExtResource( 1 )]
 
 [editable path="Control3/VBoxContainer/TextureRect/StoneLabel"]
 [editable path="Control3/VBoxContainer/TextureRect/GrassLabel"]
-[editable path="Control3/Control/SpellBookButton"]

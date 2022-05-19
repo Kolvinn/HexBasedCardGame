@@ -33,6 +33,7 @@ public class BasicResource : StaticInteractable, GameResource
     {
         this.TotalResource = 15;
         resourceState = GameResource.ResourceState.Available;
+        RequiredAction = "Gather";
     }
 
     public override void _Ready()   
@@ -41,12 +42,13 @@ public class BasicResource : StaticInteractable, GameResource
        // ResourceType = this.Name;
         this.ResourceType = new String(this.Name.Where(c => c != '-' && (c < '0' || c > '9')).ToArray());
 
-        if(this.ResourceType.Contains("@"))
+        if(this.ResourceType.ToLower().Contains("wood"))
             this.ResourceType = "Wood";
         //Regex.Replace(ResourceType, @"[\d-]", string.Empty);   
-        if(ResourceType.Contains("Rock") || ResourceType.Contains("Stone")){
+        if(ResourceType.ToLower().Contains("rock") || ResourceType.ToLower().Contains("stone")){
             //////GD.Print("Setting random rock atlas");
             //////GD.Print(this.Scale);
+            this.ResourceType = "Stone";
             this.GetNode<Sprite>("Sprite").Texture = this.GenRandomRockSprite();
         }
 

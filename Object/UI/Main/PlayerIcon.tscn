@@ -1,0 +1,177 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/BG 3c.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Shikashi's Fantasy Icons Pack v2/#2 - Transparent Icons & Drop Shadow.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Characters/WalkingFinal.png" type="Texture" id=3]
+[ext_resource path="res://Documents/Wenrexa Interface UI KIT #4/PNG/Icons/Circle01.png" type="Texture" id=4]
+[ext_resource path="res://Object/UI/Main/PlayerIcon.cs" type="Script" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 62, 10, 30, 36 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 160, 32, 32 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 256, 192, 32, 32 )
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 193, 66, 29, 30 )
+filter_clip = true
+
+[sub_resource type="Animation" id=5]
+resource_name = "EquipWeapon"
+
+[sub_resource type="Animation" id=6]
+resource_name = "SwapEquip"
+length = 0.3
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("MagicIcon:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 118, -0.25, 0, 0.0969815, 13.641, 111.246, -0.120691, 27.3947, 0, -1.728 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("MagicIcon:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1026, -0.25, 0, 0.25, 0, 963, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("MagicIcon:rect_size:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 25, -0.25, 0, 0.25, 0, 40, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("MagicIcon:rect_size:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 25, -0.25, 0, 0.25, 0, 40, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("SwordIcon:rect_position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 112, -0.25, 0, 0.0696277, -2.2751, 117.757, 0, -9.99458, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("SwordIcon:rect_position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 962, -0.25, 0, 0.25, 0, 1026, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/6/type = "bezier"
+tracks/6/path = NodePath("SwordIcon:rect_size:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"points": PoolRealArray( 40, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/7/type = "bezier"
+tracks/7/path = NodePath("SwordIcon:rect_size:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"points": PoolRealArray( 40, -0.25, 0, 0.25, 0, 25, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+
+[node name="PlayerIcon" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Circle01" type="Sprite" parent="."]
+position = Vector2( 73, 1012 )
+scale = Vector2( 0.907692, 0.878846 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Circle01"]
+position = Vector2( 0.670104, -2.73684 )
+scale = Vector2( 2.45704, 2.43275 )
+texture = SubResource( 1 )
+
+[node name="SwordIcon" type="TextureRect" parent="."]
+margin_left = 117.757
+margin_top = 1026.0
+margin_right = 142.757
+margin_bottom = 1051.0
+mouse_filter = 2
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MagicIcon" type="TextureRect" parent="."]
+margin_left = 111.246
+margin_top = 963.0
+margin_right = 151.246
+margin_bottom = 1003.0
+mouse_filter = 2
+texture = SubResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+margin_left = 122.0
+margin_top = 1007.0
+margin_right = 140.0
+margin_bottom = 1024.0
+mouse_filter = 2
+texture = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/EquipWeapon = SubResource( 5 )
+anims/SwapEquip = SubResource( 6 )

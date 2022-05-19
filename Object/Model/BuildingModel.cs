@@ -3,6 +3,8 @@ public class BuildingModel : AbstractObjectModel
 {
     public string TextureResource {get;set;}
 
+    public string BuildingResource {get;set;}
+
     public string Type {get;set;}
 
     //public Dictionary<string, int> ResourceCost {get;set;}
